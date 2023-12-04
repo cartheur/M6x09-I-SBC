@@ -96,71 +96,71 @@ S-record file transfer with 1ms character delay setting.
 
 #### Semiconductors
 
-U1 27C256, 32kB Eprom
-U2 HM62256B, 32kB SRAM
-U3 AT89C2051, 8-bit microcontroller
-U4 GAL16V8D, PLD
-U5 Motorola 68B09, 8-bit microprocessor
-U6 Motorola 6850, ACIA chip
-U7 7805, voltage regulator
-U9,U8 LTC-4727, 7-segment display
-U10,U11,U13 74HC573
-U12 74HC541
-U14 HIN232, RS232 converterQ1 BC557
-Q2 KIA7045
-Q3 BC557 D4 1N4007
-D13 1N5227A
-D14 1N4733A D1,D5,D6,D7,D8,D9,D10, LED
-D11,D12
-D3 POWER LED
+* U1 27C256, 32kB Eprom
+* U2 HM62256B, 32kB SRAM
+* U3 AT89C2051, 8-bit microcontroller
+* U4 GAL16V8D, PLD
+* U5 Motorola 68B09, 8-bit microprocessor
+* U6 Motorola 6850, ACIA chip
+* U7 7805, voltage regulator
+* U9,U8 LTC-4727, 7-segment display
+* U10,U11,U13 74HC573
+* U12 74HC541
+* U14 HIN232, RS232 converterQ1 BC557
+* Q2 KIA7045
+* Q3 BC557 D4 1N4007
+* D13 1N5227A
+* D14 1N4733A D1,D5,D6,D7,D8,D9,D10, LED
+* D11,D12
+* D3 POWER LED
 
 #### Resistors (all resistors are 1/8W +/-5%)
 
-R1 680
-R2 RESISTOR SIP 9
-R3 100
-R13,R4 10k
-R6,R5 1k
-R9,R7 4.7k
-R11,R8 10k RESISTOR SIP 9
-R12,R10 10
+* R1 680
+* R2 RESISTOR SIP 9
+* R3 100
+* R13,R4 10k
+* R6,R5 1k
+* R9,R7 4.7k
+* R11,R8 10k RESISTOR SIP 9
+* R12,R10 10
 
 #### Capacitors
 
-C1,C4,C5,C15,C18,C19,C20 10uF
-C3,C2 27pF
-C6 10uF 16V
-C7 1000uF25V
-C8,C9,C10,C11,C12 0.1uF
-C13,C14 0.1uF
-C21,C16 100nF
-C17 10uF 10V
+* C1,C4,C5,C15,C18,C19,C20 10uF
+* C3,C2 27pF
+* C6 10uF 16V
+* C7 1000uF25V
+* C8,C9,C10,C11,C12 0.1uF
+* C13,C14 0.1uF
+* C21,C16 100nF
+* C17 10uF 10V
 
 #### Additional parts
 
-JP1 HEADER 20X2
-JR1 CONN RECT 16
-J1 DC Input
-J2 CON3
-J3 CON4A
-LS1 SPEAKERSW1 ESP switch
-SW2 IRQ
-SW3 RESET
-SW4 FIRQ
-SW5 NMI
-S1,S2,S3,S4,S5,S6,S7,S8, SW PUSHBUTTON
-S9,S10,S11,S12,S13,S14,
-S15,S16,S17,S18,S19,S20,
-S21,S22,S23,S24,S25,S26,
-S27,S28,S29,S30,S31,S32
-TP1,TP2,TP3 TEST POINT
-TP4 +5V
-TP5 GND
-VB1 SUB-D 9, Male (cross cable)
-Y1 4.9152MHz XTAL
-PCB double side plate through hole
-display filter sheet, Amber color
-Keyboard sticker printable SVG file
+* JP1 HEADER 20X2
+* JR1 CONN RECT 16
+* J1 DC Input
+* J2 CON3
+* J3 CON4A
+* LS1 SPEAKERSW1 ESP switch
+* SW2 IRQ
+* SW3 RESET
+* SW4 FIRQ
+* SW5 NMI
+* S1,S2,S3,S4,S5,S6,S7,S8
+* SW PUSHBUTTON: S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30,S31,S32
+* TP1,TP2,TP3 TEST POINT
+* TP4 +5V
+* TP5 GND
+* VB1 SUB-D 9, Male (cross cable)
+* Y1 4.9152MHz XTAL
+* PCB double side plate through hole display filter sheet, Amber color, Keyboard sticker printable SVG file
 
-## Files
+### Files
 
+TBD.
+
+### Keyboard spacer
+
+[Keyboard spacer](/keypad/MICRO09KEY.stl) 3D file for 6809 kit.
