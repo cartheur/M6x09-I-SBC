@@ -292,6 +292,7 @@ The program listings lists the original source code preceded by the
 generated code in form of hexadecimal bigendian word or byte values.
 For example:
 
+```
   27 9ff6   b6    fe30         LDA     IO_SDCARD
   28 9ff9 1034 8e              ANDR    A,E       ; test IO_INCD#
   29 9ffc   27      06         BEQ     +
@@ -305,5 +306,4 @@ For example:
   |  |    \------------- Opcode (Word or Byte)
   |  \------------------ Program address
   \--------------------- Line number
-
-
+```
