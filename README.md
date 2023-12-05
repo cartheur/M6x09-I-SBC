@@ -159,7 +159,19 @@ S-record file transfer with 1ms character delay setting.
 
 ### Files
 
-TBD.
+* [Schematic](/doc/schematic6809.pdf)
+* [Monitor Source](/code/v2cc09.rar)
+* [Monitor listing](/doc/monitorlist.pdf)
+* [PLD files](/code/pld6809.rar)
+* [AT89C2051 HEX](/code/tick09.rar)
+* [Keypad graphic](/images/key6809.svg)
+* [Quick-Start Guide](/doc/quickstart.pdf)
+
+* [Programming Book for 6809 Kit = v1.2](/doc/programmingbook.pdf)
+* [Programming Book for 6809 Kit = v2.0](/doc/programmingbook2.pdf)
+* [User's Manual](/doc/6809usermanual.pdf)
+* [Tools and assembly sources](/tools/6809tools.zip)
+* [Monitor Program - v3.0](/code/monitor-version3.zip)
 
 ### Keyboard spacer
 
