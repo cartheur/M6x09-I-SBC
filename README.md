@@ -26,7 +26,7 @@ The 6809 has long branch using 16 bit offset. One of the monitor key provides 16
 * U13, 74HC573 is 8-bit output port for 8-bit binary number display. D13 lifts the forward biasing for proper brightness. JR1 is 16-pin socket for text LCD interface. U14, HIN232 converts TTL level to RS232 level.
 * Q2, KIA7042 is reset chip for power brownout.  
 
-[Hardware schematic](/images/schematic.png)
+![Hardware schematic](/images/schematic.png)
 
 ### Hardware Features
 
@@ -62,11 +62,11 @@ The monitor program will be updated and available for testing at the download li
 
 Making key layout sticker is simply done by printing the SVG file to sticker paper.
 
-[Keyboard layout](/images/key.png)
+![Keyboard layout](/images/key.png)
 
 ### Test code
 
-[An example](/images/test-code.png)
+![An example](/images/test-code.png)
 
 Simple program that writes accumulator content to gpio1 LED at $8000. It will show 8-bit binary counting. Delay1 is small delay subroutine that uses X register. One can enter the hex code into memory and test run directly.
 
@@ -74,7 +74,7 @@ Can you change the speed to run faster?
 
 Another example of using 10ms tick generator for counting binary at 1Hz rate. Change SW1 to 10ms tick.
 
-[Tick-generator example](/images/tick-generator.png)
+![Tick-generator example](/images/tick-generator.png)
 
 The IRQ vector in ROM is pointed to new location in RAM at $7FF0. Students can modify where to put IRQ service routine. Above example uses location $6000 for IRQ service. The main code then inserts JMP to IRQ service instruction, 7E 60 00 to location 7FF0. Then clear I flag and wait for interrupt.
 
@@ -82,15 +82,15 @@ The IRQ service uses location 0 for tick counting. When it reaches 100, clear it
 
 Can you change from 1Hz to 10Hz counting rate?
 
-[Terminal](/images/terminal1.png)
+![Terminal](/images/terminal1.png)
 Example of using Tera Terminal with key DUMP.
 
-[Terminal](/images/terminal2.png)
+![Terminal](/images/terminal2.png)
 S-record file transfer with 1ms character delay setting.
 
 ### Program-state output
 
-[With display](/images/6809v1-2s.jpg)
+![With display](/images/6809v1-2s.jpg)
 
 ### Parts list
 
@@ -163,4 +163,4 @@ TBD.
 
 ### Keyboard spacer
 
-[Keyboard spacer](/keypad/MICRO09KEY.stl) 3D file for 6809 kit.
+![Keyboard spacer](/keypad/MICRO09KEY.stl) 3D file for 6809 kit.
