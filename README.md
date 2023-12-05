@@ -1,4 +1,4 @@
-# M6809
+# M6809 - A kit to learn programming and expandibility.
 
 New development work with the Motorola 6809 8-bit CPU for novel products.
 
