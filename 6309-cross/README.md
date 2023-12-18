@@ -1,17 +1,17 @@
 ## An Assembler for the 6x09 CPU
 
-A cross-assembler for hosts running Debian Linux. The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GCC C-compiler
+A cross-assembler for hosts running Debian Linux. The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GNU C-compiler
 
-This assembler is a Cross-Assembler, it is run on a host system, but produces code for target machines running a Motorola 6809 or a Hitachi 6309 CPU. these CPUs were widely used on the Thomson MO and TO series, Dragon 32/64, Commodore Super PET and Tandy CoCo.
+This assembler is a Cross-Assembler, it is run on a host system, but produces code for target machines running a Motorola 6809 or a Hitachi 6309 CPU. These were widely used on the Thomson MO and TO series, Dragon 32/64, Commodore Super PET, and Tandy CoCo.
 
 
 ### Compiling
 
-If your compiler is `gcc`, compile with:
+If the compiler is `gcc`, compile with:
 
 `gcc -o bs9 bs9.c`
 
-If you have GNU make and sudo installed, you may also use these lines to install the binary to `/usr/local/bin`:
+If GNU `make` and `su` is installed, use these lines to install the binary to `/usr/local/bin`:
 
 `make`
 `su`
@@ -19,12 +19,12 @@ If you have GNU make and sudo installed, you may also use these lines to install
 
 ### Running
 
-If you have a source code named `hello.as9`, run the assembler with:
+If a source code file is named `hello.as9`, run the assembler with:
 
 `bs9 hello`
 
 It will read `hello.as9` as input file and write the listing file with cross reference `hello.lst`. Binary output is controlled within the source file by means
-of the pseudo op "STORE" (see below for syntax):
+of the pseudo op `STORE`. See below for syntax.
 
 ### Case sensitivity
 
