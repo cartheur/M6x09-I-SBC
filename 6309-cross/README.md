@@ -1,6 +1,6 @@
-## A Bit Shift Assembler for the 6809 / 6309 CPU
+## An Assembler for the 6x09 CPU
 
-A cross-assembler for hosts running MAC OS, Linux, or Windows.
+A cross-assembler for hosts running Debian Linux.
 
 *******************
 Bit Shift Assembler
@@ -8,66 +8,53 @@ Bit Shift Assembler
 
 Version: 19-Nov-2023
 
-The assembler was developed and tested on a MAC with macOS Catalina.
-Using no specific options of the host system, it should run on any
-computer with a standard C-compiler, e.g. Linux, Windows, Amiga OS, etc.
+The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GCC C-compiler
 
-This assembler is a Cross-Assembler, it is run on a (modern) host system,
-but produces code for target machines running a Motorola 6809
-or a Hitachi 6309 CPU, e.g. Thomson MO and TO series,
-Dragon 32/64, Commodore Super PET and Tandy CoCo.
+This assembler is a Cross-Assembler, it is run on a host system, but produces code for target machines running a Motorola 6809 or a Hitachi 6309 CPU. these CPUs were widely used on the Thomson MO and TO series, Dragon 32/64, Commodore Super PET and Tandy CoCo.
 
 
-Compiling
-=========
-If your compiler is named "gcc" for example, compile with:
+### Compiling
+
+If your compiler is `gcc`, compile with:
 
 `gcc -o bs9 bs9.c`
 
-If you have GNU make and sudo installed, you may also use these lines
-to install the binary to /usr/local/bin:
+If you have GNU make and sudo installed, you may also use these lines to install the binary to `/usr/local/bin`:
 
 `make`
-`sudo make install`
+`su`
+`make install`
 
-Running
-=======
-If you have a source code named "hello.as9", run the assembler with:
+### Running
+
+If you have a source code named `hello.as9`, run the assembler with:
 
 `bs9 hello`
 
-It will read "hello.as9" as input file and write the
-listing file with cross reference "hello.lst".
-Binary output is controlled within the source file by means
+It will read `hello.as9` as input file and write the listing file with cross reference `hello.lst`. Binary output is controlled within the source file by means
 of the pseudo op "STORE" (see below for syntax):
 
-Case sensitivity
-================
-mnemonics, and pseudo opcodes are insensitive to case:
+### Case sensitivity
 
-LDA lda Lda are all equivalent (Load Accumulator A)
+For clarity - mnemonics and pseudo opcodes are insensitive to case:
 
-FCB fcb Fcb are all equivalent (define byte data)
+* `LDA` `lda` `Lda` are all equivalent (Load Accumulator `A`)
+* `FCB` `fcb` `Fcb` are all equivalent (define byte data)
+* `Label` and named constants are case sensitive by default. The option `-i` switches off the case sensitivity for symbols. Also the pseudo op `CASE +/-` may be used to switch sensitivity.
+* `LDA #Cr ` and `LDA #CR`  use different constants.
+* `JMP Lab_10` and `JMP LAB_10`  jump to different targets.
 
-Label and named constants are case sensitive by default!
-The option "-i" switches off the case sensitivity for symbols.
-Also the pseudo op "CASE +/-" may be used to switch sensitivity.
+### Directives
 
-LDA #Cr  and LDA #CR  use different constants!
-JMP Lab_10 and JMP LAB_10  jump to different targets!
+* `CPU = 6809 `   |  allow code for 6809 only
+* `CPU = 6309`    |  allow full 6309 instruction set (default)
 
-Directives
-==========
-CPU = 6809                     allow code for 6809 only
-CPU = 6309                     allow full 6309 instruction set (default)
+### Labels and Constants
 
-Labels and Constants
-====================
-
-LABEL   LDX  #Value            define LABEL for current PC
-TXTPTR  = $21b8                define constant TXTPTR
-OLDPTR  EQU $21ba              define constant OLDPTR
-CURRENT SET 5                  define variable CURRENT
+`LABEL   LDX  #Value`   |  define LABEL for current PC
+`TXTPTR  = $21b8`       |  define constant TXTPTR
+`OLDPTR  EQU $21ba`              define constant OLDPTR
+`CURRENT SET 5 `                 define variable CURRENT
 
 Modules (Subroutines)
 =====================
