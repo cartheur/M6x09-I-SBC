@@ -1,14 +1,6 @@
 ## An Assembler for the 6x09 CPU
 
-A cross-assembler for hosts running Debian Linux.
-
-*******************
-Bit Shift Assembler
-*******************
-
-Version: 19-Nov-2023
-
-The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GCC C-compiler
+A cross-assembler for hosts running Debian Linux. The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GCC C-compiler
 
 This assembler is a Cross-Assembler, it is run on a host system, but produces code for target machines running a Motorola 6809 or a Hitachi 6309 CPU. these CPUs were widely used on the Thomson MO and TO series, Dragon 32/64, Commodore Super PET and Tandy CoCo.
 
@@ -88,7 +80,7 @@ MODULE Strout
 .ret   RTS
 ENDMOD
 ```
-There is no conflict in using the label `.loop `twice, because they are used in separate modules. Internally the assembler generates the names:
+There is no conflict in using the label `.loop` twice, because they are used in separate modules. Internally the assembler generates the names:
 
 ```
 Delay.loop
@@ -113,53 +105,58 @@ Labels and constants can have only one value. Variables, which get their value a
 ### Examples of pseudo opcodes (directives):
 
 ```
-ORG  $E000                     set program counter
-STORE START,$2000,"basic.rom" write binary image file "basic.rom"
-STORE START,$2000,"basic.rom",bin,1 write binary image, headed by load address
-STORE START,$2000,"basic.s19",s19 write binary file in Motorola S-Record format
-STORE START,$2000,"basic.s19",s19,Main write binary and provide execution start address
-LOAD  START,"image.bin"        load binary file to START and following addresses
-LOAD  "image.bin"              load binary file starting at current address
-LIST +                         switch on  assembler listing
-LIST -                         switch off assembler listing
-BITS . . * . * . . .           stores a byte from 8 bit symbols
-BYTE $20,"Example",0           stores a series of byte data
-WORD LAB_10, WriteTape,$0200   stores a series of word data
-LONG 1000000                   stores 32 bit long data
-REAL  3.1415926                stores a 32 bit real
-FILL  N ($EA)                  fill memory with N bytes containing $EA
-FILL  $A000 - * (0)            fill memory from pc(*) upto $9FFF
-INCLUDE "filename"             includes specified file
-END                            stops assembly
-CASE -                         symbols are not case sensitive
-SIZE                           print code size info
-TXTTAB BSS 2                   define TXTTAB and increase address pointer by 2
-  * = $E000                    set program counter
-  & = $033A                    set BSS address pointer
-ORG   $E000                    set program counter
-SETDP $20                      assume content of direct page register
-FCB   $20,"Example",0          stores a series of byte data
-FDB   LAB_10, WriteTape,$0200  stores a series of word data
-FCC   "Example\n"              store ASCII string
+ORG  $E000                                set program counter
+STORE START,$2000,"basic.rom"             write binary image file "basic.rom"
+STORE START,$2000,"basic.rom",bin,1       write binary image, headed by load address
+STORE START,$2000,"basic.s19",s19         write binary file in Motorola S-Record format
+STORE START,$2000,"basic.s19",s19,Main    write binary and provide execution start address
+LOAD  START,"image.bin"                   load binary file to START and following addresses
+LOAD  "image.bin"                         load binary file starting at current address
+LIST +                                    switch on  assembler listing
+LIST -                                    switch off assembler listing
+BITS . . * . * . . .                      stores a byte from 8 bit symbols
+BYTE $20,"Example",0                      stores a series of byte data
+WORD LAB_10, WriteTape,$0200              stores a series of word data
+LONG 1000000                              stores 32 bit long data
+REAL  3.1415926                           stores a 32 bit real
+FILL  N ($EA)                             fill memory with N bytes containing $EA
+FILL  $A000 - * (0)                       fill memory from pc(*) upto $9FFF
+INCLUDE "filename"                        includes specified file
+END                                       stops assembly
+CASE -                                    symbols are not case sensitive
+SIZE                                      print code size info
+TXTTAB BSS 2                              define TXTTAB and increase address pointer by 2
+  * = $E000                               set program counter
+  & = $033A                               set BSS address pointer
+ORG   $E000                               set program counter
+SETDP $20                                 assume content of direct page register
+FCB   $20,"Example",0                     stores a series of byte data
+FDB   LAB_10, WriteTape,$0200             stores a series of word data
+FCC   "Example\n"                         store ASCII string
 ```
 
-Examples of Operands
-====================
-    6      = decimal constant
- $A12      = hex constant
-MURX       = label or constant
-"hello\r"  = ASCII string with CR at end
-Table_Offset + 2 * [LEN-1] = address
+### Examples of Operands
 
-Constants
-=========
+```
+    6                      = decimal constant
+ $A12                      = hex constant
+MURX                       = label or constant
+"hello\r"                  = ASCII string with CR at end
+Table_Offset + 2 * [LEN-1] = address
+```
+
+### Constants
+
+```
 'A'         char constant
 %1111 0000  bytet constant
 ?           length of BYTE data line
 $ffd2       hex constant
+```
 
-Unary  operators in address calculations
-========================================
+### Unary  operators in address calculations
+
+```
 <    low byte
 >    extended address (override DP mode)
 (    parenthesis
@@ -168,9 +165,11 @@ Unary  operators in address calculations
 -    negative sign
 !    logical NOT
 ~    bitwise NOT
+```
 
-Binary operators in address calculations
-========================================
+### Binary operators in address calculations
+
+```
 +     addition
 -     subtraction
 *     multiplication or program counter (context sensitive)
@@ -178,9 +177,11 @@ Binary operators in address calculations
 &     bitwise and
 |     bitwise or
 ^     bitwise xor
+```
 
-Relational operators
-====================
+### Relational operators
+
+```
 ==    equal
 !=    not equal
 >     greater than
@@ -191,64 +192,77 @@ Relational operators
 >>    right shift
 &&    and
 ||    or
+```
 
 Relational operators return the integer 0 (false) or 1 (true).
 
-User macros
-===========
+### User macros
+
 Example:
 
+```
 MACRO PrintString(Message)
    LDX   #Message    ; address of message
    LDB   #?Message   ; length of message
    JMP   [SWI1PT]    ; jump through vector
 ENDM
+```
 
-defines a MACRO for loading a 16bit word into X and Y
+defines a `MACRO` for loading a 16-bit word into `X` and `Y`.
 
 Call:
 
+```
 OK     .BYTE "\nOK\n"
 
 PrintString(OK)
+```
 
 Generated Code:
 
+```
    LDX #OK
    LDB #4
    JMP   [SWI1PT]
+```
 
-Macros accept up to 10 parameter and may have any length.
+Macros accept up to 10 parameters and may have any length.
 
-Conditional assembly
-====================
-Example: Assemble first part if C64 has a non zero value
+### Conditional assembly
 
+Example: Assemble first part if `C64` has a non zero value
+
+```
 if MO5
    STA $D000
 else
    STA $9000
 endif
+```
 
-Example: Assemble first part if MO5 is defined ($0000 - $ffff)
-(undefined symbols are set to UNDEF ($00ff0000)
+Example: Assemble first part if `MO5` is defined (`$0000 `- `$ffff`), undefined symbols are set to `UNDEF` (`$00ff0000`)
 
+```
 ifdef MO5
    STA $D000
 else
    STA $9000
 endif
+```
 
-assembles the first statement if MO5 is not zero and the second if zero.
+assembles the first statement if `MO5` is not zero and the second if zero.
 
 Example: Assemble if symbol is undefined
 
+```
 ifndef TO9
    STA $D000 ; Code for MO5 and TO8
 endif
+```
 
 Another example:
 
+```
 if MO5 | TO9          ; true if either MO5 or TO9 is true (not zero)
    LDA #MASK
 if MO5
@@ -257,25 +271,21 @@ else
    STA TO9_ICR_REG
 endif                   ; finishes inner if
 endif                   ; finishes outer if
+```
 
 Example: check and force error
 
+```
 if (MAXLEN & $ff00)
    #error This code is 8 bit only, MAXLEN too large!
 endif
+```
 
-The maximum nesting depth is 10
+The maximum nesting depth is 10.
 
-For more examples see the complete operating system for the
-Thomson MO5 available from the user "Bit Shifter" e.g. at
-forum64 or the forum of the VzEkC.
+### Listing
 
-Listing
-=======
-
-The program listings lists the original source code preceded by the
-generated code in form of hexadecimal bigendian word or byte values.
-For example:
+The program listings lists the original source code preceded by the generated code in form of hexadecimal bigendian word or byte values. For example:
 
 ```
   27 9ff6   b6    fe30         LDA     IO_SDCARD
