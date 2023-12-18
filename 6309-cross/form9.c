@@ -1,5 +1,4 @@
 // code formatter for as9 assembler source
-// version 1.0  12-APR-2023
 
 #include <stdlib.h>
 #include <stdio.h>
