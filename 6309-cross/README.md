@@ -1,8 +1,6 @@
 ## An Assembler for the 6x09 CPU
 
-A cross-assembler for hosts running Debian Linux. The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GNU C-compiler
-
-This assembler is a Cross-Assembler, it is run on a host system, but produces code for target machines running a Motorola 6809 or a Hitachi 6309 CPU. These were widely used on the Thomson MO and TO series, Dragon 32/64, Commodore Super PET, and Tandy CoCo.
+A cross-assembler for hosts running Debian Linux. The assembler was developed and tested on a an AMD x64 with debian 11. Using no specific options of the host system, it should run on any computer with a GNU C-compiler. This assembler is run on a host system,but produces code for any target machines running a Motorola 6809 or a Hitachi 6309 CPU. One such example is this repository.
 
 
 ### Compiling
