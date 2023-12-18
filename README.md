@@ -1,6 +1,6 @@
-# M6809 - A kit to learn programming and expandibility.
+# Processor CPU 6x09 - A kit to learn programming against the `x09` architecture family.
 
-New development work with the Motorola 6809 8-bit CPU for novel products.
+New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novelty. Multicomputing is the trajectory.
 
 ## Building a microcomputer-experimental station around the Motorola 6809 CPU.
 
