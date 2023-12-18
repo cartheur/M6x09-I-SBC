@@ -51,31 +51,29 @@ For clarity - mnemonics and pseudo opcodes are insensitive to case:
 
 ### Labels and Constants
 
-`LABEL   LDX  #Value`   |  define LABEL for current PC
-`TXTPTR  = $21b8`       |  define constant TXTPTR
-`OLDPTR  EQU $21ba`              define constant OLDPTR
-`CURRENT SET 5 `                 define variable CURRENT
+* `LABEL   LDX  #Value`    |  define `LABEL` for current `PC`
+* `TXTPTR  = $21b8`        |  define constant `TXTPTR`
+* `OLDPTR  EQU $21ba`      |  define constant `OLDPTR`
+* `CURRENT SET 5`          |  define variable `CURRENT`
 
-Modules (Subroutines)
-=====================
+### Modules (Subroutines)
 
 The pseudo instructions
 
+```
 MODULE
 ...
 ENDMOD
-
+```
 or the aliases
-
+```
 SUBROUTINE
 ...
 ENDSUB
+```
+define a namespace for local variables. Variables starting with a `.` (dot) have a scope limited to code between `MODULE` and `ENDMOD`. Example:
 
-define a namespace for local variables.
-Variables starting with a '.' (dot) have a scope limited to code
-between MODULE and ENDMOD.
-Example:
-
+```
 MODULE Delay
 .loop  LEAX -1,X
        BNE  .loop
@@ -89,33 +87,32 @@ MODULE Strout
        BRA  .loop
 .ret   RTS
 ENDMOD
+```
+There is no conflict in using the label `.loop `twice, because they are used in separate modules. Internally the assembler generates the names:
 
-There is no conflict in using the label ".loop" twice, because they
-are used in separate modules. Internally the assembler generates the names:
-
+```
 Delay.loop
 Strout.loop
 Strout.ret
-
+```
 for these labels.
 
-Assign addresses to symbols
-===========================
+### Assign addresses to symbols
+
+```
 LABEL   ENUM value             define label with value
 LABEL   ENUM                   use last ENUM value + 1
 
 & = value                      set start value for BSS segment
 TXTPTR  BSS 2                  assign TXTPTR = &, & += 2
 CURSOR  BSS 1                  assign CURSOR = &, & += 1
+```
 
-Labels and constants can have only one value.
-Variables, which get their value assigned with "SET",
-may change their values.
-Labels that are defined by their current position must start
-at the first column.
+Labels and constants can have only one value. Variables, which get their value assigned with `SET`, may change their values. Labels that are defined by their current position must start at the first column.
 
-Examples of pseudo opcodes (directives):
-========================================
+### Examples of pseudo opcodes (directives):
+
+```
 ORG  $E000                     set program counter
 STORE START,$2000,"basic.rom" write binary image file "basic.rom"
 STORE START,$2000,"basic.rom",bin,1 write binary image, headed by load address
@@ -144,6 +141,7 @@ SETDP $20                      assume content of direct page register
 FCB   $20,"Example",0          stores a series of byte data
 FDB   LAB_10, WriteTape,$0200  stores a series of word data
 FCC   "Example\n"              store ASCII string
+```
 
 Examples of Operands
 ====================
