@@ -46,7 +46,7 @@ For clarity - mnemonics and pseudo opcodes are insensitive to case:
 
 ### Directives
 
-* `CPU = 6809 `   |  allow code for 6809 only
+* `CPU = 6809`    |  allow code for 6809 only
 * `CPU = 6309`    |  allow full 6309 instruction set (default)
 
 ### Labels and Constants
