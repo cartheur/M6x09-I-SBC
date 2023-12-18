@@ -13,9 +13,11 @@ If the compiler is `gcc`, compile with:
 
 If GNU `make` and `su` is installed, use these lines to install the binary to `/usr/local/bin`:
 
-`make`
-`su`
-`make install`
+```
+make
+su
+make install
+```
 
 ### Running
 
