@@ -11,6 +11,11 @@ Companion repositories:
 * TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09).
 * Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68).
 
+Further documentation:
+
+* Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids)
+* [CoCoDEV](http://www.davebiz.com/wiki/CoCoDEV)
+
 ## Building a multicomuter experimental station around the `x09` architecture.
 
 This is for a kit that uses Motorola 6809 as CPU. It has a UART chip added, an 6850 ACIA. The circuit is as simple as possible, so uses a small number of components. All decoder logic is placed in a PLD chip. This makes the circuit is very easy to build. 
