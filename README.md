@@ -11,7 +11,7 @@ It uses a `cc09` c-compiler for 6809. The monitor was developed using c and asse
 The 6809 has long branch using a 16-bit offset. One of the monitor key provides 16-bit HEX calculator, so it is elementary to find the 8-bit or 16-bit offset. Programming comes in two contexts:
 
 * For assembly (`asm`) coding, one can use hex key to enter and test the program.
-* For language-construct (`c`) programming, one can use UART for `S19`-file uploading.
+* For language-construct (`c`) programming, one can use UART for `s19`-file uploading.
 
 ## Hardware description
 
