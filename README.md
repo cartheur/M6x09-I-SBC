@@ -1,6 +1,13 @@
 # Experiments around the 6x09 CPU
 
-New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novelty. Multicomputing is the trajectory. A companion repository of [code](https://github.com/cartheur/M6x09-A/tree/main/sbc) will be integrated here over time.
+Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in the light of the `x09` architecture family.
+
+Goal: Multicomputing is the trajectory.
+
+Companion repositories:
+
+* Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc).
+* GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU).
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
