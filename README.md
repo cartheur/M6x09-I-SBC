@@ -6,21 +6,21 @@ _Goal_: Multiprocessing is the trajectory.
 
 Sister repositories:
 
-* Multiprocessing [source](https://github.com/cartheur/M6809-ForthWiki).
-* Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc).
-* GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU).
-* TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09).
-* Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68).
+* Multiprocessing [source](https://github.com/cartheur/M6809-ForthWiki)
+* Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc)
+* GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU)
+* TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09)
+* Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68)
 
 Further documentation:
 
-* The topic of [multiprocessing](https://en.wikipedia.org/wiki/Multiprocessing).
-* Differences between [3-and-9](https://retrocomputing.stackexchange.com/questions/25/advantages-of-a-hitachi-hd6309-versus-a-plain-motorola-mc6809).
-* Retro [computing](https://retrocomputingforum.com/t/adventures-with-the-6809-and-6309/2795).
-* Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids).
-* CoCoDEV [remote](http://www.davebiz.com/wiki/CoCoDEV).
-* CoCoDEV [local](/cocodev/README.md).
-* Retro[Shield](http://www.8bitforce.com/blog/2019/03/12/retroshield-6809-operation/).
+* The topic of [multiprocessing](https://en.wikipedia.org/wiki/Multiprocessing)
+* Differences between [3-and-9](https://retrocomputing.stackexchange.com/questions/25/advantages-of-a-hitachi-hd6309-versus-a-plain-motorola-mc6809)
+* Retro [computing](https://retrocomputingforum.com/t/adventures-with-the-6809-and-6309/2795)
+* Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids)
+* CoCoDEV [remote](http://www.davebiz.com/wiki/CoCoDEV)
+* CoCoDEV [local](/cocodev/README.md)
+* Retro[Shield](http://www.8bitforce.com/blog/2019/03/12/retroshield-6809-operation/)
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
