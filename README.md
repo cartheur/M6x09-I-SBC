@@ -13,8 +13,9 @@ Companion repositories:
 
 Further documentation:
 
-* Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids)
-* [CoCoDEV](http://www.davebiz.com/wiki/CoCoDEV)
+* Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids).
+* CoCoDEV [remote](http://www.davebiz.com/wiki/CoCoDEV).
+* CoCoDEV [local](/cocodev/README.md).
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
