@@ -1,0 +1,15 @@
+0001 0200                    	org $200
+0002                         
+0003 0200 4c                 loop	inca
+0004 0201 b7 80 00           	sta $8000
+0005 0204 8d 02                      bsr delay1
+0006 0206 20 f8              	bra loop
+0007                         	
+0008                         
+0009 0208 8e 30 00           delay1	ldx #$3000
+0010 020b 30 1f              delay	leax -1,x
+0011 020d 26 fc              	bne delay
+0012 020f 39                         rts
+0013                         
+0014                         	end
+0015                         

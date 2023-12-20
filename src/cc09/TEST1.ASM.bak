@@ -1,0 +1,65 @@
+; small-c V2.3
+   ORG  $fffe
+   FDB  $c000
+   ORG  $c000
+   lds  #$7000
+   jmp  main
+
+ .globl port
+port: 
+ .dw 0
+
+ .globl n
+n: 
+ .ds 1
+
+ .globl i
+i: 
+ .ds 2
+
+ .module main
+
+ .globl main
+main: 
+ ldd  #-32768
+ std  port
+cc2:  
+ ldd  #1
+ cmpd #0
+ lbeq cc3
+ ldd  port
+ pshs d
+ ldb  n
+ sex
+ addd #1
+ stb  n
+ subd #1
+ stb  [,s++]
+ ldd  #0
+ std  i
+cc6:  
+ ldd  i
+ pshs d
+ ldd  #500
+ cmpd ,s++
+ bgt  .+7
+ ldd  #0
+ bra  .+5
+ ldd  #1
+ cmpd #0
+ lbeq cc5
+ jmp cc7
+cc4:  
+ ldd  i
+ addd #1
+ std  i
+ subd #1
+ jmp cc6
+cc7:  
+ jmp cc4
+ jmp cc4
+cc5:  
+ jmp cc2
+cc3:  
+ rts
+;    .end
