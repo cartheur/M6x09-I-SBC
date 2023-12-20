@@ -1,8 +1,8 @@
-# Processor CPU 6x09 - A kit to learn programming with the `x09` architecture family.
+# Experiments around the 6x09 CPU
 
 New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novelty. Multicomputing is the trajectory.
 
-## Building a microcomputer-experimental station around the Motorola 6809 CPU.
+## Building a multicomuter experimental station around the `x09` architecture.
 
 This is for a kit that uses Motorola 6809 as CPU. It has a UART chip added, an 6850 ACIA. The circuit is as simple as possible, so uses a small number of components. All decoder logic is placed in a PLD chip. This makes the circuit is very easy to build. 
 
