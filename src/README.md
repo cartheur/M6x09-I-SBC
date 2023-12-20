@@ -8,7 +8,7 @@ The Small C Compiler for 6809 running on FLEX (CUG 221) has been ported to MSDOS
 
 A host of routines is supplied. These work with particular boards used by our students. The system we have is,
 
-6809 Processor card, 32k StaticRAM 0000 to 7FFF
+6809 Processor card, 32k StaticRAM `0000` to `7FFF`
 
 * Addresses `9000-93ff` are port mapped to `000` to `3ff` for PC type boards
 * Addresses `8000 to 8fff` are mapped to `B0000` for PC monochrome cards
@@ -46,3 +46,7 @@ The DIOBoards address is configurable via DIP, and the A/D convertor can be
 The POD SOFTWARE is a simple board MC6821 which has a 40-PIN DIP which plugs across the 6809 target processor. By writing to the MC6821 (which connects to DIOBoard) and setting certain pins, it is possible to alter the processor state (ie, `RESET`, `HALT`) and perform `READ`/`WRITE` cycles (by emulating bus cycles asserting pins mapped to processors pins in correct sequence).
 
 IF YOU RE-COMPILE THE SOURCE, USE A MEDIUM MEMORY MODEL!! AND TURN OFF WARNINGS.
+
+### Note
+
+This will be changed substantially as the project progresses.
