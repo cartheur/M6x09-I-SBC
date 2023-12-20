@@ -6,12 +6,12 @@ New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novel
 
 This is for a kit that uses Motorola 6809 as CPU. It has a UART chip added, an 6850 ACIA. The circuit is as simple as possible, so uses a small number of components. All decoder logic is placed in a PLD chip. This makes the circuit is very easy to build. 
 
-It uses a cc09 c-compiler for 6809. The monitor was developed using c and assembly code. The main clock frequency is 4.9152MHz. UART chip uses E clock, 4.9152MHz/4 as the TXD/RXD clock. The prescaler is 64, so the UART will produce 19,200 bit/s rate.
+It uses a `cc09` c-compiler for 6809. The monitor was developed using c and assembly code. The main clock frequency is 4.9152MHz. UART chip uses E clock, 4.9152MHz/4 as the TXD/RXD clock. The prescaler is 64, so the UART will produce 19,200 bit/s rate.
 
-The 6809 has long branch using 16 bit offset. One of the monitor key provides 16-bit HEX calculator, so it is elementary to find the 8-bit or 16-bit offset. Programming comes in two contexts:
+The 6809 has long branch using a 16-bit offset. One of the monitor key provides 16-bit HEX calculator, so it is elementary to find the 8-bit or 16-bit offset. Programming comes in two contexts:
 
-* For assembly (low-level) coding, one can use hex key to enter and test the program.
-* For c programming, one can use the UART for S19 file downloading.
+* For assembly (`asm`) coding, one can use hex key to enter and test the program.
+* For language-construct (`c`) programming, one can use UART for `S19`-file uploading.
 
 ## Hardware description
 
@@ -20,7 +20,7 @@ The 6809 has long branch using 16 bit offset. One of the monitor key provides 16
 * U2 is 32kB static RAM, 62256. The RAM space is located at 0x0000-0x7FFF. Zero page is located at 0x0000-0x00FF. User program can be tested from address 0x0200.
 * U4, memory and I/O spaces decoder chip is made with GAL16V8D. It provides chip selected signals for memory and I/O chips.
 * U3, the 20-pin 89C2051 microcontroller chip produces 10ms tick. SW1 selects between 10ms tick or manual IRQ button.
-* U6 is 6850 ACIA, UART. The shift clock is derived from E clock, 1228800Hz. Internal prescaler is 64. Thus the bit rate will be 19200 bit/s.
+* U6 is 6850 ACIA, UART. The shift clock is derived from E clock, 1,228,800Hz. Internal prescaler is 64. Thus the bit rate will be 19,200 bit/s.
 * U12, 74HC541 is 8-bit input port (PORT0). Six bits, PA0-PA5 are input signals of the row keypad.
 * U10, 74HC573 is 8-bit output port (PORT2). The 8-bit output drives the 7-segment LED directly. No current limit resistor. U11 (PORT1) drives 6-digit common cathode pin. The brightness is controlled by software controlled PWM. PC7 is speaker output for beep signal.
 * U13, 74HC573 is 8-bit output port for 8-bit binary number display. D13 lifts the forward biasing for proper brightness. JR1 is 16-pin socket for text LCD interface. U14, HIN232 converts TTL level to RS232 level.
@@ -30,25 +30,25 @@ The 6809 has long branch using 16 bit offset. One of the monitor key provides 16
 
 ### Hardware Features
 
-* CPU: Motorola 68B09, 8-bit Microprocessor @1.2288MHz clock
+* CPU: Motorola 68c09, 8-bit Microprocessor with a 1.2288MHz clock
 * Memory: 32kB RAM, 16kB EPROM
 * Memory and I/O Decoder chip: Programmable Logic Device GAL16V8D
 * Display: high brightness 6-digit 7-segment LED
 * Keyboard: 36 keys
-* RS232 port: 6850 ACIA 19200 bit/s 8n1
+* RS232 port: 6850 ACIA 19,200 bit/s 8n1
 * Debugging LED: 8-bit GPIO1 LED at location $8000
 * Tick: 10ms tick produced by 89C2051 for time trigger experiment
 * Text LCD interface: direct CPU bus interface text LCD
 * Brownout reset: KIA7042 reset chip for power brownout reset
 * Expansion header: 40-pin header
 
-The monitor program was developed using c and assembly language. Source code was compiled with cc09, c compiler for 6809 CPU. The source code is available for customizing your own monitor.
+The monitor program was developed using c and assembly language. Source code was compiled with `cc09`. Source code is available for customizing the monitor.
 
 ### The monitor program features
 
 * Simple hex code entering
 * Insert and Delete byte
-* User registers: A, B, X, Y, S, U, DP Condition code registers for storing CPU status after -program execution
+* User registers: `A`, `B`, `X`, `Y`, `S`, `U`, `DP` Condition code registers for storing CPU status after-program execution
 * HEX calculator for offset calculation
 * Copy block of memory
 * Motorola s-record S19 downloading
@@ -68,7 +68,7 @@ Making key layout sticker is simply done by printing the SVG file to sticker pap
 
 ![An example](/images/test-code.png)
 
-Simple program that writes accumulator content to gpio1 LED at $8000. It will show 8-bit binary counting. Delay1 is small delay subroutine that uses X register. One can enter the hex code into memory and test run directly.
+Simple program that writes accumulator content to `gpio1` LED at `$8000`. It will show 8-bit binary counting. `Delay1` is small delay subroutine that uses `X` register. One can enter the hex code into memory and test run directly.
 
 Can you change the speed to run faster?
 
@@ -76,9 +76,9 @@ Another example of using 10ms tick generator for counting binary at 1Hz rate. Ch
 
 ![Tick-generator example](/images/tick-generator.png)
 
-The IRQ vector in ROM is pointed to new location in RAM at $7FF0. Students can modify where to put IRQ service routine. Above example uses location $6000 for IRQ service. The main code then inserts JMP to IRQ service instruction, 7E 60 00 to location 7FF0. Then clear I flag and wait for interrupt.
+The IRQ vector in ROM is pointed to new location in RAM at `$7FF0`. Students can modify where to put IRQ service routine. Above example uses location `$6000` for IRQ service. The main code then inserts JMP to IRQ service instruction, `7E 60 00` to location `7FF0`. Then clear `I` flag and wait for interrupt.
 
-The IRQ service uses location 0 for tick counting. When it reaches 100, clear it and increment location 1. We can see 1Hz rate counting of location 1 by sending it to gpio1 LED at location 8000.
+The IRQ service uses location `0` for tick counting. When it reaches `100`, clear it and increment location `1`. We can see 1Hz rate counting of location `1` by sending it to `gpio1` LED at location `8000`.
 
 Can you change from 1Hz to 10Hz counting rate?
 
