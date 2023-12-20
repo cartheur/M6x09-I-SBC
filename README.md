@@ -6,7 +6,7 @@ New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novel
 
 This is for a kit that uses Motorola 6809 as CPU. It has a UART chip added, an 6850 ACIA. The circuit is as simple as possible, so uses a small number of components. All decoder logic is placed in a PLD chip. This makes the circuit is very easy to build. 
 
-It uses a `cc09` c-compiler for 6809. The monitor was developed using c and assembly code. The main clock frequency is 4.9152MHz. UART chip uses E clock, 4.9152MHz/4 as the TXD/RXD clock. The prescaler is 64, so the UART will produce 19,200 bit/s rate.
+It uses a `cc09` c-compiler for 6809. The monitor was developed using c and assembly code. Details are described [here](/src/README.md). The main clock frequency is 4.9152MHz. UART chip uses E clock, 4.9152MHz/4 as the TXD/RXD clock. The prescaler is 64, so the UART will produce 19,200 bit/s rate.
 
 The 6809 has long branch using a 16-bit offset. One of the monitor key provides 16-bit HEX calculator, so it is elementary to find the 8-bit or 16-bit offset. Programming comes in two contexts:
 
