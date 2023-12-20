@@ -4,8 +4,9 @@ Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in
 
 _Goal_: Multiprocessing is the trajectory.
 
-Companion repositories:
+Sister repositories:
 
+* Multiprocessing [source](https://github.com/cartheur/M6809-ForthWiki).
 * Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc).
 * GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU).
 * TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09).
