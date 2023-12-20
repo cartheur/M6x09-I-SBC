@@ -1,6 +1,6 @@
 # Experiments around the 6x09 CPU
 
-New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novelty. Multicomputing is the trajectory.
+New development work with the Motorola 6809 and Hitachi 6309 8-bit CPU for novelty. Multicomputing is the trajectory. A companion repository of [code](https://github.com/cartheur/M6809-A) will be integrated here over time.
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
