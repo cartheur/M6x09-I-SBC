@@ -1,0 +1,29 @@
+*  running code using 10ms tick
+
+tick    equ $700e
+
+	org $200
+
+main    lda #0
+        tfr a,dp     set page 0
+        cwai #%11101111 enable IRQ 
+
+* below code 10ms
+
+loop  lda tick
+	cmpa #100
+	bne skip
+	clr tick
+ 
+* below code 1000ms	
+	
+	lda 0
+	adda #1
+	daa
+	sta 0
+	sta $8000
+
+skip    bra loop
+
+	end
+

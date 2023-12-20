@@ -1,0 +1,15 @@
+0001                         * using A+X form effective address
+0002                         
+0003 0200                    	org $200
+0004                         
+0005 0200 86 05              main    lda #5
+0006 0202 c6 55                      ldb #$55 
+0007                         
+0008 0204 8e 10 00                   ldx #$1000  base address
+0009                         
+0010 0207 a7 85                      sta b,x
+0011                         
+0012 0209 3f                         swi
+0013                         
+0014                         	end
+0015                         

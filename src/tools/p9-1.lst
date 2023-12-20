@@ -1,0 +1,29 @@
+0001                         *  running code using 10ms tick
+0002                         
+0003 700e                    tick    equ $700e
+0004                         
+0005 0200                    	org $200
+0006                         
+0007 0200 86 00              main    lda #0
+0008 0202 1f 8b                      tfr a,dp     set page 0
+0009 0204 3c ef                      cwai #%11101111 enable IRQ 
+0010                         
+0011                         * below code 10ms
+0012                         
+0013 0206 b6 70 0e           loop  lda tick
+0014 0209 81 64              	cmpa #100
+0015 020b 26 0d              	bne skip
+0016 020d 7f 70 0e           	clr tick
+0017                          
+0018                         * below code 1000ms	
+0019                         	
+0020 0210 96 00              	lda 0
+0021 0212 8b 01              	adda #1
+0022 0214 19                 	daa
+0023 0215 97 00              	sta 0
+0024 0217 b7 80 00           	sta $8000
+0025                         
+0026 021a 20 ea              skip    bra loop
+0027                         
+0028                         	end
+0029                         

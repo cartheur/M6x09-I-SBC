@@ -1,0 +1,25 @@
+0001                         *  calling monitor c function
+0002                         *  display text on lcd 
+0003                         
+0004 0200                    	org $200
+0005                         
+0006 c228                    init_lcd  equ $c228
+0007 c26b                    pstring   equ $c26b
+0008                         
+0009 0200 bd c2 28           main    jsr init_lcd
+0010                         
+0011 0203 cc 02 0e                   ldd #text1
+0012 0206 34 06                      pshs d
+0013                         
+0014 0208 bd c2 6b           	jsr pstring
+0015                         	
+0016 020b 32 62              	leas 2,s
+0017 020d 3f                 	swi
+0018                         
+0019 020e 48 65 6c 6c 6f 20  text1   fcc "Hello from 6809"
+     66 72 6f 6d 20 36
+     38 30 39
+0020 021d 00                         fcb 0 
+0021                         
+0022                         	end
+0023                         

@@ -1,0 +1,28 @@
+0001                         *  branch an long branch
+0002                         
+0003 0200                    	org $200
+0004                         
+0005 0200 b6 c0 00           main    lda $c000   location C000 has 10CE
+0006                         *                      the byte at 10CE will be sent to gpio1 led
+0007 0203 b7 80 00                   sta $8000
+0008                         
+0009 0206 20 07                      bra  load_b
+0010                         
+0011 0208 12                         nop
+0012 0209 12                         nop
+0013                         
+0014 020a 16 00 02                   lbra load_b
+0015                         
+0016 020d 12                         nop
+0017 020e 12                         nop
+0018                         
+0019 020f f6 c0 01           load_b  ldb $c001
+0020                         
+0021 0212 1e 89                      exg a,b
+0022                         
+0023                         
+0024                         
+0025 0214 3f                         swi
+0026                         
+0027                         	end
+0028                         

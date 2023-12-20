@@ -1,0 +1,21 @@
+0001                         *  simple delay with x register
+0002                         
+0003 0200                    	org $200
+0004                         
+0005 0200 86 01              main    lda #1
+0006                         
+0007 0202 b7 80 00           loop    sta $8000
+0008 0205 49                         rola
+0009                         
+0010 0206 8d 02                      bsr delay
+0011                         
+0012 0208 20 f8                      bra loop
+0013                         
+0014 020a 8e 30 00           delay   ldx #$3000
+0015 020d 30 1f              delay1  leax -1,x
+0016 020f 26 fc                      bne delay1
+0017 0211 39                         rts
+0018                         
+0019                         
+0020                         	end
+0021                         

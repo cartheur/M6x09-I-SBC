@@ -1,0 +1,29 @@
+*  calling monitor c function
+*  display text on terminal using UART
+
+putchar    equ $dff1
+puts       equ $e053
+initacia   equ $df85 
+newline    equ $e0fd
+	
+	org $200
+
+main    jsr initacia
+
+loop
+        ldd #text3
+        pshs d
+
+	jsr puts
+	
+	leas 2,s
+
+	jsr newline
+
+        bra loop
+	
+text3   fcc "Hello from 6809 kit"
+        fcb 0
+
+	end
+

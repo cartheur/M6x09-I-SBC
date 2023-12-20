@@ -1,0 +1,12 @@
+0001                         * Indirection
+0002                         
+0003 0200                    	org $200
+0004                         
+0005 0200 a6 9f c0 00        main    lda [$c000]   location C000 has 10CE
+0006                         *                      the byte at 10CE will be sent to gpio1 led
+0007 0204 b7 80 00                   sta $8000
+0008                         
+0009 0207 3f                         swi
+0010                         
+0011                         	end
+0012                         

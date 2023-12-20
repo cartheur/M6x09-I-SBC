@@ -1,0 +1,18 @@
+0001                         *  calling monitor c function
+0002                         *  display ascii letter on lcd 
+0003                         
+0004 c228                    init_lcd equ $c228
+0005 c2f5                    putch_lcd equ $c2f5
+0006                         	
+0007 0200                    	org $200
+0008                         
+0009 0200 bd c2 28           main    jsr init_lcd
+0010                         
+0011 0203 c6 36                      ldb #$36
+0012 0205 34 06                      pshs d
+0013 0207 bd c2 f5           	jsr putch_lcd
+0014 020a 32 62              	leas 2,s
+0015 020c 3f                 	swi
+0016                         
+0017                         	end
+0018                         

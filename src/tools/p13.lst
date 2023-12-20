@@ -1,0 +1,46 @@
+0001                         *  calling monitor c function
+0002                         *  display text on lcd 
+0003                         
+0004 c228                    init_lcd  equ $c228
+0005 c26b                    pstring   equ $c26b
+0006 c197                    goto_xy   equ $c197
+0007                         
+0008 0200                    	org $200
+0009 0200 bd c2 28           main    jsr init_lcd
+0010                         
+0011 0203 cc 02 25                   ldd #text1
+0012 0206 34 06                      pshs d
+0013                         
+0014 0208 bd c2 6b           	jsr pstring
+0015                         	
+0016 020b 32 62              	leas 2,s
+0017                                 
+0018 020d c6 00              	ldb #$00
+0019 020f 34 06              	pshs d
+0020 0211 c6 01              	ldb #$01
+0021 0213 34 06              	pshs d
+0022                         
+0023 0215 bd c1 97           	jsr goto_xy
+0024                         
+0025 0218 32 64              	leas 4,s
+0026                         
+0027 021a cc 02 35           	ldd #text2
+0028 021d 34 06                      pshs d
+0029                         
+0030 021f bd c2 6b           	jsr pstring
+0031                         	
+0032 0222 32 62              	leas 2,s
+0033                         	
+0034 0224 3f                 	swi
+0035                         
+0036 0225 48 65 6c 6c 6f 20  text1   fcc "Hello from 6809"
+     66 72 6f 6d 20 36
+     38 30 39
+0037 0234 00                         fcb 0 
+0038 0235 45 6e 74 65 72 20  text2   fcc "Enter code in HEX"
+     63 6f 64 65 20 69
+     6e 20 48 45 58
+0039 0246 00                         fcb 0 
+0040                         
+0041                         	end
+0042                         

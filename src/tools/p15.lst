@@ -1,0 +1,32 @@
+0001                         *  calling monitor c function
+0002                         *  display text on terminal using UART
+0003                         
+0004 dfdf                    putchar    equ $dfdf 
+0005 e041                    puts       equ $e041
+0006 df73                    initacia   equ $df73  
+0007 e0eb                    newline    equ $e0eb
+0008                         	
+0009 0200                    	org $200
+0010                         
+0011 0200 bd df 73           main    jsr initacia
+0012                         
+0013                         loop
+0014 0203 cc 02 12                   ldd #text3
+0015 0206 34 06                      pshs d
+0016                         
+0017 0208 bd e0 41           	jsr puts
+0018                         	
+0019 020b 32 62              	leas 2,s
+0020                         
+0021 020d bd e0 eb           	jsr newline
+0022                         
+0023 0210 20 f1                      bra loop
+0024                         	
+0025 0212 48 65 6c 6c 6f 20  text3   fcc "Hello from 6809 kit"
+     66 72 6f 6d 20 36
+     38 30 39 20 6b 69
+     74
+0026 0225 00                         fcb 0
+0027                         
+0028                         	end
+0029                         

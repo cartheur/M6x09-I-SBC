@@ -1,0 +1,33 @@
+0001                         *  using 10ms tick
+0002                         
+0003 0200                    	org $200
+0004                         
+0005 0200 86 00              main    lda #0
+0006 0202 1f 8b                      tfr a,dp    * set page zero
+0007 0204 86 7e                      lda #$7e    * invert jump serv_irq code
+0008 0206 b7 7f f0                   sta $7ff0
+0009 0209 8e 60 00                   ldx  #serv_irq
+0010 020c bf 7f f1           	stx $7ff1
+0011                         
+0012 020f 1c ef                      andcc #%11101111
+0013 0211 20 fe                      bra *
+0014                         
+0015                         * IRQ interrupt service routine
+0016                         
+0017 6000                            org $6000
+0018                         
+0019 6000 0c 00              serv_irq inc 0
+0020 6002 96 00                       lda 0
+0021                         
+0022 6004 81 64              	 cmpa #100
+0023 6006 26 09                       bne skip
+0024 6008 0f 00              	 clr 0
+0025                         
+0026 600a 0c 01                       inc 1
+0027 600c 96 01              	 lda 1
+0028 600e b7 80 00                    sta $8000
+0029                         skip
+0030 6011 3b                          rti
+0031                         
+0032                         	end
+0033                         

@@ -1,0 +1,4975 @@
+0001                         
+0002                         * small-c V2.3
+0003 7000                           ORG $7000
+0004                         
+0005                         * .global i
+0006                         i: 
+0007 7000                     RMB 2
+0008                         
+0009                         * .global j
+0010                         j: 
+0011 7002                     RMB 2
+0012                         
+0013                         * .global n
+0014                         n: 
+0015 7004                     RMB 1
+0016                         
+0017                         * .global k
+0018                         k: 
+0019 7005                     RMB 1
+0020                         
+0021                         * .global u
+0022                         u: 
+0023 7006                     RMB 1
+0024                         
+0025                         * .global q
+0026                         q: 
+0027 7007                     RMB 1
+0028                         
+0029                         * .global o
+0030                         o: 
+0031 7008                     RMB 1
+0032                         
+0033                         * .global key
+0034                         key: 
+0035 7009                     RMB 1
+0036                         
+0037                         * .global x
+0038                         x: 
+0039 700a                     RMB 1
+0040                         
+0041                         * .global hit
+0042                         hit: 
+0043 700b                     RMB 1
+0044                         
+0045                         * .global positive
+0046                         positive: 
+0047 700c                     RMB 1
+0048                         
+0049                         * .global flag
+0050                         flag: 
+0051 700d                     RMB 1
+0052                         
+0053                         * .global tick
+0054                         tick: 
+0055 700e                     RMB 1
+0056                         
+0057                         * .global bcc
+0058                         bcc: 
+0059 700f                     RMB 2
+0060                         
+0061                         * .global save_bcc
+0062                         save_bcc: 
+0063 7011                     RMB 2
+0064                         
+0065                         * .global bcc_erro
+0066                         bcc_erro: 
+0067 7013                     RMB 2
+0068                         
+0069                         * .global temp
+0070                         temp: 
+0071 7015                     RMB 2
+0072                         
+0073                         * .global temp16
+0074                         temp16: 
+0075 7017                     RMB 2
+0076                         
+0077                         * .global PC
+0078                         PC: 
+0079 7019                     RMB 2
+0080                         
+0081                         * .global save_PC
+0082                         save_PC: 
+0083 701b                     RMB 2
+0084                         
+0085                         * .global num
+0086                         num: 
+0087 701d                     RMB 2
+0088                         
+0089                         * .global start
+0090                         start: 
+0091 701f                     RMB 2
+0092                         
+0093                         * .global end
+0094                         end: 
+0095 7021                     RMB 2
+0096                         
+0097                         * .global desti
+0098                         desti: 
+0099 7023                     RMB 2
+0100                         
+0101                         * .global t
+0102                         t: 
+0103 7025                     RMB 2
+0104                         
+0105                         * .global state
+0106                         state: 
+0107 7027                     RMB 1
+0108                         
+0109                         * .global USER_PC
+0110                         USER_PC: 
+0111 7028                     RMB 2
+0112                         
+0113                         * .global USER_U
+0114                         USER_U: 
+0115 702a                     RMB 2
+0116                         
+0117                         * .global USER_X
+0118                         USER_X: 
+0119 702c                     RMB 2
+0120                         
+0121                         * .global SAVE_SP
+0122                         SAVE_SP: 
+0123 702e                     RMB 2
+0124                         
+0125                         * .global USER_Y
+0126                         USER_Y: 
+0127 7030                     RMB 2
+0128                         
+0129                         * .global USER_A
+0130                         USER_A: 
+0131 7032                     RMB 1
+0132                         
+0133                         * .global USER_B
+0134                         USER_B: 
+0135 7033                     RMB 1
+0136                         
+0137                         * .global USER_P
+0138                         USER_P: 
+0139 7034                     RMB 1
+0140                         
+0141                         * .global USER_DP
+0142                         USER_DP: 
+0143 7035                     RMB 1
+0144                         
+0145                         * .global timeout
+0146                         timeout: 
+0147 7036                     RMB 2
+0148                         
+0149                         * .global buffer
+0150                         buffer: 
+0151 7038                     RMB 6
+0152                         
+0153                         * .global gpio1
+0154                         gpio1: 
+0155 703e 00 00               FDB 0
+0156                         
+0157                         * .global port2
+0158                         port2: 
+0159 7040 00 00               FDB 0
+0160                         
+0161                         * .global port1
+0162                         port1: 
+0163 7042 00 00               FDB 0
+0164                         
+0165                         * .global port0
+0166                         port0: 
+0167 7044 00 00               FDB 0
+0168                         
+0169                         * .global dptr
+0170                         dptr: 
+0171 7046 00 00               FDB 0
+0172                         
+0173                         * .global dptr2
+0174                         dptr2: 
+0175 7048 00 00               FDB 0
+0176 704a                    ADR1:  RMB 2
+0177 704c                    ADR2:  RMB 2
+0178 704e                    ADR3:  RMB 1
+0179 704f                    ADR31: RMB 3
+0180 fffe                       ORG  $fffe
+0181 fffe c0 00                 FDB  $c000
+0182 fff8                       org $fff8
+0183                         *   fdb irq_serv
+0184 fff8 7f f0                 fdb $7ff0       use ram vector
+0185 fffc                       org $fffc
+0186 fffc 7f f3                 fdb $7ff3        nmi vector
+0187 fff6                       org $fff6
+0188 fff6 7f f6                 fdb $7ff6        firq vector
+0189 fffa                       org $fffa
+0190 fffa c0 27                 fdb swi_serv
+0191 c000                       ORG  $c000
+0192 c000 10 ce 7f f0           lds  #$7ff0
+0193 c004 86 7e                 lda #$7e        store jmp instruction 
+0194 c006 b7 7f f0              sta $7ff0       irq vector
+0195 c009 8e c0 23              ldx #irq_serv
+0196 c00c bf 7f f1              stx $7ff1
+0197 c00f 86 3b                 lda #$3b        store rti instruction
+0198 c011 b7 7f f3              sta $7ff3       must be modified when testing
+0199 c014 b7 7f f6              sta $7ff6       with ram vector
+0200 c017 8e 00 00              ldx #0
+0201 c01a bf 7f f4              stx $7ff4
+0202 c01d bf 7f f7              stx $7ff7
+0203 c020 7e e8 10              jmp  main
+0204                         irq_serv
+0205 c023 7c 70 0e              inc tick
+0206 c026 3b                    rti
+0207                         swi_serv
+0208 c027 35 02                 PULS A
+0209 c029 b7 70 34              STA USER_P
+0210 c02c 35 02                 PULS A
+0211 c02e b7 70 32              STA USER_A
+0212 c031 35 02                 PULS A
+0213 c033 b7 70 33              STA USER_B
+0214 c036 35 02                 PULS A
+0215 c038 b7 70 35              STA USER_DP
+0216 c03b 35 10                 PULS X
+0217 c03d bf 70 2c              STX USER_X
+0218 c040 35 10                 PULS X
+0219 c042 bf 70 30              STX USER_Y
+0220 c045 35 10                 PULS X
+0221 c047 bf 70 2a              STX USER_U
+0222 c04a 35 10                 PULS X
+0223 c04c bf 70 28              STX USER_PC
+0224 c04f bf 70 1b              stx save_PC
+0225 c052 10 fe 70 2e           LDS SAVE_SP
+0226 c056 bd d0 5b              JSR key_PC
+0227 c059 39                    rts
+0228                         *
+0229                         * 16 bit division
+0230                         *
+0231                         *
+0232                         * D=X/D
+0233                         *
+0234 c05a 7f 70 4f           ccdiv: CLR ADR31
+0235 c05d bf 70 4a            STX ADR1
+0236 c060 fd 70 4c            STD ADR2
+0237 c063 2e 0b              ccd1: BGT ccd2
+0238 c065 73 70 4f            COM ADR31
+0239 c068 43                  COMA
+0240 c069 53                  COMB
+0241 c06a c3 00 01            ADDD #1
+0242 c06d fd 70 4c            STD ADR2
+0243 c070 fc 70 4a           ccd2: LDD ADR1
+0244 c073 10 83 00 00         CMPD #0
+0245 c077 2e 0b               BGT ccd3
+0246 c079 73 70 4f            COM ADR31
+0247 c07c 43                  COMA
+0248 c07d 53                  COMB
+0249 c07e c3 00 01            ADDD #1
+0250 c081 fd 70 4a            STD ADR1
+0251 c084 86 10              ccd3: LDA #16
+0252 c086 b7 70 4e            STA ADR3
+0253 c089 4f                  CLRA
+0254 c08a 5f                  CLRB
+0255                         DIVD:
+0256 c08b 78 70 4b            ASL ADR1+1
+0257 c08e 79 70 4a            ROL ADR1
+0258 c091 59                  ROLB
+0259 c092 49                  ROLA
+0260 c093 10 b3 70 4c         CMPD ADR2
+0261 c097 25 06               BLO NOSUB
+0262 c099 b3 70 4c            SUBD ADR2
+0263 c09c 7c 70 4b            INC ADR1+1
+0264 c09f 7a 70 4e           NOSUB: DEC ADR3
+0265 c0a2 26 e7               BNE DIVD
+0266 c0a4 1f 01               TFR D,X
+0267 c0a6 fc 70 4a            LDD ADR1
+0268 c0a9 7d 70 4f            TST ADR31
+0269 c0ac 27 05               BEQ ccd4
+0270 c0ae 43                  COMA
+0271 c0af 53                  COMB
+0272 c0b0 c3 00 01            ADDD #1
+0273 c0b3 39                 ccd4: RTS
+0274                         *
+0275                         * 16 bit multiplication
+0276                         *
+0277 c0b4 bf 70 4a           ccmult: STX ADR1
+0278 c0b7 fd 70 4c            STD ADR2
+0279 c0ba 7f 70 4e            CLR ADR3
+0280 c0bd 7f 70 4f            CLR ADR3+1
+0281 c0c0 b6 70 4b            LDA ADR1+1
+0282 c0c3 f6 70 4d            LDB ADR2+1
+0283 c0c6 3d                  MUL
+0284 c0c7 fd 70 50            STD ADR3+2
+0285 c0ca b6 70 4a            LDA ADR1
+0286 c0cd f6 70 4d            LDB ADR2+1
+0287 c0d0 3d                  MUL
+0288 c0d1 f3 70 4f            ADDD ADR3+1
+0289 c0d4 fd 70 4f            STD ADR3+1
+0290 c0d7 b6 70 4b            LDA ADR1+1
+0291 c0da f6 70 4c            LDB ADR2
+0292 c0dd 3d                  MUL
+0293 c0de f3 70 4f            ADDD ADR3+1
+0294 c0e1 fd 70 4f            STD ADR3+1
+0295 c0e4 24 03               BCC NOCARRY
+0296 c0e6 7c 70 4e            INC ADR3
+0297 c0e9 b6 70 4a           NOCARRY: LDA ADR1
+0298 c0ec f6 70 4c            LDB ADR2
+0299 c0ef 3d                  MUL
+0300 c0f0 f3 70 4e            ADDD ADR3
+0301 c0f3 1f 01               TFR D,X
+0302 c0f5 fc 70 50            LDD ADR3+2
+0303 c0f8 39                  RTS
+0304                         *
+0305                         *  switch statement
+0306                         *
+0307                         * D = switch value
+0308                         * S = switch table
+0309                         *     FDB addr1, value1
+0310                         *     FDB addr2, value2
+0311                         *     ...
+0312                         *     FDB 0
+0313                         *     [JMP DEFAULT]
+0314                         *     continuation
+0315                         *
+0316 c0f9 35 10              ccswitch: PULS X get stack adr
+0317 c0fb 10 ae 81           SWLOOP: LDY ,X++ get address
+0318 c0fe 10 8c 00 00                CMPY #0 if 0
+0319 c102 27 07                      BEQ SWEND then it is the default
+0320 c104 10 a3 81                   CMPD ,X++ else, if it is not the switch value
+0321 c107 26 f2                      BNE SWLOOP try next one
+0322 c109 6e a4                      JMP ,Y else we found it
+0323 c10b 6e 84              SWEND:  JMP ,X default exit
+0324                         
+0325                         *  .area  CONST  (REL,CON)
+0326                         
+0327                         * .global convert
+0328                         convert: 
+0329 c10d bd 30 9b ba 36 ae   FCB 189,48,155,186,54,174,175,56,191,190
+     af 38 bf be
+0330 c117 3f a7 8d b3 8f 0f   FCB 63,167,141,179,143,15
+0331                         
+0332                         * .global cold_msg
+0333                         cold_msg: 
+0334 c11d 00 00 00 00 00 00   FCB 0,0,0,0,0,0,174,191,189,190
+     ae bf bd be
+0335 c127 00 00               FCB 0,0
+0336                         
+0337                         *  .area  ROMCODE  (REL,CON)
+0338                         
+0339                         * .module LcdReady
+0340                         
+0341                         * .global LcdReady
+0342                         LcdReady: 
+0343 c129 cc 00 00            ldd  #0
+0344 c12c fd 70 36            std  timeout
+0345 c12f cc 90 02            ldd  #-28670
+0346 c132 fd 70 46            std  dptr
+0347                         cc2:  
+0348 c135 fc 70 46            ldd  dptr
+0349 c138 34 06               pshs d
+0350 c13a e6 f1               ldb  [,s++]
+0351 c13c 1d                  sex
+0352 c13d 34 06               pshs d
+0353 c13f cc 00 80            ldd  #128
+0354 c142 a4 e0               anda ,s+
+0355 c144 e4 e0               andb ,s+
+0356 c146 10 83 00 00         cmpd #0
+0357 c14a 10 27 00 20         lbeq cc4 ;_  instruction flagged for non optimize
+0358 c14e fc 70 36            ldd  timeout
+0359 c151 34 06               pshs d
+0360 c153 cc 01 f4            ldd  #500
+0361 c156 10 a3 e1            cmpd ,s++
+0362 c159 2e 05               bgt  *+7
+0363 c15b cc 00 00            ldd  #0
+0364 c15e 20 03               bra  *+5
+0365 c160 cc 00 01            ldd  #1
+0366 c163 10 83 00 00         cmpd #0
+0367 c167 10 27 00 03         lbeq cc4 ;_  instruction flagged for non optimize
+0368 c16b cc 00 01            ldd  #1
+0369                         cc4:  
+0370 c16e 10 83 00 00         cmpd #0
+0371 c172 10 27 00 0c         lbeq cc3
+0372 c176 fc 70 36            ldd  timeout
+0373 c179 c3 00 01            addd #1
+0374 c17c fd 70 36            std  timeout
+0375 c17f 7e c1 35            jmp cc2
+0376                         cc3:  
+0377 c182 39                  rts
+0378                         
+0379                         * .global clr_scre
+0380                         clr_scre: 
+0381 c183 bd c1 29            jsr LcdReady
+0382 c186 cc 90 00            ldd  #-28672
+0383 c189 fd 70 46            std  dptr
+0384 c18c fc 70 46            ldd  dptr
+0385 c18f 34 06               pshs d
+0386 c191 cc 00 01            ldd  #1
+0387 c194 e7 f1               stb  [,s++]
+0388 c196 39                  rts
+0389                         
+0390                         * .global goto_xy
+0391                         goto_xy: 
+0392 c197 bd c1 29            jsr LcdReady
+0393 c19a cc 90 00            ldd  #-28672
+0394 c19d fd 70 46            std  dptr
+0395 c1a0 31 62               leay 2,s
+0396 c1a2 1f 20               tfr  y,d
+0397 c1a4 34 06               pshs d
+0398 c1a6 ec f1               ldd  [,s++]
+0399 c1a8 7e c2 12            jmp cc7
+0400                         cc8:  
+0401 c1ab fc 70 46            ldd  dptr
+0402 c1ae 34 06               pshs d
+0403 c1b0 cc 00 80            ldd  #128
+0404 c1b3 34 06               pshs d
+0405 c1b5 31 68               leay 8,s
+0406 c1b7 1f 20               tfr  y,d
+0407 c1b9 34 06               pshs d
+0408 c1bb ec f1               ldd  [,s++]
+0409 c1bd e3 e1               addd ,s++
+0410 c1bf e7 f1               stb  [,s++]
+0411 c1c1 7e c2 27            jmp cc6
+0412                         cc9:  
+0413 c1c4 fc 70 46            ldd  dptr
+0414 c1c7 34 06               pshs d
+0415 c1c9 cc 00 c0            ldd  #192
+0416 c1cc 34 06               pshs d
+0417 c1ce 31 68               leay 8,s
+0418 c1d0 1f 20               tfr  y,d
+0419 c1d2 34 06               pshs d
+0420 c1d4 ec f1               ldd  [,s++]
+0421 c1d6 e3 e1               addd ,s++
+0422 c1d8 e7 f1               stb  [,s++]
+0423 c1da 7e c2 27            jmp cc6
+0424                         cc10:  
+0425 c1dd fc 70 46            ldd  dptr
+0426 c1e0 34 06               pshs d
+0427 c1e2 cc 00 94            ldd  #148
+0428 c1e5 34 06               pshs d
+0429 c1e7 31 68               leay 8,s
+0430 c1e9 1f 20               tfr  y,d
+0431 c1eb 34 06               pshs d
+0432 c1ed ec f1               ldd  [,s++]
+0433 c1ef e3 e1               addd ,s++
+0434 c1f1 e7 f1               stb  [,s++]
+0435 c1f3 7e c2 27            jmp cc6
+0436                         cc11:  
+0437 c1f6 fc 70 46            ldd  dptr
+0438 c1f9 34 06               pshs d
+0439 c1fb cc 00 d4            ldd  #212
+0440 c1fe 34 06               pshs d
+0441 c200 31 68               leay 8,s
+0442 c202 1f 20               tfr  y,d
+0443 c204 34 06               pshs d
+0444 c206 ec f1               ldd  [,s++]
+0445 c208 e3 e1               addd ,s++
+0446 c20a e7 f1               stb  [,s++]
+0447 c20c 7e c2 27            jmp cc6
+0448 c20f 7e c2 27            jmp cc6
+0449                         cc7:  
+0450 c212 bd c0 f9            jsr ccswitch
+0451 c215 c1 ab 00 00         FDB cc8,0
+0452 c219 c1 c4 00 01         FDB cc9,1
+0453 c21d c1 dd 00 02         FDB cc10,2
+0454 c221 c1 f6 00 03         FDB cc11,3
+0455 c225 00 00               FDB 0
+0456                         cc6:  
+0457 c227 39                  rts
+0458                         
+0459                         * .global InitLcd
+0460                         InitLcd: 
+0461 c228 bd c1 29            jsr LcdReady
+0462 c22b cc 90 00            ldd  #-28672
+0463 c22e fd 70 46            std  dptr
+0464 c231 fc 70 46            ldd  dptr
+0465 c234 34 06               pshs d
+0466 c236 cc 00 38            ldd  #56
+0467 c239 e7 f1               stb  [,s++]
+0468 c23b bd c1 29            jsr LcdReady
+0469 c23e cc 90 00            ldd  #-28672
+0470 c241 fd 70 46            std  dptr
+0471 c244 fc 70 46            ldd  dptr
+0472 c247 34 06               pshs d
+0473 c249 cc 00 0c            ldd  #12
+0474 c24c e7 f1               stb  [,s++]
+0475 c24e bd c1 83            jsr clr_scre
+0476 c251 cc 00 00            ldd  #0
+0477 c254 34 06               pshs d
+0478 c256 cc 00 00            ldd  #0
+0479 c259 34 06               pshs d
+0480 c25b bd c1 97            jsr goto_xy
+0481 c25e 32 64               leas 4,s
+0482 c260 cc 00 64            ldd  #100
+0483 c263 34 06               pshs d
+0484 c265 bd c8 41            jsr delay_ms
+0485 c268 32 62               leas 2,s
+0486 c26a 39                  rts
+0487                         
+0488                         * .global PutLCD
+0489                         PutLCD: 
+0490 c26b 32 7f               leas -1,s
+0491 c26d 31 e4               leay 0,s
+0492 c26f 1f 20               tfr  y,d
+0493 c271 34 06               pshs d
+0494 c273 cc 00 00            ldd  #0
+0495 c276 e7 f1               stb  [,s++]
+0496                         cc14:  
+0497 c278 31 63               leay 3,s
+0498 c27a 1f 20               tfr  y,d
+0499 c27c 34 06               pshs d
+0500 c27e ec f1               ldd  [,s++]
+0501 c280 34 06               pshs d
+0502 c282 31 62               leay 2,s
+0503 c284 1f 20               tfr  y,d
+0504 c286 34 06               pshs d
+0505 c288 e6 f1               ldb  [,s++]
+0506 c28a 1d                  sex
+0507 c28b e3 e1               addd ,s++
+0508 c28d 34 06               pshs d
+0509 c28f e6 f1               ldb  [,s++]
+0510 c291 1d                  sex
+0511 c292 34 06               pshs d
+0512 c294 cc 00 00            ldd  #0
+0513 c297 10 a3 e1            cmpd ,s++
+0514 c29a 26 05               bne   *+7
+0515 c29c cc 00 00            ldd  #0
+0516 c29f 20 03               bra  *+5
+0517 c2a1 cc 00 01            ldd  #1
+0518 c2a4 10 83 00 00         cmpd #0
+0519 c2a8 10 27 00 46         lbeq cc13
+0520 c2ac 7e c2 c5            jmp cc15
+0521                         cc12:  
+0522 c2af 31 e4               leay 0,s
+0523 c2b1 1f 20               tfr  y,d
+0524 c2b3 34 06               pshs d
+0525 c2b5 34 06               pshs d
+0526 c2b7 e6 f1               ldb  [,s++]
+0527 c2b9 1d                  sex
+0528 c2ba c3 00 01            addd #1
+0529 c2bd e7 f1               stb  [,s++]
+0530 c2bf 83 00 01            subd #1
+0531 c2c2 7e c2 78            jmp cc14
+0532                         cc15:  
+0533 c2c5 bd c1 29            jsr LcdReady
+0534 c2c8 cc 90 01            ldd  #-28671
+0535 c2cb fd 70 46            std  dptr
+0536 c2ce fc 70 46            ldd  dptr
+0537 c2d1 34 06               pshs d
+0538 c2d3 31 65               leay 5,s
+0539 c2d5 1f 20               tfr  y,d
+0540 c2d7 34 06               pshs d
+0541 c2d9 ec f1               ldd  [,s++]
+0542 c2db 34 06               pshs d
+0543 c2dd 31 64               leay 4,s
+0544 c2df 1f 20               tfr  y,d
+0545 c2e1 34 06               pshs d
+0546 c2e3 e6 f1               ldb  [,s++]
+0547 c2e5 1d                  sex
+0548 c2e6 e3 e1               addd ,s++
+0549 c2e8 34 06               pshs d
+0550 c2ea e6 f1               ldb  [,s++]
+0551 c2ec 1d                  sex
+0552 c2ed e7 f1               stb  [,s++]
+0553 c2ef 7e c2 af            jmp cc12
+0554                         cc13:  
+0555 c2f2 32 61               leas 1,s
+0556 c2f4 39                  rts
+0557                         
+0558                         * .global putch_lc
+0559                         putch_lc: 
+0560 c2f5 bd c1 29            jsr LcdReady
+0561 c2f8 cc 90 01            ldd  #-28671
+0562 c2fb fd 70 46            std  dptr
+0563 c2fe fc 70 46            ldd  dptr
+0564 c301 34 06               pshs d
+0565 c303 31 65               leay 5,s
+0566 c305 1f 20               tfr  y,d
+0567 c307 34 06               pshs d
+0568 c309 e6 f1               ldb  [,s++]
+0569 c30b 1d                  sex
+0570 c30c e7 f1               stb  [,s++]
+0571 c30e 39                  rts
+0572                         
+0573                         * .global key_code
+0574                         key_code: 
+0575 c30f 32 7f               leas -1,s
+0576 c311 31 64               leay 4,s
+0577 c313 1f 20               tfr  y,d
+0578 c315 34 06               pshs d
+0579 c317 e6 f1               ldb  [,s++]
+0580 c319 1d                  sex
+0581 c31a 34 06               pshs d
+0582 c31c cc 00 16            ldd  #22
+0583 c31f 10 a3 e1            cmpd ,s++
+0584 c322 27 05               beq  *+7
+0585 c324 cc 00 00            ldd  #0
+0586 c327 20 03               bra  *+5
+0587 c329 cc 00 01            ldd  #1
+0588 c32c 10 83 00 00         cmpd #0
+0589 c330 10 27 00 06         lbeq cc16
+0590 c334 cc 00 00            ldd  #0
+0591 c337 32 61               leas 1,s
+0592 c339 39                  rts
+0593                         cc16:  
+0594 c33a 31 64               leay 4,s
+0595 c33c 1f 20               tfr  y,d
+0596 c33e 34 06               pshs d
+0597 c340 e6 f1               ldb  [,s++]
+0598 c342 1d                  sex
+0599 c343 34 06               pshs d
+0600 c345 cc 00 21            ldd  #33
+0601 c348 10 a3 e1            cmpd ,s++
+0602 c34b 27 05               beq  *+7
+0603 c34d cc 00 00            ldd  #0
+0604 c350 20 03               bra  *+5
+0605 c352 cc 00 01            ldd  #1
+0606 c355 10 83 00 00         cmpd #0
+0607 c359 10 27 00 06         lbeq cc17
+0608 c35d cc 00 01            ldd  #1
+0609 c360 32 61               leas 1,s
+0610 c362 39                  rts
+0611                         cc17:  
+0612 c363 31 64               leay 4,s
+0613 c365 1f 20               tfr  y,d
+0614 c367 34 06               pshs d
+0615 c369 e6 f1               ldb  [,s++]
+0616 c36b 1d                  sex
+0617 c36c 34 06               pshs d
+0618 c36e cc 00 1b            ldd  #27
+0619 c371 10 a3 e1            cmpd ,s++
+0620 c374 27 05               beq  *+7
+0621 c376 cc 00 00            ldd  #0
+0622 c379 20 03               bra  *+5
+0623 c37b cc 00 01            ldd  #1
+0624 c37e 10 83 00 00         cmpd #0
+0625 c382 10 27 00 06         lbeq cc18
+0626 c386 cc 00 02            ldd  #2
+0627 c389 32 61               leas 1,s
+0628 c38b 39                  rts
+0629                         cc18:  
+0630 c38c 31 64               leay 4,s
+0631 c38e 1f 20               tfr  y,d
+0632 c390 34 06               pshs d
+0633 c392 e6 f1               ldb  [,s++]
+0634 c394 1d                  sex
+0635 c395 34 06               pshs d
+0636 c397 cc 00 15            ldd  #21
+0637 c39a 10 a3 e1            cmpd ,s++
+0638 c39d 27 05               beq  *+7
+0639 c39f cc 00 00            ldd  #0
+0640 c3a2 20 03               bra  *+5
+0641 c3a4 cc 00 01            ldd  #1
+0642 c3a7 10 83 00 00         cmpd #0
+0643 c3ab 10 27 00 06         lbeq cc19
+0644 c3af cc 00 03            ldd  #3
+0645 c3b2 32 61               leas 1,s
+0646 c3b4 39                  rts
+0647                         cc19:  
+0648 c3b5 31 64               leay 4,s
+0649 c3b7 1f 20               tfr  y,d
+0650 c3b9 34 06               pshs d
+0651 c3bb e6 f1               ldb  [,s++]
+0652 c3bd 1d                  sex
+0653 c3be 34 06               pshs d
+0654 c3c0 cc 00 1c            ldd  #28
+0655 c3c3 10 a3 e1            cmpd ,s++
+0656 c3c6 27 05               beq  *+7
+0657 c3c8 cc 00 00            ldd  #0
+0658 c3cb 20 03               bra  *+5
+0659 c3cd cc 00 01            ldd  #1
+0660 c3d0 10 83 00 00         cmpd #0
+0661 c3d4 10 27 00 06         lbeq cc20
+0662 c3d8 cc 00 04            ldd  #4
+0663 c3db 32 61               leas 1,s
+0664 c3dd 39                  rts
+0665                         cc20:  
+0666 c3de 31 64               leay 4,s
+0667 c3e0 1f 20               tfr  y,d
+0668 c3e2 34 06               pshs d
+0669 c3e4 e6 f1               ldb  [,s++]
+0670 c3e6 1d                  sex
+0671 c3e7 34 06               pshs d
+0672 c3e9 cc 00 20            ldd  #32
+0673 c3ec 10 a3 e1            cmpd ,s++
+0674 c3ef 27 05               beq  *+7
+0675 c3f1 cc 00 00            ldd  #0
+0676 c3f4 20 03               bra  *+5
+0677 c3f6 cc 00 01            ldd  #1
+0678 c3f9 10 83 00 00         cmpd #0
+0679 c3fd 10 27 00 06         lbeq cc21
+0680 c401 cc 00 05            ldd  #5
+0681 c404 32 61               leas 1,s
+0682 c406 39                  rts
+0683                         cc21:  
+0684 c407 31 64               leay 4,s
+0685 c409 1f 20               tfr  y,d
+0686 c40b 34 06               pshs d
+0687 c40d e6 f1               ldb  [,s++]
+0688 c40f 1d                  sex
+0689 c410 34 06               pshs d
+0690 c412 cc 00 1a            ldd  #26
+0691 c415 10 a3 e1            cmpd ,s++
+0692 c418 27 05               beq  *+7
+0693 c41a cc 00 00            ldd  #0
+0694 c41d 20 03               bra  *+5
+0695 c41f cc 00 01            ldd  #1
+0696 c422 10 83 00 00         cmpd #0
+0697 c426 10 27 00 06         lbeq cc22
+0698 c42a cc 00 06            ldd  #6
+0699 c42d 32 61               leas 1,s
+0700 c42f 39                  rts
+0701                         cc22:  
+0702 c430 31 64               leay 4,s
+0703 c432 1f 20               tfr  y,d
+0704 c434 34 06               pshs d
+0705 c436 e6 f1               ldb  [,s++]
+0706 c438 1d                  sex
+0707 c439 34 06               pshs d
+0708 c43b cc 00 14            ldd  #20
+0709 c43e 10 a3 e1            cmpd ,s++
+0710 c441 27 05               beq  *+7
+0711 c443 cc 00 00            ldd  #0
+0712 c446 20 03               bra  *+5
+0713 c448 cc 00 01            ldd  #1
+0714 c44b 10 83 00 00         cmpd #0
+0715 c44f 10 27 00 06         lbeq cc23
+0716 c453 cc 00 07            ldd  #7
+0717 c456 32 61               leas 1,s
+0718 c458 39                  rts
+0719                         cc23:  
+0720 c459 31 64               leay 4,s
+0721 c45b 1f 20               tfr  y,d
+0722 c45d 34 06               pshs d
+0723 c45f e6 f1               ldb  [,s++]
+0724 c461 1d                  sex
+0725 c462 34 06               pshs d
+0726 c464 cc 00 22            ldd  #34
+0727 c467 10 a3 e1            cmpd ,s++
+0728 c46a 27 05               beq  *+7
+0729 c46c cc 00 00            ldd  #0
+0730 c46f 20 03               bra  *+5
+0731 c471 cc 00 01            ldd  #1
+0732 c474 10 83 00 00         cmpd #0
+0733 c478 10 27 00 06         lbeq cc24
+0734 c47c cc 00 08            ldd  #8
+0735 c47f 32 61               leas 1,s
+0736 c481 39                  rts
+0737                         cc24:  
+0738 c482 31 64               leay 4,s
+0739 c484 1f 20               tfr  y,d
+0740 c486 34 06               pshs d
+0741 c488 e6 f1               ldb  [,s++]
+0742 c48a 1d                  sex
+0743 c48b 34 06               pshs d
+0744 c48d cc 00 1f            ldd  #31
+0745 c490 10 a3 e1            cmpd ,s++
+0746 c493 27 05               beq  *+7
+0747 c495 cc 00 00            ldd  #0
+0748 c498 20 03               bra  *+5
+0749 c49a cc 00 01            ldd  #1
+0750 c49d 10 83 00 00         cmpd #0
+0751 c4a1 10 27 00 06         lbeq cc25
+0752 c4a5 cc 00 09            ldd  #9
+0753 c4a8 32 61               leas 1,s
+0754 c4aa 39                  rts
+0755                         cc25:  
+0756 c4ab 31 64               leay 4,s
+0757 c4ad 1f 20               tfr  y,d
+0758 c4af 34 06               pshs d
+0759 c4b1 e6 f1               ldb  [,s++]
+0760 c4b3 1d                  sex
+0761 c4b4 34 06               pshs d
+0762 c4b6 cc 00 19            ldd  #25
+0763 c4b9 10 a3 e1            cmpd ,s++
+0764 c4bc 27 05               beq  *+7
+0765 c4be cc 00 00            ldd  #0
+0766 c4c1 20 03               bra  *+5
+0767 c4c3 cc 00 01            ldd  #1
+0768 c4c6 10 83 00 00         cmpd #0
+0769 c4ca 10 27 00 06         lbeq cc26
+0770 c4ce cc 00 0a            ldd  #10
+0771 c4d1 32 61               leas 1,s
+0772 c4d3 39                  rts
+0773                         cc26:  
+0774 c4d4 31 64               leay 4,s
+0775 c4d6 1f 20               tfr  y,d
+0776 c4d8 34 06               pshs d
+0777 c4da e6 f1               ldb  [,s++]
+0778 c4dc 1d                  sex
+0779 c4dd 34 06               pshs d
+0780 c4df cc 00 13            ldd  #19
+0781 c4e2 10 a3 e1            cmpd ,s++
+0782 c4e5 27 05               beq  *+7
+0783 c4e7 cc 00 00            ldd  #0
+0784 c4ea 20 03               bra  *+5
+0785 c4ec cc 00 01            ldd  #1
+0786 c4ef 10 83 00 00         cmpd #0
+0787 c4f3 10 27 00 06         lbeq cc27
+0788 c4f7 cc 00 0b            ldd  #11
+0789 c4fa 32 61               leas 1,s
+0790 c4fc 39                  rts
+0791                         cc27:  
+0792 c4fd 31 64               leay 4,s
+0793 c4ff 1f 20               tfr  y,d
+0794 c501 34 06               pshs d
+0795 c503 e6 f1               ldb  [,s++]
+0796 c505 1d                  sex
+0797 c506 34 06               pshs d
+0798 c508 cc 00 03            ldd  #3
+0799 c50b 10 a3 e1            cmpd ,s++
+0800 c50e 27 05               beq  *+7
+0801 c510 cc 00 00            ldd  #0
+0802 c513 20 03               bra  *+5
+0803 c515 cc 00 01            ldd  #1
+0804 c518 10 83 00 00         cmpd #0
+0805 c51c 10 27 00 06         lbeq cc28
+0806 c520 cc 00 0c            ldd  #12
+0807 c523 32 61               leas 1,s
+0808 c525 39                  rts
+0809                         cc28:  
+0810 c526 31 64               leay 4,s
+0811 c528 1f 20               tfr  y,d
+0812 c52a 34 06               pshs d
+0813 c52c e6 f1               ldb  [,s++]
+0814 c52e 1d                  sex
+0815 c52f 34 06               pshs d
+0816 c531 cc 00 1e            ldd  #30
+0817 c534 10 a3 e1            cmpd ,s++
+0818 c537 27 05               beq  *+7
+0819 c539 cc 00 00            ldd  #0
+0820 c53c 20 03               bra  *+5
+0821 c53e cc 00 01            ldd  #1
+0822 c541 10 83 00 00         cmpd #0
+0823 c545 10 27 00 06         lbeq cc29
+0824 c549 cc 00 0d            ldd  #13
+0825 c54c 32 61               leas 1,s
+0826 c54e 39                  rts
+0827                         cc29:  
+0828 c54f 31 64               leay 4,s
+0829 c551 1f 20               tfr  y,d
+0830 c553 34 06               pshs d
+0831 c555 e6 f1               ldb  [,s++]
+0832 c557 1d                  sex
+0833 c558 34 06               pshs d
+0834 c55a cc 00 18            ldd  #24
+0835 c55d 10 a3 e1            cmpd ,s++
+0836 c560 27 05               beq  *+7
+0837 c562 cc 00 00            ldd  #0
+0838 c565 20 03               bra  *+5
+0839 c567 cc 00 01            ldd  #1
+0840 c56a 10 83 00 00         cmpd #0
+0841 c56e 10 27 00 06         lbeq cc30
+0842 c572 cc 00 0e            ldd  #14
+0843 c575 32 61               leas 1,s
+0844 c577 39                  rts
+0845                         cc30:  
+0846 c578 31 64               leay 4,s
+0847 c57a 1f 20               tfr  y,d
+0848 c57c 34 06               pshs d
+0849 c57e e6 f1               ldb  [,s++]
+0850 c580 1d                  sex
+0851 c581 34 06               pshs d
+0852 c583 cc 00 12            ldd  #18
+0853 c586 10 a3 e1            cmpd ,s++
+0854 c589 27 05               beq  *+7
+0855 c58b cc 00 00            ldd  #0
+0856 c58e 20 03               bra  *+5
+0857 c590 cc 00 01            ldd  #1
+0858 c593 10 83 00 00         cmpd #0
+0859 c597 10 27 00 06         lbeq cc31
+0860 c59b cc 00 0f            ldd  #15
+0861 c59e 32 61               leas 1,s
+0862 c5a0 39                  rts
+0863                         cc31:  
+0864 c5a1 31 64               leay 4,s
+0865 c5a3 1f 20               tfr  y,d
+0866 c5a5 34 06               pshs d
+0867 c5a7 e6 f1               ldb  [,s++]
+0868 c5a9 1d                  sex
+0869 c5aa 34 06               pshs d
+0870 c5ac cc 00 0c            ldd  #12
+0871 c5af 10 a3 e1            cmpd ,s++
+0872 c5b2 27 05               beq  *+7
+0873 c5b4 cc 00 00            ldd  #0
+0874 c5b7 20 03               bra  *+5
+0875 c5b9 cc 00 01            ldd  #1
+0876 c5bc 10 83 00 00         cmpd #0
+0877 c5c0 10 27 00 06         lbeq cc32
+0878 c5c4 cc 00 10            ldd  #16
+0879 c5c7 32 61               leas 1,s
+0880 c5c9 39                  rts
+0881                         cc32:  
+0882 c5ca 31 64               leay 4,s
+0883 c5cc 1f 20               tfr  y,d
+0884 c5ce 34 06               pshs d
+0885 c5d0 e6 f1               ldb  [,s++]
+0886 c5d2 1d                  sex
+0887 c5d3 34 06               pshs d
+0888 c5d5 cc 00 0d            ldd  #13
+0889 c5d8 10 a3 e1            cmpd ,s++
+0890 c5db 27 05               beq  *+7
+0891 c5dd cc 00 00            ldd  #0
+0892 c5e0 20 03               bra  *+5
+0893 c5e2 cc 00 01            ldd  #1
+0894 c5e5 10 83 00 00         cmpd #0
+0895 c5e9 10 27 00 06         lbeq cc33
+0896 c5ed cc 00 11            ldd  #17
+0897 c5f0 32 61               leas 1,s
+0898 c5f2 39                  rts
+0899                         cc33:  
+0900 c5f3 31 64               leay 4,s
+0901 c5f5 1f 20               tfr  y,d
+0902 c5f7 34 06               pshs d
+0903 c5f9 e6 f1               ldb  [,s++]
+0904 c5fb 1d                  sex
+0905 c5fc 34 06               pshs d
+0906 c5fe cc 00 0e            ldd  #14
+0907 c601 10 a3 e1            cmpd ,s++
+0908 c604 27 05               beq  *+7
+0909 c606 cc 00 00            ldd  #0
+0910 c609 20 03               bra  *+5
+0911 c60b cc 00 01            ldd  #1
+0912 c60e 10 83 00 00         cmpd #0
+0913 c612 10 27 00 06         lbeq cc34
+0914 c616 cc 00 12            ldd  #18
+0915 c619 32 61               leas 1,s
+0916 c61b 39                  rts
+0917                         cc34:  
+0918 c61c 31 64               leay 4,s
+0919 c61e 1f 20               tfr  y,d
+0920 c620 34 06               pshs d
+0921 c622 e6 f1               ldb  [,s++]
+0922 c624 1d                  sex
+0923 c625 34 06               pshs d
+0924 c627 cc 00 0f            ldd  #15
+0925 c62a 10 a3 e1            cmpd ,s++
+0926 c62d 27 05               beq  *+7
+0927 c62f cc 00 00            ldd  #0
+0928 c632 20 03               bra  *+5
+0929 c634 cc 00 01            ldd  #1
+0930 c637 10 83 00 00         cmpd #0
+0931 c63b 10 27 00 06         lbeq cc35
+0932 c63f cc 00 13            ldd  #19
+0933 c642 32 61               leas 1,s
+0934 c644 39                  rts
+0935                         cc35:  
+0936 c645 31 64               leay 4,s
+0937 c647 1f 20               tfr  y,d
+0938 c649 34 06               pshs d
+0939 c64b e6 f1               ldb  [,s++]
+0940 c64d 1d                  sex
+0941 c64e 34 06               pshs d
+0942 c650 cc 00 06            ldd  #6
+0943 c653 10 a3 e1            cmpd ,s++
+0944 c656 27 05               beq  *+7
+0945 c658 cc 00 00            ldd  #0
+0946 c65b 20 03               bra  *+5
+0947 c65d cc 00 01            ldd  #1
+0948 c660 10 83 00 00         cmpd #0
+0949 c664 10 27 00 06         lbeq cc36
+0950 c668 cc 00 14            ldd  #20
+0951 c66b 32 61               leas 1,s
+0952 c66d 39                  rts
+0953                         cc36:  
+0954 c66e 31 64               leay 4,s
+0955 c670 1f 20               tfr  y,d
+0956 c672 34 06               pshs d
+0957 c674 e6 f1               ldb  [,s++]
+0958 c676 1d                  sex
+0959 c677 34 06               pshs d
+0960 c679 cc 00 07            ldd  #7
+0961 c67c 10 a3 e1            cmpd ,s++
+0962 c67f 27 05               beq  *+7
+0963 c681 cc 00 00            ldd  #0
+0964 c684 20 03               bra  *+5
+0965 c686 cc 00 01            ldd  #1
+0966 c689 10 83 00 00         cmpd #0
+0967 c68d 10 27 00 06         lbeq cc37
+0968 c691 cc 00 15            ldd  #21
+0969 c694 32 61               leas 1,s
+0970 c696 39                  rts
+0971                         cc37:  
+0972 c697 31 64               leay 4,s
+0973 c699 1f 20               tfr  y,d
+0974 c69b 34 06               pshs d
+0975 c69d e6 f1               ldb  [,s++]
+0976 c69f 1d                  sex
+0977 c6a0 34 06               pshs d
+0978 c6a2 cc 00 08            ldd  #8
+0979 c6a5 10 a3 e1            cmpd ,s++
+0980 c6a8 27 05               beq  *+7
+0981 c6aa cc 00 00            ldd  #0
+0982 c6ad 20 03               bra  *+5
+0983 c6af cc 00 01            ldd  #1
+0984 c6b2 10 83 00 00         cmpd #0
+0985 c6b6 10 27 00 06         lbeq cc38
+0986 c6ba cc 00 16            ldd  #22
+0987 c6bd 32 61               leas 1,s
+0988 c6bf 39                  rts
+0989                         cc38:  
+0990 c6c0 31 64               leay 4,s
+0991 c6c2 1f 20               tfr  y,d
+0992 c6c4 34 06               pshs d
+0993 c6c6 e6 f1               ldb  [,s++]
+0994 c6c8 1d                  sex
+0995 c6c9 34 06               pshs d
+0996 c6cb cc 00 09            ldd  #9
+0997 c6ce 10 a3 e1            cmpd ,s++
+0998 c6d1 27 05               beq  *+7
+0999 c6d3 cc 00 00            ldd  #0
+1000 c6d6 20 03               bra  *+5
+1001 c6d8 cc 00 01            ldd  #1
+1002 c6db 10 83 00 00         cmpd #0
+1003 c6df 10 27 00 06         lbeq cc39
+1004 c6e3 cc 00 17            ldd  #23
+1005 c6e6 32 61               leas 1,s
+1006 c6e8 39                  rts
+1007                         cc39:  
+1008 c6e9 31 64               leay 4,s
+1009 c6eb 1f 20               tfr  y,d
+1010 c6ed 34 06               pshs d
+1011 c6ef e6 f1               ldb  [,s++]
+1012 c6f1 1d                  sex
+1013 c6f2 34 06               pshs d
+1014 c6f4 cc 00 00            ldd  #0
+1015 c6f7 10 a3 e1            cmpd ,s++
+1016 c6fa 27 05               beq  *+7
+1017 c6fc cc 00 00            ldd  #0
+1018 c6ff 20 03               bra  *+5
+1019 c701 cc 00 01            ldd  #1
+1020 c704 10 83 00 00         cmpd #0
+1021 c708 10 27 00 06         lbeq cc40
+1022 c70c cc 00 18            ldd  #24
+1023 c70f 32 61               leas 1,s
+1024 c711 39                  rts
+1025                         cc40:  
+1026 c712 31 64               leay 4,s
+1027 c714 1f 20               tfr  y,d
+1028 c716 34 06               pshs d
+1029 c718 e6 f1               ldb  [,s++]
+1030 c71a 1d                  sex
+1031 c71b 34 06               pshs d
+1032 c71d cc 00 01            ldd  #1
+1033 c720 10 a3 e1            cmpd ,s++
+1034 c723 27 05               beq  *+7
+1035 c725 cc 00 00            ldd  #0
+1036 c728 20 03               bra  *+5
+1037 c72a cc 00 01            ldd  #1
+1038 c72d 10 83 00 00         cmpd #0
+1039 c731 10 27 00 06         lbeq cc41
+1040 c735 cc 00 19            ldd  #25
+1041 c738 32 61               leas 1,s
+1042 c73a 39                  rts
+1043                         cc41:  
+1044 c73b 31 64               leay 4,s
+1045 c73d 1f 20               tfr  y,d
+1046 c73f 34 06               pshs d
+1047 c741 e6 f1               ldb  [,s++]
+1048 c743 1d                  sex
+1049 c744 34 06               pshs d
+1050 c746 cc 00 02            ldd  #2
+1051 c749 10 a3 e1            cmpd ,s++
+1052 c74c 27 05               beq  *+7
+1053 c74e cc 00 00            ldd  #0
+1054 c751 20 03               bra  *+5
+1055 c753 cc 00 01            ldd  #1
+1056 c756 10 83 00 00         cmpd #0
+1057 c75a 10 27 00 06         lbeq cc42
+1058 c75e cc 00 1a            ldd  #26
+1059 c761 32 61               leas 1,s
+1060 c763 39                  rts
+1061                         cc42:  
+1062 c764 31 64               leay 4,s
+1063 c766 1f 20               tfr  y,d
+1064 c768 34 06               pshs d
+1065 c76a e6 f1               ldb  [,s++]
+1066 c76c 1d                  sex
+1067 c76d 34 06               pshs d
+1068 c76f cc 00 24            ldd  #36
+1069 c772 10 a3 e1            cmpd ,s++
+1070 c775 27 05               beq  *+7
+1071 c777 cc 00 00            ldd  #0
+1072 c77a 20 03               bra  *+5
+1073 c77c cc 00 01            ldd  #1
+1074 c77f 10 83 00 00         cmpd #0
+1075 c783 10 27 00 06         lbeq cc43
+1076 c787 cc 00 1b            ldd  #27
+1077 c78a 32 61               leas 1,s
+1078 c78c 39                  rts
+1079                         cc43:  
+1080 c78d 31 64               leay 4,s
+1081 c78f 1f 20               tfr  y,d
+1082 c791 34 06               pshs d
+1083 c793 e6 f1               ldb  [,s++]
+1084 c795 1d                  sex
+1085 c796 34 06               pshs d
+1086 c798 cc 00 23            ldd  #35
+1087 c79b 10 a3 e1            cmpd ,s++
+1088 c79e 27 05               beq  *+7
+1089 c7a0 cc 00 00            ldd  #0
+1090 c7a3 20 03               bra  *+5
+1091 c7a5 cc 00 01            ldd  #1
+1092 c7a8 10 83 00 00         cmpd #0
+1093 c7ac 10 27 00 06         lbeq cc44
+1094 c7b0 cc 00 1c            ldd  #28
+1095 c7b3 32 61               leas 1,s
+1096 c7b5 39                  rts
+1097                         cc44:  
+1098 c7b6 31 64               leay 4,s
+1099 c7b8 1f 20               tfr  y,d
+1100 c7ba 34 06               pshs d
+1101 c7bc e6 f1               ldb  [,s++]
+1102 c7be 1d                  sex
+1103 c7bf 34 06               pshs d
+1104 c7c1 cc 00 1d            ldd  #29
+1105 c7c4 10 a3 e1            cmpd ,s++
+1106 c7c7 27 05               beq  *+7
+1107 c7c9 cc 00 00            ldd  #0
+1108 c7cc 20 03               bra  *+5
+1109 c7ce cc 00 01            ldd  #1
+1110 c7d1 10 83 00 00         cmpd #0
+1111 c7d5 10 27 00 06         lbeq cc45
+1112 c7d9 cc 00 1d            ldd  #29
+1113 c7dc 32 61               leas 1,s
+1114 c7de 39                  rts
+1115                         cc45:  
+1116 c7df 31 64               leay 4,s
+1117 c7e1 1f 20               tfr  y,d
+1118 c7e3 34 06               pshs d
+1119 c7e5 e6 f1               ldb  [,s++]
+1120 c7e7 1d                  sex
+1121 c7e8 34 06               pshs d
+1122 c7ea cc 00 17            ldd  #23
+1123 c7ed 10 a3 e1            cmpd ,s++
+1124 c7f0 27 05               beq  *+7
+1125 c7f2 cc 00 00            ldd  #0
+1126 c7f5 20 03               bra  *+5
+1127 c7f7 cc 00 01            ldd  #1
+1128 c7fa 10 83 00 00         cmpd #0
+1129 c7fe 10 27 00 06         lbeq cc46
+1130 c802 cc 00 1e            ldd  #30
+1131 c805 32 61               leas 1,s
+1132 c807 39                  rts
+1133                         cc46:  
+1134 c808 31 64               leay 4,s
+1135 c80a 1f 20               tfr  y,d
+1136 c80c 34 06               pshs d
+1137 c80e e6 f1               ldb  [,s++]
+1138 c810 1d                  sex
+1139 c811 34 06               pshs d
+1140 c813 cc 00 10            ldd  #16
+1141 c816 10 a3 e1            cmpd ,s++
+1142 c819 27 05               beq  *+7
+1143 c81b cc 00 00            ldd  #0
+1144 c81e 20 03               bra  *+5
+1145 c820 cc 00 01            ldd  #1
+1146 c823 10 83 00 00         cmpd #0
+1147 c827 10 27 00 06         lbeq cc47
+1148 c82b cc 00 1f            ldd  #31
+1149 c82e 32 61               leas 1,s
+1150 c830 39                  rts
+1151                         cc47:  
+1152 c831 32 61               leas 1,s
+1153 c833 39                  rts
+1154                         
+1155                         * .global delay_nu
+1156                         delay_nu: 
+1157 c834 cc 00 00            ldd  #0
+1158 c837 fd 70 15            std  temp
+1159 c83a cc 00 00            ldd  #0
+1160 c83d fd 70 15            std  temp
+1161 c840 39                  rts
+1162                         
+1163                         * .global delay_ms
+1164                         delay_ms: 
+1165 c841 cc 00 00            ldd  #0
+1166 c844 f7 70 04            stb  n
+1167                         cc50:  
+1168 c847 f6 70 04            ldb  n
+1169 c84a 1d                  sex
+1170 c84b 34 06               pshs d
+1171 c84d 31 64               leay 4,s
+1172 c84f 1f 20               tfr  y,d
+1173 c851 34 06               pshs d
+1174 c853 ec f1               ldd  [,s++]
+1175 c855 10 a3 e1            cmpd ,s++
+1176 c858 2e 05               bgt  *+7
+1177 c85a cc 00 00            ldd  #0
+1178 c85d 20 03               bra  *+5
+1179 c85f cc 00 01            ldd  #1
+1180 c862 10 83 00 00         cmpd #0
+1181 c866 10 27 00 19         lbeq cc49
+1182 c86a 7e c8 7d            jmp cc51
+1183                         cc48:  
+1184 c86d f6 70 04            ldb  n
+1185 c870 1d                  sex
+1186 c871 c3 00 01            addd #1
+1187 c874 f7 70 04            stb  n
+1188 c877 83 00 01            subd #1
+1189 c87a 7e c8 47            jmp cc50
+1190                         cc51:  
+1191 c87d 7e c8 6d            jmp cc48
+1192 c880 7e c8 6d            jmp cc48
+1193                         cc49:  
+1194 c883 39                  rts
+1195                         
+1196                         * .global scan
+1197                         scan: 
+1198 c884 32 7f               leas -1,s
+1199 c886 cc 00 01            ldd  #1
+1200 c889 f7 70 05            stb  k
+1201 c88c cc 00 00            ldd  #0
+1202 c88f f7 70 06            stb  u
+1203 c892 cc 00 01            ldd  #1
+1204 c895 43                  coma
+1205 c896 53                  comb
+1206 c897 c3 00 01            addd #1
+1207 c89a f7 70 09            stb  key
+1208 c89d cc 00 00            ldd  #0
+1209 c8a0 f7 70 07            stb  q
+1210 c8a3 cc 00 00            ldd  #0
+1211 c8a6 fd 70 00            std  i
+1212                         cc54:  
+1213 c8a9 fc 70 00            ldd  i
+1214 c8ac 34 06               pshs d
+1215 c8ae cc 00 06            ldd  #6
+1216 c8b1 10 a3 e1            cmpd ,s++
+1217 c8b4 2e 05               bgt  *+7
+1218 c8b6 cc 00 00            ldd  #0
+1219 c8b9 20 03               bra  *+5
+1220 c8bb cc 00 01            ldd  #1
+1221 c8be 10 83 00 00         cmpd #0
+1222 c8c2 10 27 01 9e         lbeq cc53
+1223 c8c6 7e c8 d8            jmp cc55
+1224                         cc52:  
+1225 c8c9 fc 70 00            ldd  i
+1226 c8cc c3 00 01            addd #1
+1227 c8cf fd 70 00            std  i
+1228 c8d2 83 00 01            subd #1
+1229 c8d5 7e c8 a9            jmp cc54
+1230                         cc55:  
+1231 c8d8 fc 70 42            ldd  port1
+1232 c8db 34 06               pshs d
+1233 c8dd f6 70 05            ldb  k
+1234 c8e0 1d                  sex
+1235 c8e1 43                  coma
+1236 c8e2 53                  comb
+1237 c8e3 e7 f1               stb  [,s++]
+1238 c8e5 fc 70 40            ldd  port2
+1239 c8e8 34 06               pshs d
+1240 c8ea cc 70 38            ldd  #buffer
+1241 c8ed 34 06               pshs d
+1242 c8ef fc 70 00            ldd  i
+1243 c8f2 e3 e1               addd ,s++
+1244 c8f4 34 06               pshs d
+1245 c8f6 e6 f1               ldb  [,s++]
+1246 c8f8 1d                  sex
+1247 c8f9 e7 f1               stb  [,s++]
+1248 c8fb cc 70 38            ldd  #buffer
+1249 c8fe 34 06               pshs d
+1250 c900 fc 70 00            ldd  i
+1251 c903 e3 e1               addd ,s++
+1252 c905 34 06               pshs d
+1253 c907 e6 f1               ldb  [,s++]
+1254 c909 1d                  sex
+1255 c90a 34 06               pshs d
+1256 c90c cc 00 30            ldd  #48
+1257 c90f 10 a3 e1            cmpd ,s++
+1258 c912 26 05               bne   *+7
+1259 c914 cc 00 00            ldd  #0
+1260 c917 20 03               bra  *+5
+1261 c919 cc 00 01            ldd  #1
+1262 c91c 10 83 00 00         cmpd #0
+1263 c920 10 27 00 2c         lbeq cc57 ;_  instruction flagged for non optimize
+1264 c924 cc 70 38            ldd  #buffer
+1265 c927 34 06               pshs d
+1266 c929 fc 70 00            ldd  i
+1267 c92c e3 e1               addd ,s++
+1268 c92e 34 06               pshs d
+1269 c930 e6 f1               ldb  [,s++]
+1270 c932 1d                  sex
+1271 c933 34 06               pshs d
+1272 c935 cc 00 38            ldd  #56
+1273 c938 10 a3 e1            cmpd ,s++
+1274 c93b 26 05               bne   *+7
+1275 c93d cc 00 00            ldd  #0
+1276 c940 20 03               bra  *+5
+1277 c942 cc 00 01            ldd  #1
+1278 c945 10 83 00 00         cmpd #0
+1279 c949 10 27 00 03         lbeq cc57 ;_  instruction flagged for non optimize
+1280 c94d cc 00 01            ldd  #1
+1281                         cc57:  
+1282 c950 10 83 00 00         cmpd #0
+1283 c954 10 27 00 2c         lbeq cc58 ;_  instruction flagged for non optimize
+1284 c958 cc 70 38            ldd  #buffer
+1285 c95b 34 06               pshs d
+1286 c95d fc 70 00            ldd  i
+1287 c960 e3 e1               addd ,s++
+1288 c962 34 06               pshs d
+1289 c964 e6 f1               ldb  [,s++]
+1290 c966 1d                  sex
+1291 c967 34 06               pshs d
+1292 c969 cc 00 70            ldd  #112
+1293 c96c 10 a3 e1            cmpd ,s++
+1294 c96f 26 05               bne   *+7
+1295 c971 cc 00 00            ldd  #0
+1296 c974 20 03               bra  *+5
+1297 c976 cc 00 01            ldd  #1
+1298 c979 10 83 00 00         cmpd #0
+1299 c97d 10 27 00 03         lbeq cc58 ;_  instruction flagged for non optimize
+1300 c981 cc 00 01            ldd  #1
+1301                         cc58:  
+1302 c984 10 83 00 00         cmpd #0
+1303 c988 10 27 00 0d         lbeq cc56
+1304 c98c cc 00 02            ldd  #2
+1305 c98f 34 06               pshs d
+1306 c991 bd c8 41            jsr delay_ms
+1307 c994 32 62               leas 2,s
+1308 c996 7e c9 9c            jmp cc59
+1309                         cc56:  
+1310 c999 bd c8 34            jsr delay_nu
+1311                         cc59:  
+1312 c99c fc 70 40            ldd  port2
+1313 c99f 34 06               pshs d
+1314 c9a1 cc 00 00            ldd  #0
+1315 c9a4 e7 f1               stb  [,s++]
+1316 c9a6 cc 00 01            ldd  #1
+1317 c9a9 34 06               pshs d
+1318 c9ab bd c8 41            jsr delay_ms
+1319 c9ae 32 62               leas 2,s
+1320 c9b0 fc 70 44            ldd  port0
+1321 c9b3 34 06               pshs d
+1322 c9b5 e6 f1               ldb  [,s++]
+1323 c9b7 1d                  sex
+1324 c9b8 f7 70 08            stb  o
+1325 c9bb cc 00 00            ldd  #0
+1326 c9be f7 70 04            stb  n
+1327                         cc62:  
+1328 c9c1 f6 70 04            ldb  n
+1329 c9c4 1d                  sex
+1330 c9c5 34 06               pshs d
+1331 c9c7 cc 00 06            ldd  #6
+1332 c9ca 10 a3 e1            cmpd ,s++
+1333 c9cd 2e 05               bgt  *+7
+1334 c9cf cc 00 00            ldd  #0
+1335 c9d2 20 03               bra  *+5
+1336 c9d4 cc 00 01            ldd  #1
+1337 c9d7 10 83 00 00         cmpd #0
+1338 c9db 10 27 00 6b         lbeq cc61
+1339 c9df 7e c9 f2            jmp cc63
+1340                         cc60:  
+1341 c9e2 f6 70 04            ldb  n
+1342 c9e5 1d                  sex
+1343 c9e6 c3 00 01            addd #1
+1344 c9e9 f7 70 04            stb  n
+1345 c9ec 83 00 01            subd #1
+1346 c9ef 7e c9 c1            jmp cc62
+1347                         cc63:  
+1348 c9f2 f6 70 08            ldb  o
+1349 c9f5 1d                  sex
+1350 c9f6 34 06               pshs d
+1351 c9f8 cc 00 01            ldd  #1
+1352 c9fb a4 e0               anda ,s+
+1353 c9fd e4 e0               andb ,s+
+1354 c9ff 34 06               pshs d
+1355 ca01 cc 00 00            ldd  #0
+1356 ca04 10 a3 e1            cmpd ,s++
+1357 ca07 27 05               beq  *+7
+1358 ca09 cc 00 00            ldd  #0
+1359 ca0c 20 03               bra  *+5
+1360 ca0e cc 00 01            ldd  #1
+1361 ca11 10 83 00 00         cmpd #0
+1362 ca15 10 27 00 0a         lbeq cc64
+1363 ca19 f6 70 07            ldb  q
+1364 ca1c 1d                  sex
+1365 ca1d f7 70 09            stb  key
+1366 ca20 7e ca 30            jmp cc65
+1367                         cc64:  
+1368 ca23 f6 70 07            ldb  q
+1369 ca26 1d                  sex
+1370 ca27 c3 00 01            addd #1
+1371 ca2a f7 70 07            stb  q
+1372 ca2d 83 00 01            subd #1
+1373                         cc65:  
+1374 ca30 f6 70 08            ldb  o
+1375 ca33 1d                  sex
+1376 ca34 34 06               pshs d
+1377 ca36 cc 00 01            ldd  #1
+1378 ca39 5a                  decb
+1379 ca3a 2d 06               blt  *+8
+1380 ca3c 64 e4               lsr  ,s
+1381 ca3e 66 61               ror  1,s
+1382 ca40 20 f7               bra *-7
+1383 ca42 35 06               puls d
+1384 ca44 f7 70 08            stb  o
+1385 ca47 7e c9 e2            jmp cc60
+1386                         cc61:  
+1387 ca4a f6 70 05            ldb  k
+1388 ca4d 1d                  sex
+1389 ca4e 34 06               pshs d
+1390 ca50 cc 00 01            ldd  #1
+1391 ca53 5a                  decb
+1392 ca54 2d 06               blt  *+8
+1393 ca56 68 61               asl  1,s
+1394 ca58 69 e4               rol  ,s
+1395 ca5a 20 f7               bra  *-7
+1396 ca5c 35 06               puls d
+1397 ca5e f7 70 05            stb  k
+1398 ca61 7e c8 c9            jmp cc52
+1399                         cc53:  
+1400 ca64 fc 70 44            ldd  port0
+1401 ca67 34 06               pshs d
+1402 ca69 e6 f1               ldb  [,s++]
+1403 ca6b 1d                  sex
+1404 ca6c f7 70 08            stb  o
+1405 ca6f f6 70 08            ldb  o
+1406 ca72 1d                  sex
+1407 ca73 34 06               pshs d
+1408 ca75 cc 00 40            ldd  #64
+1409 ca78 a4 e0               anda ,s+
+1410 ca7a e4 e0               andb ,s+
+1411 ca7c 34 06               pshs d
+1412 ca7e cc 00 00            ldd  #0
+1413 ca81 10 a3 e1            cmpd ,s++
+1414 ca84 27 05               beq  *+7
+1415 ca86 cc 00 00            ldd  #0
+1416 ca89 20 03               bra  *+5
+1417 ca8b cc 00 01            ldd  #1
+1418 ca8e 10 83 00 00         cmpd #0
+1419 ca92 10 27 00 06         lbeq cc66
+1420 ca96 cc 00 24            ldd  #36
+1421 ca99 f7 70 09            stb  key
+1422                         cc66:  
+1423 ca9c 31 e4               leay 0,s
+1424 ca9e 1f 20               tfr  y,d
+1425 caa0 34 06               pshs d
+1426 caa2 f6 70 09            ldb  key
+1427 caa5 1d                  sex
+1428 caa6 e7 f1               stb  [,s++]
+1429 caa8 31 e4               leay 0,s
+1430 caaa 1f 20               tfr  y,d
+1431 caac 34 06               pshs d
+1432 caae e6 f1               ldb  [,s++]
+1433 cab0 1d                  sex
+1434 cab1 32 61               leas 1,s
+1435 cab3 39                  rts
+1436                         
+1437                         * .global dot_addr
+1438                         dot_addr: 
+1439 cab4 cc 70 38            ldd  #buffer
+1440 cab7 34 06               pshs d
+1441 cab9 cc 00 00            ldd  #0
+1442 cabc e3 e1               addd ,s++
+1443 cabe 34 06               pshs d
+1444 cac0 cc 70 38            ldd  #buffer
+1445 cac3 34 06               pshs d
+1446 cac5 cc 00 00            ldd  #0
+1447 cac8 e3 e1               addd ,s++
+1448 caca 34 06               pshs d
+1449 cacc e6 f1               ldb  [,s++]
+1450 cace 1d                  sex
+1451 cacf 34 06               pshs d
+1452 cad1 cc 00 40            ldd  #64
+1453 cad4 43                  coma
+1454 cad5 53                  comb
+1455 cad6 a4 e0               anda ,s+
+1456 cad8 e4 e0               andb ,s+
+1457 cada e7 f1               stb  [,s++]
+1458 cadc cc 70 38            ldd  #buffer
+1459 cadf 34 06               pshs d
+1460 cae1 cc 00 01            ldd  #1
+1461 cae4 e3 e1               addd ,s++
+1462 cae6 34 06               pshs d
+1463 cae8 cc 70 38            ldd  #buffer
+1464 caeb 34 06               pshs d
+1465 caed cc 00 01            ldd  #1
+1466 caf0 e3 e1               addd ,s++
+1467 caf2 34 06               pshs d
+1468 caf4 e6 f1               ldb  [,s++]
+1469 caf6 1d                  sex
+1470 caf7 34 06               pshs d
+1471 caf9 cc 00 40            ldd  #64
+1472 cafc 43                  coma
+1473 cafd 53                  comb
+1474 cafe a4 e0               anda ,s+
+1475 cb00 e4 e0               andb ,s+
+1476 cb02 e7 f1               stb  [,s++]
+1477 cb04 cc 70 38            ldd  #buffer
+1478 cb07 34 06               pshs d
+1479 cb09 cc 00 02            ldd  #2
+1480 cb0c e3 e1               addd ,s++
+1481 cb0e 34 06               pshs d
+1482 cb10 cc 70 38            ldd  #buffer
+1483 cb13 34 06               pshs d
+1484 cb15 cc 00 02            ldd  #2
+1485 cb18 e3 e1               addd ,s++
+1486 cb1a 34 06               pshs d
+1487 cb1c e6 f1               ldb  [,s++]
+1488 cb1e 1d                  sex
+1489 cb1f 34 06               pshs d
+1490 cb21 cc 00 40            ldd  #64
+1491 cb24 aa e0               ora  ,s+
+1492 cb26 ea e0               orb  ,s+
+1493 cb28 e7 f1               stb  [,s++]
+1494 cb2a cc 70 38            ldd  #buffer
+1495 cb2d 34 06               pshs d
+1496 cb2f cc 00 03            ldd  #3
+1497 cb32 e3 e1               addd ,s++
+1498 cb34 34 06               pshs d
+1499 cb36 cc 70 38            ldd  #buffer
+1500 cb39 34 06               pshs d
+1501 cb3b cc 00 03            ldd  #3
+1502 cb3e e3 e1               addd ,s++
+1503 cb40 34 06               pshs d
+1504 cb42 e6 f1               ldb  [,s++]
+1505 cb44 1d                  sex
+1506 cb45 34 06               pshs d
+1507 cb47 cc 00 40            ldd  #64
+1508 cb4a aa e0               ora  ,s+
+1509 cb4c ea e0               orb  ,s+
+1510 cb4e e7 f1               stb  [,s++]
+1511 cb50 cc 70 38            ldd  #buffer
+1512 cb53 34 06               pshs d
+1513 cb55 cc 00 04            ldd  #4
+1514 cb58 e3 e1               addd ,s++
+1515 cb5a 34 06               pshs d
+1516 cb5c cc 70 38            ldd  #buffer
+1517 cb5f 34 06               pshs d
+1518 cb61 cc 00 04            ldd  #4
+1519 cb64 e3 e1               addd ,s++
+1520 cb66 34 06               pshs d
+1521 cb68 e6 f1               ldb  [,s++]
+1522 cb6a 1d                  sex
+1523 cb6b 34 06               pshs d
+1524 cb6d cc 00 40            ldd  #64
+1525 cb70 aa e0               ora  ,s+
+1526 cb72 ea e0               orb  ,s+
+1527 cb74 e7 f1               stb  [,s++]
+1528 cb76 cc 70 38            ldd  #buffer
+1529 cb79 34 06               pshs d
+1530 cb7b cc 00 05            ldd  #5
+1531 cb7e e3 e1               addd ,s++
+1532 cb80 34 06               pshs d
+1533 cb82 cc 70 38            ldd  #buffer
+1534 cb85 34 06               pshs d
+1535 cb87 cc 00 05            ldd  #5
+1536 cb8a e3 e1               addd ,s++
+1537 cb8c 34 06               pshs d
+1538 cb8e e6 f1               ldb  [,s++]
+1539 cb90 1d                  sex
+1540 cb91 34 06               pshs d
+1541 cb93 cc 00 40            ldd  #64
+1542 cb96 aa e0               ora  ,s+
+1543 cb98 ea e0               orb  ,s+
+1544 cb9a e7 f1               stb  [,s++]
+1545 cb9c 39                  rts
+1546                         
+1547                         * .global dot_data
+1548                         dot_data: 
+1549 cb9d cc 70 38            ldd  #buffer
+1550 cba0 34 06               pshs d
+1551 cba2 cc 00 00            ldd  #0
+1552 cba5 e3 e1               addd ,s++
+1553 cba7 34 06               pshs d
+1554 cba9 cc 70 38            ldd  #buffer
+1555 cbac 34 06               pshs d
+1556 cbae cc 00 00            ldd  #0
+1557 cbb1 e3 e1               addd ,s++
+1558 cbb3 34 06               pshs d
+1559 cbb5 e6 f1               ldb  [,s++]
+1560 cbb7 1d                  sex
+1561 cbb8 34 06               pshs d
+1562 cbba cc 00 40            ldd  #64
+1563 cbbd aa e0               ora  ,s+
+1564 cbbf ea e0               orb  ,s+
+1565 cbc1 e7 f1               stb  [,s++]
+1566 cbc3 cc 70 38            ldd  #buffer
+1567 cbc6 34 06               pshs d
+1568 cbc8 cc 00 01            ldd  #1
+1569 cbcb e3 e1               addd ,s++
+1570 cbcd 34 06               pshs d
+1571 cbcf cc 70 38            ldd  #buffer
+1572 cbd2 34 06               pshs d
+1573 cbd4 cc 00 01            ldd  #1
+1574 cbd7 e3 e1               addd ,s++
+1575 cbd9 34 06               pshs d
+1576 cbdb e6 f1               ldb  [,s++]
+1577 cbdd 1d                  sex
+1578 cbde 34 06               pshs d
+1579 cbe0 cc 00 40            ldd  #64
+1580 cbe3 aa e0               ora  ,s+
+1581 cbe5 ea e0               orb  ,s+
+1582 cbe7 e7 f1               stb  [,s++]
+1583 cbe9 cc 70 38            ldd  #buffer
+1584 cbec 34 06               pshs d
+1585 cbee cc 00 02            ldd  #2
+1586 cbf1 e3 e1               addd ,s++
+1587 cbf3 34 06               pshs d
+1588 cbf5 cc 70 38            ldd  #buffer
+1589 cbf8 34 06               pshs d
+1590 cbfa cc 00 02            ldd  #2
+1591 cbfd e3 e1               addd ,s++
+1592 cbff 34 06               pshs d
+1593 cc01 e6 f1               ldb  [,s++]
+1594 cc03 1d                  sex
+1595 cc04 34 06               pshs d
+1596 cc06 cc 00 40            ldd  #64
+1597 cc09 43                  coma
+1598 cc0a 53                  comb
+1599 cc0b a4 e0               anda ,s+
+1600 cc0d e4 e0               andb ,s+
+1601 cc0f e7 f1               stb  [,s++]
+1602 cc11 cc 70 38            ldd  #buffer
+1603 cc14 34 06               pshs d
+1604 cc16 cc 00 03            ldd  #3
+1605 cc19 e3 e1               addd ,s++
+1606 cc1b 34 06               pshs d
+1607 cc1d cc 70 38            ldd  #buffer
+1608 cc20 34 06               pshs d
+1609 cc22 cc 00 03            ldd  #3
+1610 cc25 e3 e1               addd ,s++
+1611 cc27 34 06               pshs d
+1612 cc29 e6 f1               ldb  [,s++]
+1613 cc2b 1d                  sex
+1614 cc2c 34 06               pshs d
+1615 cc2e cc 00 40            ldd  #64
+1616 cc31 43                  coma
+1617 cc32 53                  comb
+1618 cc33 a4 e0               anda ,s+
+1619 cc35 e4 e0               andb ,s+
+1620 cc37 e7 f1               stb  [,s++]
+1621 cc39 cc 70 38            ldd  #buffer
+1622 cc3c 34 06               pshs d
+1623 cc3e cc 00 04            ldd  #4
+1624 cc41 e3 e1               addd ,s++
+1625 cc43 34 06               pshs d
+1626 cc45 cc 70 38            ldd  #buffer
+1627 cc48 34 06               pshs d
+1628 cc4a cc 00 04            ldd  #4
+1629 cc4d e3 e1               addd ,s++
+1630 cc4f 34 06               pshs d
+1631 cc51 e6 f1               ldb  [,s++]
+1632 cc53 1d                  sex
+1633 cc54 34 06               pshs d
+1634 cc56 cc 00 40            ldd  #64
+1635 cc59 43                  coma
+1636 cc5a 53                  comb
+1637 cc5b a4 e0               anda ,s+
+1638 cc5d e4 e0               andb ,s+
+1639 cc5f e7 f1               stb  [,s++]
+1640 cc61 cc 70 38            ldd  #buffer
+1641 cc64 34 06               pshs d
+1642 cc66 cc 00 05            ldd  #5
+1643 cc69 e3 e1               addd ,s++
+1644 cc6b 34 06               pshs d
+1645 cc6d cc 70 38            ldd  #buffer
+1646 cc70 34 06               pshs d
+1647 cc72 cc 00 05            ldd  #5
+1648 cc75 e3 e1               addd ,s++
+1649 cc77 34 06               pshs d
+1650 cc79 e6 f1               ldb  [,s++]
+1651 cc7b 1d                  sex
+1652 cc7c 34 06               pshs d
+1653 cc7e cc 00 40            ldd  #64
+1654 cc81 43                  coma
+1655 cc82 53                  comb
+1656 cc83 a4 e0               anda ,s+
+1657 cc85 e4 e0               andb ,s+
+1658 cc87 e7 f1               stb  [,s++]
+1659 cc89 39                  rts
+1660                         
+1661                         * .global hex4
+1662                         hex4: 
+1663 cc8a 31 62               leay 2,s
+1664 cc8c 1f 20               tfr  y,d
+1665 cc8e 34 06               pshs d
+1666 cc90 ec f1               ldd  [,s++]
+1667 cc92 fd 70 17            std  temp16
+1668 cc95 cc 70 38            ldd  #buffer
+1669 cc98 34 06               pshs d
+1670 cc9a cc 00 02            ldd  #2
+1671 cc9d e3 e1               addd ,s++
+1672 cc9f 34 06               pshs d
+1673 cca1 cc c1 0d            ldd  #convert
+1674 cca4 34 06               pshs d
+1675 cca6 fc 70 17            ldd  temp16
+1676 cca9 34 06               pshs d
+1677 ccab cc 00 0f            ldd  #15
+1678 ccae a4 e0               anda ,s+
+1679 ccb0 e4 e0               andb ,s+
+1680 ccb2 e3 e1               addd ,s++
+1681 ccb4 34 06               pshs d
+1682 ccb6 e6 f1               ldb  [,s++]
+1683 ccb8 1d                  sex
+1684 ccb9 e7 f1               stb  [,s++]
+1685 ccbb cc 70 17            ldd  #temp16
+1686 ccbe 34 06               pshs d
+1687 ccc0 cc 00 04            ldd  #4
+1688 ccc3 ae f4               ldx  [,s]
+1689 ccc5 34 10               pshs x
+1690 ccc7 5a                  decb
+1691 ccc8 2d 06               blt  *+8
+1692 ccca 64 e4               lsr  ,s
+1693 cccc 66 61               ror  1,s
+1694 ccce 20 f7               bra *-7
+1695 ccd0 35 06               puls d
+1696 ccd2 fd 70 17            std  temp16
+1697 ccd5 cc 70 38            ldd  #buffer
+1698 ccd8 34 06               pshs d
+1699 ccda cc 00 03            ldd  #3
+1700 ccdd e3 e1               addd ,s++
+1701 ccdf 34 06               pshs d
+1702 cce1 cc c1 0d            ldd  #convert
+1703 cce4 34 06               pshs d
+1704 cce6 fc 70 17            ldd  temp16
+1705 cce9 34 06               pshs d
+1706 cceb cc 00 0f            ldd  #15
+1707 ccee a4 e0               anda ,s+
+1708 ccf0 e4 e0               andb ,s+
+1709 ccf2 e3 e1               addd ,s++
+1710 ccf4 34 06               pshs d
+1711 ccf6 e6 f1               ldb  [,s++]
+1712 ccf8 1d                  sex
+1713 ccf9 e7 f1               stb  [,s++]
+1714 ccfb cc 70 17            ldd  #temp16
+1715 ccfe 34 06               pshs d
+1716 cd00 cc 00 04            ldd  #4
+1717 cd03 ae f4               ldx  [,s]
+1718 cd05 34 10               pshs x
+1719 cd07 5a                  decb
+1720 cd08 2d 06               blt  *+8
+1721 cd0a 64 e4               lsr  ,s
+1722 cd0c 66 61               ror  1,s
+1723 cd0e 20 f7               bra *-7
+1724 cd10 35 06               puls d
+1725 cd12 fd 70 17            std  temp16
+1726 cd15 cc 70 38            ldd  #buffer
+1727 cd18 34 06               pshs d
+1728 cd1a cc 00 04            ldd  #4
+1729 cd1d e3 e1               addd ,s++
+1730 cd1f 34 06               pshs d
+1731 cd21 cc c1 0d            ldd  #convert
+1732 cd24 34 06               pshs d
+1733 cd26 fc 70 17            ldd  temp16
+1734 cd29 34 06               pshs d
+1735 cd2b cc 00 0f            ldd  #15
+1736 cd2e a4 e0               anda ,s+
+1737 cd30 e4 e0               andb ,s+
+1738 cd32 e3 e1               addd ,s++
+1739 cd34 34 06               pshs d
+1740 cd36 e6 f1               ldb  [,s++]
+1741 cd38 1d                  sex
+1742 cd39 e7 f1               stb  [,s++]
+1743 cd3b cc 70 17            ldd  #temp16
+1744 cd3e 34 06               pshs d
+1745 cd40 cc 00 04            ldd  #4
+1746 cd43 ae f4               ldx  [,s]
+1747 cd45 34 10               pshs x
+1748 cd47 5a                  decb
+1749 cd48 2d 06               blt  *+8
+1750 cd4a 64 e4               lsr  ,s
+1751 cd4c 66 61               ror  1,s
+1752 cd4e 20 f7               bra *-7
+1753 cd50 35 06               puls d
+1754 cd52 fd 70 17            std  temp16
+1755 cd55 cc 70 38            ldd  #buffer
+1756 cd58 34 06               pshs d
+1757 cd5a cc 00 05            ldd  #5
+1758 cd5d e3 e1               addd ,s++
+1759 cd5f 34 06               pshs d
+1760 cd61 cc c1 0d            ldd  #convert
+1761 cd64 34 06               pshs d
+1762 cd66 fc 70 17            ldd  temp16
+1763 cd69 34 06               pshs d
+1764 cd6b cc 00 0f            ldd  #15
+1765 cd6e a4 e0               anda ,s+
+1766 cd70 e4 e0               andb ,s+
+1767 cd72 e3 e1               addd ,s++
+1768 cd74 34 06               pshs d
+1769 cd76 e6 f1               ldb  [,s++]
+1770 cd78 1d                  sex
+1771 cd79 e7 f1               stb  [,s++]
+1772 cd7b 32 66               leas 6,s
+1773 cd7d 39                  rts
+1774                         
+1775                         * .global address_
+1776                         address_: 
+1777 cd7e fc 70 19            ldd  PC
+1778 cd81 fd 70 17            std  temp16
+1779 cd84 fc 70 17            ldd  temp16
+1780 cd87 34 06               pshs d
+1781 cd89 bd cc 8a            jsr hex4
+1782 cd8c 32 62               leas 2,s
+1783 cd8e 39                  rts
+1784                         
+1785                         * .global data_dis
+1786                         data_dis: 
+1787 cd8f fc 70 19            ldd  PC
+1788 cd92 fd 70 46            std  dptr
+1789 cd95 fc 70 46            ldd  dptr
+1790 cd98 34 06               pshs d
+1791 cd9a e6 f1               ldb  [,s++]
+1792 cd9c 1d                  sex
+1793 cd9d f7 70 04            stb  n
+1794 cda0 cc 70 38            ldd  #buffer
+1795 cda3 34 06               pshs d
+1796 cda5 cc 00 00            ldd  #0
+1797 cda8 e3 e1               addd ,s++
+1798 cdaa 34 06               pshs d
+1799 cdac cc c1 0d            ldd  #convert
+1800 cdaf 34 06               pshs d
+1801 cdb1 f6 70 04            ldb  n
+1802 cdb4 1d                  sex
+1803 cdb5 34 06               pshs d
+1804 cdb7 cc 00 0f            ldd  #15
+1805 cdba a4 e0               anda ,s+
+1806 cdbc e4 e0               andb ,s+
+1807 cdbe e3 e1               addd ,s++
+1808 cdc0 34 06               pshs d
+1809 cdc2 e6 f1               ldb  [,s++]
+1810 cdc4 1d                  sex
+1811 cdc5 e7 f1               stb  [,s++]
+1812 cdc7 f6 70 04            ldb  n
+1813 cdca 1d                  sex
+1814 cdcb 34 06               pshs d
+1815 cdcd cc 00 04            ldd  #4
+1816 cdd0 5a                  decb
+1817 cdd1 2d 06               blt  *+8
+1818 cdd3 64 e4               lsr  ,s
+1819 cdd5 66 61               ror  1,s
+1820 cdd7 20 f7               bra *-7
+1821 cdd9 35 06               puls d
+1822 cddb f7 70 04            stb  n
+1823 cdde cc 70 38            ldd  #buffer
+1824 cde1 34 06               pshs d
+1825 cde3 cc 00 01            ldd  #1
+1826 cde6 e3 e1               addd ,s++
+1827 cde8 34 06               pshs d
+1828 cdea cc c1 0d            ldd  #convert
+1829 cded 34 06               pshs d
+1830 cdef f6 70 04            ldb  n
+1831 cdf2 1d                  sex
+1832 cdf3 34 06               pshs d
+1833 cdf5 cc 00 0f            ldd  #15
+1834 cdf8 a4 e0               anda ,s+
+1835 cdfa e4 e0               andb ,s+
+1836 cdfc e3 e1               addd ,s++
+1837 cdfe 34 06               pshs d
+1838 ce00 e6 f1               ldb  [,s++]
+1839 ce02 1d                  sex
+1840 ce03 e7 f1               stb  [,s++]
+1841 ce05 bd cb 9d            jsr dot_data
+1842 ce08 39                  rts
+1843                         
+1844                         * .global read_mem
+1845                         read_mem: 
+1846 ce09 bd cd 7e            jsr address_
+1847 ce0c bd cd 8f            jsr data_dis
+1848 ce0f 39                  rts
+1849                         
+1850                         * .global key_addr
+1851                         key_addr: 
+1852 ce10 cc 00 01            ldd  #1
+1853 ce13 f7 70 27            stb  state
+1854 ce16 bd ce 09            jsr read_mem
+1855 ce19 bd ca b4            jsr dot_addr
+1856 ce1c cc 00 00            ldd  #0
+1857 ce1f f7 70 0b            stb  hit
+1858 ce22 39                  rts
+1859                         
+1860                         * .global key_data
+1861                         key_data: 
+1862 ce23 bd ce 09            jsr read_mem
+1863 ce26 bd cb 9d            jsr dot_data
+1864 ce29 cc 00 00            ldd  #0
+1865 ce2c f7 70 0b            stb  hit
+1866 ce2f cc 00 02            ldd  #2
+1867 ce32 f7 70 27            stb  state
+1868 ce35 39                  rts
+1869                         
+1870                         * .global key_plus
+1871                         key_plus: 
+1872 ce36 f6 70 27            ldb  state
+1873 ce39 1d                  sex
+1874 ce3a 34 06               pshs d
+1875 ce3c cc 00 01            ldd  #1
+1876 ce3f 10 a3 e1            cmpd ,s++
+1877 ce42 27 05               beq  *+7
+1878 ce44 cc 00 00            ldd  #0
+1879 ce47 20 03               bra  *+5
+1880 ce49 cc 00 01            ldd  #1
+1881 ce4c 10 83 00 00         cmpd #0
+1882 ce50 10 26 00 24         lbne cc68
+1883 ce54 f6 70 27            ldb  state
+1884 ce57 1d                  sex
+1885 ce58 34 06               pshs d
+1886 ce5a cc 00 02            ldd  #2
+1887 ce5d 10 a3 e1            cmpd ,s++
+1888 ce60 27 05               beq  *+7
+1889 ce62 cc 00 00            ldd  #0
+1890 ce65 20 03               bra  *+5
+1891 ce67 cc 00 01            ldd  #1
+1892 ce6a 10 83 00 00         cmpd #0
+1893 ce6e 10 26 00 06         lbne cc68
+1894 ce72 cc 00 00            ldd  #0
+1895 ce75 7e ce 7b            jmp cc69
+1896                         cc68:  
+1897 ce78 cc 00 01            ldd  #1
+1898                         cc69:  
+1899 ce7b 10 83 00 00         cmpd #0
+1900 ce7f 10 27 00 12         lbeq cc67
+1901 ce83 fc 70 19            ldd  PC
+1902 ce86 c3 00 01            addd #1
+1903 ce89 fd 70 19            std  PC
+1904 ce8c 83 00 01            subd #1
+1905 ce8f bd ce 09            jsr read_mem
+1906 ce92 bd ce 23            jsr key_data
+1907                         cc67:  
+1908 ce95 f6 70 27            ldb  state
+1909 ce98 1d                  sex
+1910 ce99 34 06               pshs d
+1911 ce9b cc 00 04            ldd  #4
+1912 ce9e 10 a3 e1            cmpd ,s++
+1913 cea1 27 05               beq  *+7
+1914 cea3 cc 00 00            ldd  #0
+1915 cea6 20 03               bra  *+5
+1916 cea8 cc 00 01            ldd  #1
+1917 ceab 10 83 00 00         cmpd #0
+1918 ceaf 10 27 00 12         lbeq cc70
+1919 ceb3 fc 70 1d            ldd  num
+1920 ceb6 fd 70 1f            std  start
+1921 ceb9 cc 00 00            ldd  #0
+1922 cebc f7 70 0b            stb  hit
+1923 cebf cc 00 01            ldd  #1
+1924 cec2 f7 70 0c            stb  positive
+1925                         cc70:  
+1926 cec5 f6 70 27            ldb  state
+1927 cec8 1d                  sex
+1928 cec9 34 06               pshs d
+1929 cecb cc 00 05            ldd  #5
+1930 cece 10 a3 e1            cmpd ,s++
+1931 ced1 27 05               beq  *+7
+1932 ced3 cc 00 00            ldd  #0
+1933 ced6 20 03               bra  *+5
+1934 ced8 cc 00 01            ldd  #1
+1935 cedb 10 83 00 00         cmpd #0
+1936 cedf 10 27 00 24         lbeq cc71
+1937 cee3 cc 00 06            ldd  #6
+1938 cee6 f7 70 27            stb  state
+1939 cee9 fc 70 1d            ldd  num
+1940 ceec fd 70 1f            std  start
+1941 ceef cc 00 00            ldd  #0
+1942 cef2 f7 70 0b            stb  hit
+1943 cef5 cc 70 38            ldd  #buffer
+1944 cef8 34 06               pshs d
+1945 cefa cc 00 00            ldd  #0
+1946 cefd e3 e1               addd ,s++
+1947 ceff 34 06               pshs d
+1948 cf01 cc 00 8f            ldd  #143
+1949 cf04 e7 f1               stb  [,s++]
+1950 cf06 39                  rts
+1951                         cc71:  
+1952 cf07 f6 70 27            ldb  state
+1953 cf0a 1d                  sex
+1954 cf0b 34 06               pshs d
+1955 cf0d cc 00 06            ldd  #6
+1956 cf10 10 a3 e1            cmpd ,s++
+1957 cf13 27 05               beq  *+7
+1958 cf15 cc 00 00            ldd  #0
+1959 cf18 20 03               bra  *+5
+1960 cf1a cc 00 01            ldd  #1
+1961 cf1d 10 83 00 00         cmpd #0
+1962 cf21 10 27 00 43         lbeq cc72
+1963 cf25 cc 00 07            ldd  #7
+1964 cf28 f7 70 27            stb  state
+1965 cf2b fc 70 1d            ldd  num
+1966 cf2e fd 70 21            std  end
+1967 cf31 cc 00 00            ldd  #0
+1968 cf34 f7 70 0b            stb  hit
+1969 cf37 cc 70 38            ldd  #buffer
+1970 cf3a 34 06               pshs d
+1971 cf3c cc 00 00            ldd  #0
+1972 cf3f e3 e1               addd ,s++
+1973 cf41 34 06               pshs d
+1974 cf43 cc 00 b3            ldd  #179
+1975 cf46 e7 f1               stb  [,s++]
+1976 cf48 fc 70 21            ldd  end
+1977 cf4b 34 06               pshs d
+1978 cf4d fc 70 1f            ldd  start
+1979 cf50 10 a3 e1            cmpd ,s++
+1980 cf53 2c 05               bge  *+7
+1981 cf55 cc 00 00            ldd  #0
+1982 cf58 20 03               bra  *+5
+1983 cf5a cc 00 01            ldd  #1
+1984 cf5d 10 83 00 00         cmpd #0
+1985 cf61 10 27 00 03         lbeq cc73
+1986 cf65 bd d0 c6            jsr print_er
+1987                         cc73:  
+1988                         cc72:  
+1989 cf68 39                  rts
+1990                         
+1991                         * .global key_minu
+1992                         key_minu: 
+1993 cf69 f6 70 27            ldb  state
+1994 cf6c 1d                  sex
+1995 cf6d 34 06               pshs d
+1996 cf6f cc 00 01            ldd  #1
+1997 cf72 10 a3 e1            cmpd ,s++
+1998 cf75 27 05               beq  *+7
+1999 cf77 cc 00 00            ldd  #0
+2000 cf7a 20 03               bra  *+5
+2001 cf7c cc 00 01            ldd  #1
+2002 cf7f 34 06               pshs d
+2003 cf81 f6 70 27            ldb  state
+2004 cf84 1d                  sex
+2005 cf85 34 06               pshs d
+2006 cf87 cc 00 02            ldd  #2
+2007 cf8a 10 a3 e1            cmpd ,s++
+2008 cf8d 27 05               beq  *+7
+2009 cf8f cc 00 00            ldd  #0
+2010 cf92 20 03               bra  *+5
+2011 cf94 cc 00 01            ldd  #1
+2012 cf97 aa e0               ora  ,s+
+2013 cf99 ea e0               orb  ,s+
+2014 cf9b 10 83 00 00         cmpd #0
+2015 cf9f 10 27 00 12         lbeq cc74
+2016 cfa3 fc 70 19            ldd  PC
+2017 cfa6 83 00 01            subd #1
+2018 cfa9 fd 70 19            std  PC
+2019 cfac c3 00 01            addd #1
+2020 cfaf bd ce 09            jsr read_mem
+2021 cfb2 bd ce 23            jsr key_data
+2022                         cc74:  
+2023 cfb5 f6 70 27            ldb  state
+2024 cfb8 1d                  sex
+2025 cfb9 34 06               pshs d
+2026 cfbb cc 00 04            ldd  #4
+2027 cfbe 10 a3 e1            cmpd ,s++
+2028 cfc1 27 05               beq  *+7
+2029 cfc3 cc 00 00            ldd  #0
+2030 cfc6 20 03               bra  *+5
+2031 cfc8 cc 00 01            ldd  #1
+2032 cfcb 10 83 00 00         cmpd #0
+2033 cfcf 10 27 00 12         lbeq cc75
+2034 cfd3 fc 70 1d            ldd  num
+2035 cfd6 fd 70 1f            std  start
+2036 cfd9 cc 00 00            ldd  #0
+2037 cfdc f7 70 0b            stb  hit
+2038 cfdf cc 00 00            ldd  #0
+2039 cfe2 f7 70 0c            stb  positive
+2040                         cc75:  
+2041 cfe5 39                  rts
+2042                         
+2043                         * .global data_hex
+2044                         data_hex: 
+2045 cfe6 fc 70 19            ldd  PC
+2046 cfe9 fd 70 46            std  dptr
+2047 cfec fc 70 46            ldd  dptr
+2048 cfef 34 06               pshs d
+2049 cff1 e6 f1               ldb  [,s++]
+2050 cff3 1d                  sex
+2051 cff4 f7 70 0a            stb  x
+2052 cff7 f6 70 0b            ldb  hit
+2053 cffa 1d                  sex
+2054 cffb 34 06               pshs d
+2055 cffd cc 00 00            ldd  #0
+2056 d000 10 a3 e1            cmpd ,s++
+2057 d003 27 05               beq  *+7
+2058 d005 cc 00 00            ldd  #0
+2059 d008 20 03               bra  *+5
+2060 d00a cc 00 01            ldd  #1
+2061 d00d 10 83 00 00         cmpd #0
+2062 d011 10 27 00 06         lbeq cc76
+2063 d015 cc 00 00            ldd  #0
+2064 d018 f7 70 0a            stb  x
+2065                         cc76:  
+2066 d01b cc 00 01            ldd  #1
+2067 d01e f7 70 0b            stb  hit
+2068 d021 f6 70 0a            ldb  x
+2069 d024 1d                  sex
+2070 d025 34 06               pshs d
+2071 d027 cc 00 04            ldd  #4
+2072 d02a 5a                  decb
+2073 d02b 2d 06               blt  *+8
+2074 d02d 68 61               asl  1,s
+2075 d02f 69 e4               rol  ,s
+2076 d031 20 f7               bra  *-7
+2077 d033 35 06               puls d
+2078 d035 f7 70 0a            stb  x
+2079 d038 f6 70 0a            ldb  x
+2080 d03b 1d                  sex
+2081 d03c 34 06               pshs d
+2082 d03e f6 70 09            ldb  key
+2083 d041 1d                  sex
+2084 d042 aa e0               ora  ,s+
+2085 d044 ea e0               orb  ,s+
+2086 d046 f7 70 0a            stb  x
+2087 d049 fc 70 46            ldd  dptr
+2088 d04c 34 06               pshs d
+2089 d04e f6 70 0a            ldb  x
+2090 d051 1d                  sex
+2091 d052 e7 f1               stb  [,s++]
+2092 d054 bd ce 09            jsr read_mem
+2093 d057 bd cb 9d            jsr dot_data
+2094 d05a 39                  rts
+2095                         
+2096                         * .global key_PC
+2097                         key_PC: 
+2098 d05b fc 70 1b            ldd  save_PC
+2099 d05e fd 70 19            std  PC
+2100 d061 bd ce 23            jsr key_data
+2101 d064 39                  rts
+2102                         
+2103                         * .global hex_addr
+2104                         hex_addr: 
+2105 d065 f6 70 0b            ldb  hit
+2106 d068 1d                  sex
+2107 d069 34 06               pshs d
+2108 d06b cc 00 00            ldd  #0
+2109 d06e 10 a3 e1            cmpd ,s++
+2110 d071 27 05               beq  *+7
+2111 d073 cc 00 00            ldd  #0
+2112 d076 20 03               bra  *+5
+2113 d078 cc 00 01            ldd  #1
+2114 d07b 10 83 00 00         cmpd #0
+2115 d07f 10 27 00 06         lbeq cc77
+2116 d083 cc 00 00            ldd  #0
+2117 d086 fd 70 19            std  PC
+2118                         cc77:  
+2119 d089 cc 00 01            ldd  #1
+2120 d08c f7 70 0b            stb  hit
+2121 d08f cc 70 19            ldd  #PC
+2122 d092 34 06               pshs d
+2123 d094 cc 00 04            ldd  #4
+2124 d097 ae f4               ldx  [,s]
+2125 d099 34 10               pshs x
+2126 d09b 5a                  decb
+2127 d09c 2d 06               blt  *+8
+2128 d09e 68 61               asl  1,s
+2129 d0a0 69 e4               rol  ,s
+2130 d0a2 20 f7               bra  *-7
+2131 d0a4 35 06               puls d
+2132 d0a6 fd 70 19            std  PC
+2133 d0a9 cc 70 19            ldd  #PC
+2134 d0ac 34 06               pshs d
+2135 d0ae f6 70 09            ldb  key
+2136 d0b1 1d                  sex
+2137 d0b2 ae f4               ldx  [,s]
+2138 d0b4 34 10               pshs x
+2139 d0b6 aa e0               ora  ,s+
+2140 d0b8 ea e0               orb  ,s+
+2141 d0ba fd 70 19            std  PC
+2142 d0bd bd ce 09            jsr read_mem
+2143 d0c0 bd ca b4            jsr dot_addr
+2144 d0c3 32 64               leas 4,s
+2145 d0c5 39                  rts
+2146                         
+2147                         * .global print_er
+2148                         print_er: 
+2149 d0c6 cc 70 38            ldd  #buffer
+2150 d0c9 34 06               pshs d
+2151 d0cb cc 00 05            ldd  #5
+2152 d0ce e3 e1               addd ,s++
+2153 d0d0 34 06               pshs d
+2154 d0d2 cc 00 8f            ldd  #143
+2155 d0d5 e7 f1               stb  [,s++]
+2156 d0d7 cc 70 38            ldd  #buffer
+2157 d0da 34 06               pshs d
+2158 d0dc cc 00 04            ldd  #4
+2159 d0df e3 e1               addd ,s++
+2160 d0e1 34 06               pshs d
+2161 d0e3 cc 00 03            ldd  #3
+2162 d0e6 e7 f1               stb  [,s++]
+2163 d0e8 cc 70 38            ldd  #buffer
+2164 d0eb 34 06               pshs d
+2165 d0ed cc 00 03            ldd  #3
+2166 d0f0 e3 e1               addd ,s++
+2167 d0f2 34 06               pshs d
+2168 d0f4 cc 00 03            ldd  #3
+2169 d0f7 e7 f1               stb  [,s++]
+2170 d0f9 cc 70 38            ldd  #buffer
+2171 d0fc 34 06               pshs d
+2172 d0fe cc 00 02            ldd  #2
+2173 d101 e3 e1               addd ,s++
+2174 d103 34 06               pshs d
+2175 d105 cc 00 00            ldd  #0
+2176 d108 e7 f1               stb  [,s++]
+2177 d10a cc 70 38            ldd  #buffer
+2178 d10d 34 06               pshs d
+2179 d10f cc 00 01            ldd  #1
+2180 d112 e3 e1               addd ,s++
+2181 d114 34 06               pshs d
+2182 d116 cc 00 00            ldd  #0
+2183 d119 e7 f1               stb  [,s++]
+2184 d11b cc 70 38            ldd  #buffer
+2185 d11e 34 06               pshs d
+2186 d120 cc 00 00            ldd  #0
+2187 d123 e3 e1               addd ,s++
+2188 d125 34 06               pshs d
+2189 d127 cc 00 00            ldd  #0
+2190 d12a e7 f1               stb  [,s++]
+2191 d12c cc 00 00            ldd  #0
+2192 d12f f7 70 27            stb  state
+2193 d132 39                  rts
+2194                         
+2195                         * .global key_go
+2196                         key_go: 
+2197 d133 f6 70 27            ldb  state
+2198 d136 1d                  sex
+2199 d137 34 06               pshs d
+2200 d139 cc 00 01            ldd  #1
+2201 d13c 10 a3 e1            cmpd ,s++
+2202 d13f 27 05               beq  *+7
+2203 d141 cc 00 00            ldd  #0
+2204 d144 20 03               bra  *+5
+2205 d146 cc 00 01            ldd  #1
+2206 d149 10 83 00 00         cmpd #0
+2207 d14d 10 26 00 24         lbne cc79
+2208 d151 f6 70 27            ldb  state
+2209 d154 1d                  sex
+2210 d155 34 06               pshs d
+2211 d157 cc 00 02            ldd  #2
+2212 d15a 10 a3 e1            cmpd ,s++
+2213 d15d 27 05               beq  *+7
+2214 d15f cc 00 00            ldd  #0
+2215 d162 20 03               bra  *+5
+2216 d164 cc 00 01            ldd  #1
+2217 d167 10 83 00 00         cmpd #0
+2218 d16b 10 26 00 06         lbne cc79
+2219 d16f cc 00 00            ldd  #0
+2220 d172 7e d1 78            jmp cc80
+2221                         cc79:  
+2222 d175 cc 00 01            ldd  #1
+2223                         cc80:  
+2224 d178 10 83 00 00         cmpd #0
+2225 d17c 10 27 00 24         lbeq cc78
+2226 d180 10 ff 70 2e           STS SAVE_SP   
+2227 d184 fe 70 2a              LDU USER_U   
+2228 d187 fc 70 19              LDD PC
+2229 d18a 34 06                 PSHS D
+2230 d18c b6 70 34              LDA USER_P
+2231 d18f 1f 8a                 TFR A,CC
+2232 d191 b6 70 35              LDA USER_DP
+2233 d194 1f 8b                 TFR A,DP
+2234 d196 be 70 2c              LDX USER_X
+2235 d199 10 be 70 30           LDY USER_Y
+2236 d19d f6 70 33              LDB USER_B
+2237 d1a0 b6 70 32              LDA USER_A
+2238 d1a3 39                    RTS
+2239                         cc78:  
+2240 d1a4 f6 70 27            ldb  state
+2241 d1a7 1d                  sex
+2242 d1a8 34 06               pshs d
+2243 d1aa cc 00 04            ldd  #4
+2244 d1ad 10 a3 e1            cmpd ,s++
+2245 d1b0 27 05               beq  *+7
+2246 d1b2 cc 00 00            ldd  #0
+2247 d1b5 20 03               bra  *+5
+2248 d1b7 cc 00 01            ldd  #1
+2249 d1ba 10 83 00 00         cmpd #0
+2250 d1be 10 27 00 57         lbeq cc81
+2251 d1c2 fc 70 1d            ldd  num
+2252 d1c5 fd 70 23            std  desti
+2253 d1c8 f6 70 0c            ldb  positive
+2254 d1cb 1d                  sex
+2255 d1cc 34 06               pshs d
+2256 d1ce cc 00 00            ldd  #0
+2257 d1d1 10 a3 e1            cmpd ,s++
+2258 d1d4 27 05               beq  *+7
+2259 d1d6 cc 00 00            ldd  #0
+2260 d1d9 20 03               bra  *+5
+2261 d1db cc 00 01            ldd  #1
+2262 d1de 10 83 00 00         cmpd #0
+2263 d1e2 10 27 00 16         lbeq cc82
+2264 d1e6 fc 70 1f            ldd  start
+2265 d1e9 34 06               pshs d
+2266 d1eb fc 70 23            ldd  desti
+2267 d1ee 35 10               puls x
+2268 d1f0 34 06               pshs d
+2269 d1f2 1f 10               tfr  x,d
+2270 d1f4 a3 e1               subd ,s++
+2271 d1f6 fd 70 1f            std  start
+2272 d1f9 7e d2 09            jmp cc83
+2273                         cc82:  
+2274 d1fc fc 70 1f            ldd  start
+2275 d1ff 34 06               pshs d
+2276 d201 fc 70 23            ldd  desti
+2277 d204 e3 e1               addd ,s++
+2278 d206 fd 70 1f            std  start
+2279                         cc83:  
+2280 d209 fc 70 1f            ldd  start
+2281 d20c 34 06               pshs d
+2282 d20e bd cc 8a            jsr hex4
+2283 d211 32 62               leas 2,s
+2284 d213 cc 00 00            ldd  #0
+2285 d216 f7 70 0b            stb  hit
+2286                         cc81:  
+2287 d219 f6 70 27            ldb  state
+2288 d21c 1d                  sex
+2289 d21d 34 06               pshs d
+2290 d21f cc 00 07            ldd  #7
+2291 d222 10 a3 e1            cmpd ,s++
+2292 d225 27 05               beq  *+7
+2293 d227 cc 00 00            ldd  #0
+2294 d22a 20 03               bra  *+5
+2295 d22c cc 00 01            ldd  #1
+2296 d22f 10 83 00 00         cmpd #0
+2297 d233 10 27 00 8c         lbeq cc84
+2298 d237 fc 70 1d            ldd  num
+2299 d23a fd 70 23            std  desti
+2300 d23d fc 70 21            ldd  end
+2301 d240 34 06               pshs d
+2302 d242 fc 70 1f            ldd  start
+2303 d245 35 10               puls x
+2304 d247 34 06               pshs d
+2305 d249 1f 10               tfr  x,d
+2306 d24b a3 e1               subd ,s++
+2307 d24d fd 70 15            std  temp
+2308 d250 fc 70 1f            ldd  start
+2309 d253 fd 70 46            std  dptr
+2310 d256 fc 70 23            ldd  desti
+2311 d259 fd 70 48            std  dptr2
+2312 d25c cc 00 00            ldd  #0
+2313 d25f fd 70 00            std  i
+2314                         cc87:  
+2315 d262 fc 70 00            ldd  i
+2316 d265 34 06               pshs d
+2317 d267 fc 70 15            ldd  temp
+2318 d26a 10 a3 e1            cmpd ,s++
+2319 d26d 2e 05               bgt  *+7
+2320 d26f cc 00 00            ldd  #0
+2321 d272 20 03               bra  *+5
+2322 d274 cc 00 01            ldd  #1
+2323 d277 10 83 00 00         cmpd #0
+2324 d27b 10 27 00 32         lbeq cc86
+2325 d27f 7e d2 91            jmp cc88
+2326                         cc85:  
+2327 d282 fc 70 00            ldd  i
+2328 d285 c3 00 01            addd #1
+2329 d288 fd 70 00            std  i
+2330 d28b 83 00 01            subd #1
+2331 d28e 7e d2 62            jmp cc87
+2332                         cc88:  
+2333 d291 fc 70 48            ldd  dptr2
+2334 d294 34 06               pshs d
+2335 d296 fc 70 00            ldd  i
+2336 d299 e3 e1               addd ,s++
+2337 d29b 34 06               pshs d
+2338 d29d fc 70 46            ldd  dptr
+2339 d2a0 34 06               pshs d
+2340 d2a2 fc 70 00            ldd  i
+2341 d2a5 e3 e1               addd ,s++
+2342 d2a7 34 06               pshs d
+2343 d2a9 e6 f1               ldb  [,s++]
+2344 d2ab 1d                  sex
+2345 d2ac e7 f1               stb  [,s++]
+2346 d2ae 7e d2 82            jmp cc85
+2347                         cc86:  
+2348 d2b1 fc 70 23            ldd  desti
+2349 d2b4 fd 70 19            std  PC
+2350 d2b7 bd ce 09            jsr read_mem
+2351 d2ba bd cb 9d            jsr dot_data
+2352 d2bd cc 00 02            ldd  #2
+2353 d2c0 f7 70 27            stb  state
+2354                         cc84:  
+2355 d2c3 39                  rts
+2356                         
+2357                         * .global key_reg
+2358                         key_reg: 
+2359 d2c4 cc 70 38            ldd  #buffer
+2360 d2c7 34 06               pshs d
+2361 d2c9 cc 00 07            ldd  #7
+2362 d2cc e3 e1               addd ,s++
+2363 d2ce 34 06               pshs d
+2364 d2d0 cc 00 00            ldd  #0
+2365 d2d3 e7 f1               stb  [,s++]
+2366 d2d5 cc 70 38            ldd  #buffer
+2367 d2d8 34 06               pshs d
+2368 d2da cc 00 06            ldd  #6
+2369 d2dd e3 e1               addd ,s++
+2370 d2df 34 06               pshs d
+2371 d2e1 cc 00 00            ldd  #0
+2372 d2e4 e7 f1               stb  [,s++]
+2373 d2e6 cc 70 38            ldd  #buffer
+2374 d2e9 34 06               pshs d
+2375 d2eb cc 00 05            ldd  #5
+2376 d2ee e3 e1               addd ,s++
+2377 d2f0 34 06               pshs d
+2378 d2f2 cc 00 03            ldd  #3
+2379 d2f5 e7 f1               stb  [,s++]
+2380 d2f7 cc 70 38            ldd  #buffer
+2381 d2fa 34 06               pshs d
+2382 d2fc cc 00 04            ldd  #4
+2383 d2ff e3 e1               addd ,s++
+2384 d301 34 06               pshs d
+2385 d303 cc 00 8f            ldd  #143
+2386 d306 e7 f1               stb  [,s++]
+2387 d308 cc 70 38            ldd  #buffer
+2388 d30b 34 06               pshs d
+2389 d30d cc 00 03            ldd  #3
+2390 d310 e3 e1               addd ,s++
+2391 d312 34 06               pshs d
+2392 d314 cc 00 ad            ldd  #173
+2393 d317 e7 f1               stb  [,s++]
+2394 d319 cc 70 38            ldd  #buffer
+2395 d31c 34 06               pshs d
+2396 d31e cc 00 02            ldd  #2
+2397 d321 e3 e1               addd ,s++
+2398 d323 34 06               pshs d
+2399 d325 cc 00 00            ldd  #0
+2400 d328 e7 f1               stb  [,s++]
+2401 d32a cc 70 38            ldd  #buffer
+2402 d32d 34 06               pshs d
+2403 d32f cc 00 01            ldd  #1
+2404 d332 e3 e1               addd ,s++
+2405 d334 34 06               pshs d
+2406 d336 cc 00 00            ldd  #0
+2407 d339 e7 f1               stb  [,s++]
+2408 d33b cc 70 38            ldd  #buffer
+2409 d33e 34 06               pshs d
+2410 d340 cc 00 00            ldd  #0
+2411 d343 e3 e1               addd ,s++
+2412 d345 34 06               pshs d
+2413 d347 cc 00 00            ldd  #0
+2414 d34a e7 f1               stb  [,s++]
+2415 d34c cc 00 03            ldd  #3
+2416 d34f f7 70 27            stb  state
+2417 d352 39                  rts
+2418                         
+2419                         * .global acca
+2420                         acca: 
+2421 d353 f6 70 32            ldb  USER_A
+2422 d356 1d                  sex
+2423 d357 f7 70 04            stb  n
+2424 d35a cc 70 38            ldd  #buffer
+2425 d35d 34 06               pshs d
+2426 d35f cc 00 02            ldd  #2
+2427 d362 e3 e1               addd ,s++
+2428 d364 34 06               pshs d
+2429 d366 cc c1 0d            ldd  #convert
+2430 d369 34 06               pshs d
+2431 d36b f6 70 04            ldb  n
+2432 d36e 1d                  sex
+2433 d36f 34 06               pshs d
+2434 d371 cc 00 0f            ldd  #15
+2435 d374 a4 e0               anda ,s+
+2436 d376 e4 e0               andb ,s+
+2437 d378 e3 e1               addd ,s++
+2438 d37a 34 06               pshs d
+2439 d37c e6 f1               ldb  [,s++]
+2440 d37e 1d                  sex
+2441 d37f e7 f1               stb  [,s++]
+2442 d381 f6 70 04            ldb  n
+2443 d384 1d                  sex
+2444 d385 34 06               pshs d
+2445 d387 cc 00 04            ldd  #4
+2446 d38a 5a                  decb
+2447 d38b 2d 06               blt  *+8
+2448 d38d 64 e4               lsr  ,s
+2449 d38f 66 61               ror  1,s
+2450 d391 20 f7               bra *-7
+2451 d393 35 06               puls d
+2452 d395 f7 70 04            stb  n
+2453 d398 cc 70 38            ldd  #buffer
+2454 d39b 34 06               pshs d
+2455 d39d cc 00 03            ldd  #3
+2456 d3a0 e3 e1               addd ,s++
+2457 d3a2 34 06               pshs d
+2458 d3a4 cc c1 0d            ldd  #convert
+2459 d3a7 34 06               pshs d
+2460 d3a9 f6 70 04            ldb  n
+2461 d3ac 1d                  sex
+2462 d3ad 34 06               pshs d
+2463 d3af cc 00 0f            ldd  #15
+2464 d3b2 a4 e0               anda ,s+
+2465 d3b4 e4 e0               andb ,s+
+2466 d3b6 e3 e1               addd ,s++
+2467 d3b8 34 06               pshs d
+2468 d3ba e6 f1               ldb  [,s++]
+2469 d3bc 1d                  sex
+2470 d3bd e7 f1               stb  [,s++]
+2471 d3bf cc 70 38            ldd  #buffer
+2472 d3c2 34 06               pshs d
+2473 d3c4 cc 00 04            ldd  #4
+2474 d3c7 e3 e1               addd ,s++
+2475 d3c9 34 06               pshs d
+2476 d3cb cc 00 00            ldd  #0
+2477 d3ce e7 f1               stb  [,s++]
+2478 d3d0 cc 70 38            ldd  #buffer
+2479 d3d3 34 06               pshs d
+2480 d3d5 cc 00 05            ldd  #5
+2481 d3d8 e3 e1               addd ,s++
+2482 d3da 34 06               pshs d
+2483 d3dc cc 00 00            ldd  #0
+2484 d3df e7 f1               stb  [,s++]
+2485 d3e1 cc 70 38            ldd  #buffer
+2486 d3e4 34 06               pshs d
+2487 d3e6 cc 00 01            ldd  #1
+2488 d3e9 e3 e1               addd ,s++
+2489 d3eb 34 06               pshs d
+2490 d3ed cc 00 00            ldd  #0
+2491 d3f0 e7 f1               stb  [,s++]
+2492 d3f2 cc 70 38            ldd  #buffer
+2493 d3f5 34 06               pshs d
+2494 d3f7 cc 00 00            ldd  #0
+2495 d3fa e3 e1               addd ,s++
+2496 d3fc 34 06               pshs d
+2497 d3fe cc 00 3f            ldd  #63
+2498 d401 e7 f1               stb  [,s++]
+2499 d403 39                  rts
+2500                         
+2501                         * .global accb
+2502                         accb: 
+2503 d404 f6 70 33            ldb  USER_B
+2504 d407 1d                  sex
+2505 d408 f7 70 04            stb  n
+2506 d40b cc 70 38            ldd  #buffer
+2507 d40e 34 06               pshs d
+2508 d410 cc 00 02            ldd  #2
+2509 d413 e3 e1               addd ,s++
+2510 d415 34 06               pshs d
+2511 d417 cc c1 0d            ldd  #convert
+2512 d41a 34 06               pshs d
+2513 d41c f6 70 04            ldb  n
+2514 d41f 1d                  sex
+2515 d420 34 06               pshs d
+2516 d422 cc 00 0f            ldd  #15
+2517 d425 a4 e0               anda ,s+
+2518 d427 e4 e0               andb ,s+
+2519 d429 e3 e1               addd ,s++
+2520 d42b 34 06               pshs d
+2521 d42d e6 f1               ldb  [,s++]
+2522 d42f 1d                  sex
+2523 d430 e7 f1               stb  [,s++]
+2524 d432 f6 70 04            ldb  n
+2525 d435 1d                  sex
+2526 d436 34 06               pshs d
+2527 d438 cc 00 04            ldd  #4
+2528 d43b 5a                  decb
+2529 d43c 2d 06               blt  *+8
+2530 d43e 64 e4               lsr  ,s
+2531 d440 66 61               ror  1,s
+2532 d442 20 f7               bra *-7
+2533 d444 35 06               puls d
+2534 d446 f7 70 04            stb  n
+2535 d449 cc 70 38            ldd  #buffer
+2536 d44c 34 06               pshs d
+2537 d44e cc 00 03            ldd  #3
+2538 d451 e3 e1               addd ,s++
+2539 d453 34 06               pshs d
+2540 d455 cc c1 0d            ldd  #convert
+2541 d458 34 06               pshs d
+2542 d45a f6 70 04            ldb  n
+2543 d45d 1d                  sex
+2544 d45e 34 06               pshs d
+2545 d460 cc 00 0f            ldd  #15
+2546 d463 a4 e0               anda ,s+
+2547 d465 e4 e0               andb ,s+
+2548 d467 e3 e1               addd ,s++
+2549 d469 34 06               pshs d
+2550 d46b e6 f1               ldb  [,s++]
+2551 d46d 1d                  sex
+2552 d46e e7 f1               stb  [,s++]
+2553 d470 cc 70 38            ldd  #buffer
+2554 d473 34 06               pshs d
+2555 d475 cc 00 04            ldd  #4
+2556 d478 e3 e1               addd ,s++
+2557 d47a 34 06               pshs d
+2558 d47c cc 00 00            ldd  #0
+2559 d47f e7 f1               stb  [,s++]
+2560 d481 cc 70 38            ldd  #buffer
+2561 d484 34 06               pshs d
+2562 d486 cc 00 05            ldd  #5
+2563 d489 e3 e1               addd ,s++
+2564 d48b 34 06               pshs d
+2565 d48d cc 00 00            ldd  #0
+2566 d490 e7 f1               stb  [,s++]
+2567 d492 cc 70 38            ldd  #buffer
+2568 d495 34 06               pshs d
+2569 d497 cc 00 01            ldd  #1
+2570 d49a e3 e1               addd ,s++
+2571 d49c 34 06               pshs d
+2572 d49e cc 00 00            ldd  #0
+2573 d4a1 e7 f1               stb  [,s++]
+2574 d4a3 cc 70 38            ldd  #buffer
+2575 d4a6 34 06               pshs d
+2576 d4a8 cc 00 00            ldd  #0
+2577 d4ab e3 e1               addd ,s++
+2578 d4ad 34 06               pshs d
+2579 d4af cc 00 a7            ldd  #167
+2580 d4b2 e7 f1               stb  [,s++]
+2581 d4b4 39                  rts
+2582                         
+2583                         * .global ab
+2584                         ab: 
+2585 d4b5 f6 70 33            ldb  USER_B
+2586 d4b8 1d                  sex
+2587 d4b9 f7 70 04            stb  n
+2588 d4bc cc 70 38            ldd  #buffer
+2589 d4bf 34 06               pshs d
+2590 d4c1 cc 00 02            ldd  #2
+2591 d4c4 e3 e1               addd ,s++
+2592 d4c6 34 06               pshs d
+2593 d4c8 cc c1 0d            ldd  #convert
+2594 d4cb 34 06               pshs d
+2595 d4cd f6 70 04            ldb  n
+2596 d4d0 1d                  sex
+2597 d4d1 34 06               pshs d
+2598 d4d3 cc 00 0f            ldd  #15
+2599 d4d6 a4 e0               anda ,s+
+2600 d4d8 e4 e0               andb ,s+
+2601 d4da e3 e1               addd ,s++
+2602 d4dc 34 06               pshs d
+2603 d4de e6 f1               ldb  [,s++]
+2604 d4e0 1d                  sex
+2605 d4e1 e7 f1               stb  [,s++]
+2606 d4e3 f6 70 04            ldb  n
+2607 d4e6 1d                  sex
+2608 d4e7 34 06               pshs d
+2609 d4e9 cc 00 04            ldd  #4
+2610 d4ec 5a                  decb
+2611 d4ed 2d 06               blt  *+8
+2612 d4ef 64 e4               lsr  ,s
+2613 d4f1 66 61               ror  1,s
+2614 d4f3 20 f7               bra *-7
+2615 d4f5 35 06               puls d
+2616 d4f7 f7 70 04            stb  n
+2617 d4fa cc 70 38            ldd  #buffer
+2618 d4fd 34 06               pshs d
+2619 d4ff cc 00 03            ldd  #3
+2620 d502 e3 e1               addd ,s++
+2621 d504 34 06               pshs d
+2622 d506 cc c1 0d            ldd  #convert
+2623 d509 34 06               pshs d
+2624 d50b f6 70 04            ldb  n
+2625 d50e 1d                  sex
+2626 d50f 34 06               pshs d
+2627 d511 cc 00 0f            ldd  #15
+2628 d514 a4 e0               anda ,s+
+2629 d516 e4 e0               andb ,s+
+2630 d518 e3 e1               addd ,s++
+2631 d51a 34 06               pshs d
+2632 d51c e6 f1               ldb  [,s++]
+2633 d51e 1d                  sex
+2634 d51f e7 f1               stb  [,s++]
+2635 d521 f6 70 32            ldb  USER_A
+2636 d524 1d                  sex
+2637 d525 f7 70 04            stb  n
+2638 d528 cc 70 38            ldd  #buffer
+2639 d52b 34 06               pshs d
+2640 d52d cc 00 04            ldd  #4
+2641 d530 e3 e1               addd ,s++
+2642 d532 34 06               pshs d
+2643 d534 cc c1 0d            ldd  #convert
+2644 d537 34 06               pshs d
+2645 d539 f6 70 04            ldb  n
+2646 d53c 1d                  sex
+2647 d53d 34 06               pshs d
+2648 d53f cc 00 0f            ldd  #15
+2649 d542 a4 e0               anda ,s+
+2650 d544 e4 e0               andb ,s+
+2651 d546 e3 e1               addd ,s++
+2652 d548 34 06               pshs d
+2653 d54a e6 f1               ldb  [,s++]
+2654 d54c 1d                  sex
+2655 d54d e7 f1               stb  [,s++]
+2656 d54f f6 70 04            ldb  n
+2657 d552 1d                  sex
+2658 d553 34 06               pshs d
+2659 d555 cc 00 04            ldd  #4
+2660 d558 5a                  decb
+2661 d559 2d 06               blt  *+8
+2662 d55b 64 e4               lsr  ,s
+2663 d55d 66 61               ror  1,s
+2664 d55f 20 f7               bra *-7
+2665 d561 35 06               puls d
+2666 d563 f7 70 04            stb  n
+2667 d566 cc 70 38            ldd  #buffer
+2668 d569 34 06               pshs d
+2669 d56b cc 00 05            ldd  #5
+2670 d56e e3 e1               addd ,s++
+2671 d570 34 06               pshs d
+2672 d572 cc c1 0d            ldd  #convert
+2673 d575 34 06               pshs d
+2674 d577 f6 70 04            ldb  n
+2675 d57a 1d                  sex
+2676 d57b 34 06               pshs d
+2677 d57d cc 00 0f            ldd  #15
+2678 d580 a4 e0               anda ,s+
+2679 d582 e4 e0               andb ,s+
+2680 d584 e3 e1               addd ,s++
+2681 d586 34 06               pshs d
+2682 d588 e6 f1               ldb  [,s++]
+2683 d58a 1d                  sex
+2684 d58b e7 f1               stb  [,s++]
+2685 d58d cc 70 38            ldd  #buffer
+2686 d590 34 06               pshs d
+2687 d592 cc 00 01            ldd  #1
+2688 d595 e3 e1               addd ,s++
+2689 d597 34 06               pshs d
+2690 d599 cc 00 3f            ldd  #63
+2691 d59c e7 f1               stb  [,s++]
+2692 d59e cc 70 38            ldd  #buffer
+2693 d5a1 34 06               pshs d
+2694 d5a3 cc 00 00            ldd  #0
+2695 d5a6 e3 e1               addd ,s++
+2696 d5a8 34 06               pshs d
+2697 d5aa cc 00 a7            ldd  #167
+2698 d5ad e7 f1               stb  [,s++]
+2699 d5af 39                  rts
+2700                         
+2701                         * .global reg_x
+2702                         reg_x: 
+2703 d5b0 fc 70 2c            ldd  USER_X
+2704 d5b3 fd 70 17            std  temp16
+2705 d5b6 fc 70 17            ldd  temp16
+2706 d5b9 34 06               pshs d
+2707 d5bb bd cc 8a            jsr hex4
+2708 d5be 32 62               leas 2,s
+2709 d5c0 cc 70 38            ldd  #buffer
+2710 d5c3 34 06               pshs d
+2711 d5c5 cc 00 01            ldd  #1
+2712 d5c8 e3 e1               addd ,s++
+2713 d5ca 34 06               pshs d
+2714 d5cc cc 00 00            ldd  #0
+2715 d5cf e7 f1               stb  [,s++]
+2716 d5d1 cc 70 38            ldd  #buffer
+2717 d5d4 34 06               pshs d
+2718 d5d6 cc 00 00            ldd  #0
+2719 d5d9 e3 e1               addd ,s++
+2720 d5db 34 06               pshs d
+2721 d5dd cc 00 13            ldd  #19
+2722 d5e0 e7 f1               stb  [,s++]
+2723 d5e2 39                  rts
+2724                         
+2725                         * .global reg_y
+2726                         reg_y: 
+2727 d5e3 fc 70 30            ldd  USER_Y
+2728 d5e6 fd 70 17            std  temp16
+2729 d5e9 fc 70 17            ldd  temp16
+2730 d5ec 34 06               pshs d
+2731 d5ee bd cc 8a            jsr hex4
+2732 d5f1 32 62               leas 2,s
+2733 d5f3 cc 70 38            ldd  #buffer
+2734 d5f6 34 06               pshs d
+2735 d5f8 cc 00 01            ldd  #1
+2736 d5fb e3 e1               addd ,s++
+2737 d5fd 34 06               pshs d
+2738 d5ff cc 00 00            ldd  #0
+2739 d602 e7 f1               stb  [,s++]
+2740 d604 cc 70 38            ldd  #buffer
+2741 d607 34 06               pshs d
+2742 d609 cc 00 00            ldd  #0
+2743 d60c e3 e1               addd ,s++
+2744 d60e 34 06               pshs d
+2745 d610 cc 00 b6            ldd  #182
+2746 d613 e7 f1               stb  [,s++]
+2747 d615 39                  rts
+2748                         
+2749                         * .global reg_u
+2750                         reg_u: 
+2751 d616 fc 70 2a            ldd  USER_U
+2752 d619 fd 70 17            std  temp16
+2753 d61c fc 70 17            ldd  temp16
+2754 d61f 34 06               pshs d
+2755 d621 bd cc 8a            jsr hex4
+2756 d624 32 62               leas 2,s
+2757 d626 cc 70 38            ldd  #buffer
+2758 d629 34 06               pshs d
+2759 d62b cc 00 01            ldd  #1
+2760 d62e e3 e1               addd ,s++
+2761 d630 34 06               pshs d
+2762 d632 cc 00 00            ldd  #0
+2763 d635 e7 f1               stb  [,s++]
+2764 d637 cc 70 38            ldd  #buffer
+2765 d63a 34 06               pshs d
+2766 d63c cc 00 00            ldd  #0
+2767 d63f e3 e1               addd ,s++
+2768 d641 34 06               pshs d
+2769 d643 cc 00 b5            ldd  #181
+2770 d646 e7 f1               stb  [,s++]
+2771 d648 39                  rts
+2772                         
+2773                         * .global reg_s
+2774                         reg_s: 
+2775 d649 fc 70 2e            ldd  SAVE_SP
+2776 d64c fd 70 17            std  temp16
+2777 d64f fc 70 17            ldd  temp16
+2778 d652 34 06               pshs d
+2779 d654 bd cc 8a            jsr hex4
+2780 d657 32 62               leas 2,s
+2781 d659 cc 70 38            ldd  #buffer
+2782 d65c 34 06               pshs d
+2783 d65e cc 00 01            ldd  #1
+2784 d661 e3 e1               addd ,s++
+2785 d663 34 06               pshs d
+2786 d665 cc 00 00            ldd  #0
+2787 d668 e7 f1               stb  [,s++]
+2788 d66a cc 70 38            ldd  #buffer
+2789 d66d 34 06               pshs d
+2790 d66f cc 00 00            ldd  #0
+2791 d672 e3 e1               addd ,s++
+2792 d674 34 06               pshs d
+2793 d676 cc 00 ae            ldd  #174
+2794 d679 e7 f1               stb  [,s++]
+2795 d67b 39                  rts
+2796                         
+2797                         * .global reg_dp
+2798                         reg_dp: 
+2799 d67c f6 70 35            ldb  USER_DP
+2800 d67f 1d                  sex
+2801 d680 f7 70 04            stb  n
+2802 d683 cc 70 38            ldd  #buffer
+2803 d686 34 06               pshs d
+2804 d688 cc 00 02            ldd  #2
+2805 d68b e3 e1               addd ,s++
+2806 d68d 34 06               pshs d
+2807 d68f cc c1 0d            ldd  #convert
+2808 d692 34 06               pshs d
+2809 d694 f6 70 04            ldb  n
+2810 d697 1d                  sex
+2811 d698 34 06               pshs d
+2812 d69a cc 00 0f            ldd  #15
+2813 d69d a4 e0               anda ,s+
+2814 d69f e4 e0               andb ,s+
+2815 d6a1 e3 e1               addd ,s++
+2816 d6a3 34 06               pshs d
+2817 d6a5 e6 f1               ldb  [,s++]
+2818 d6a7 1d                  sex
+2819 d6a8 e7 f1               stb  [,s++]
+2820 d6aa f6 70 04            ldb  n
+2821 d6ad 1d                  sex
+2822 d6ae 34 06               pshs d
+2823 d6b0 cc 00 04            ldd  #4
+2824 d6b3 5a                  decb
+2825 d6b4 2d 06               blt  *+8
+2826 d6b6 64 e4               lsr  ,s
+2827 d6b8 66 61               ror  1,s
+2828 d6ba 20 f7               bra *-7
+2829 d6bc 35 06               puls d
+2830 d6be f7 70 04            stb  n
+2831 d6c1 cc 70 38            ldd  #buffer
+2832 d6c4 34 06               pshs d
+2833 d6c6 cc 00 03            ldd  #3
+2834 d6c9 e3 e1               addd ,s++
+2835 d6cb 34 06               pshs d
+2836 d6cd cc c1 0d            ldd  #convert
+2837 d6d0 34 06               pshs d
+2838 d6d2 f6 70 04            ldb  n
+2839 d6d5 1d                  sex
+2840 d6d6 34 06               pshs d
+2841 d6d8 cc 00 0f            ldd  #15
+2842 d6db a4 e0               anda ,s+
+2843 d6dd e4 e0               andb ,s+
+2844 d6df e3 e1               addd ,s++
+2845 d6e1 34 06               pshs d
+2846 d6e3 e6 f1               ldb  [,s++]
+2847 d6e5 1d                  sex
+2848 d6e6 e7 f1               stb  [,s++]
+2849 d6e8 cc 70 38            ldd  #buffer
+2850 d6eb 34 06               pshs d
+2851 d6ed cc 00 04            ldd  #4
+2852 d6f0 e3 e1               addd ,s++
+2853 d6f2 34 06               pshs d
+2854 d6f4 cc 00 00            ldd  #0
+2855 d6f7 e7 f1               stb  [,s++]
+2856 d6f9 cc 70 38            ldd  #buffer
+2857 d6fc 34 06               pshs d
+2858 d6fe cc 00 05            ldd  #5
+2859 d701 e3 e1               addd ,s++
+2860 d703 34 06               pshs d
+2861 d705 cc 00 00            ldd  #0
+2862 d708 e7 f1               stb  [,s++]
+2863 d70a cc 70 38            ldd  #buffer
+2864 d70d 34 06               pshs d
+2865 d70f cc 00 01            ldd  #1
+2866 d712 e3 e1               addd ,s++
+2867 d714 34 06               pshs d
+2868 d716 cc 00 b3            ldd  #179
+2869 d719 e7 f1               stb  [,s++]
+2870 d71b cc 70 38            ldd  #buffer
+2871 d71e 34 06               pshs d
+2872 d720 cc 00 00            ldd  #0
+2873 d723 e3 e1               addd ,s++
+2874 d725 34 06               pshs d
+2875 d727 cc 00 1f            ldd  #31
+2876 d72a e7 f1               stb  [,s++]
+2877 d72c 39                  rts
+2878                         
+2879                         * .global low_cc
+2880                         low_cc: 
+2881 d72d f6 70 34            ldb  USER_P
+2882 d730 1d                  sex
+2883 d731 f7 70 04            stb  n
+2884 d734 f6 70 04            ldb  n
+2885 d737 1d                  sex
+2886 d738 34 06               pshs d
+2887 d73a cc 00 01            ldd  #1
+2888 d73d a4 e0               anda ,s+
+2889 d73f e4 e0               andb ,s+
+2890 d741 10 83 00 00         cmpd #0
+2891 d745 10 27 00 14         lbeq cc89
+2892 d749 cc 70 38            ldd  #buffer
+2893 d74c 34 06               pshs d
+2894 d74e cc 00 02            ldd  #2
+2895 d751 e3 e1               addd ,s++
+2896 d753 34 06               pshs d
+2897 d755 cc 00 30            ldd  #48
+2898 d758 e7 f1               stb  [,s++]
+2899 d75a 7e d7 6e            jmp cc90
+2900                         cc89:  
+2901 d75d cc 70 38            ldd  #buffer
+2902 d760 34 06               pshs d
+2903 d762 cc 00 02            ldd  #2
+2904 d765 e3 e1               addd ,s++
+2905 d767 34 06               pshs d
+2906 d769 cc 00 bd            ldd  #189
+2907 d76c e7 f1               stb  [,s++]
+2908                         cc90:  
+2909 d76e f6 70 04            ldb  n
+2910 d771 1d                  sex
+2911 d772 34 06               pshs d
+2912 d774 cc 00 02            ldd  #2
+2913 d777 a4 e0               anda ,s+
+2914 d779 e4 e0               andb ,s+
+2915 d77b 10 83 00 00         cmpd #0
+2916 d77f 10 27 00 14         lbeq cc91
+2917 d783 cc 70 38            ldd  #buffer
+2918 d786 34 06               pshs d
+2919 d788 cc 00 03            ldd  #3
+2920 d78b e3 e1               addd ,s++
+2921 d78d 34 06               pshs d
+2922 d78f cc 00 30            ldd  #48
+2923 d792 e7 f1               stb  [,s++]
+2924 d794 7e d7 a8            jmp cc92
+2925                         cc91:  
+2926 d797 cc 70 38            ldd  #buffer
+2927 d79a 34 06               pshs d
+2928 d79c cc 00 03            ldd  #3
+2929 d79f e3 e1               addd ,s++
+2930 d7a1 34 06               pshs d
+2931 d7a3 cc 00 bd            ldd  #189
+2932 d7a6 e7 f1               stb  [,s++]
+2933                         cc92:  
+2934 d7a8 f6 70 04            ldb  n
+2935 d7ab 1d                  sex
+2936 d7ac 34 06               pshs d
+2937 d7ae cc 00 04            ldd  #4
+2938 d7b1 a4 e0               anda ,s+
+2939 d7b3 e4 e0               andb ,s+
+2940 d7b5 10 83 00 00         cmpd #0
+2941 d7b9 10 27 00 14         lbeq cc93
+2942 d7bd cc 70 38            ldd  #buffer
+2943 d7c0 34 06               pshs d
+2944 d7c2 cc 00 04            ldd  #4
+2945 d7c5 e3 e1               addd ,s++
+2946 d7c7 34 06               pshs d
+2947 d7c9 cc 00 30            ldd  #48
+2948 d7cc e7 f1               stb  [,s++]
+2949 d7ce 7e d7 e2            jmp cc94
+2950                         cc93:  
+2951 d7d1 cc 70 38            ldd  #buffer
+2952 d7d4 34 06               pshs d
+2953 d7d6 cc 00 04            ldd  #4
+2954 d7d9 e3 e1               addd ,s++
+2955 d7db 34 06               pshs d
+2956 d7dd cc 00 bd            ldd  #189
+2957 d7e0 e7 f1               stb  [,s++]
+2958                         cc94:  
+2959 d7e2 f6 70 04            ldb  n
+2960 d7e5 1d                  sex
+2961 d7e6 34 06               pshs d
+2962 d7e8 cc 00 08            ldd  #8
+2963 d7eb a4 e0               anda ,s+
+2964 d7ed e4 e0               andb ,s+
+2965 d7ef 10 83 00 00         cmpd #0
+2966 d7f3 10 27 00 14         lbeq cc95
+2967 d7f7 cc 70 38            ldd  #buffer
+2968 d7fa 34 06               pshs d
+2969 d7fc cc 00 05            ldd  #5
+2970 d7ff e3 e1               addd ,s++
+2971 d801 34 06               pshs d
+2972 d803 cc 00 30            ldd  #48
+2973 d806 e7 f1               stb  [,s++]
+2974 d808 7e d8 1c            jmp cc96
+2975                         cc95:  
+2976 d80b cc 70 38            ldd  #buffer
+2977 d80e 34 06               pshs d
+2978 d810 cc 00 05            ldd  #5
+2979 d813 e3 e1               addd ,s++
+2980 d815 34 06               pshs d
+2981 d817 cc 00 bd            ldd  #189
+2982 d81a e7 f1               stb  [,s++]
+2983                         cc96:  
+2984 d81c cc 70 38            ldd  #buffer
+2985 d81f 34 06               pshs d
+2986 d821 cc 00 01            ldd  #1
+2987 d824 e3 e1               addd ,s++
+2988 d826 34 06               pshs d
+2989 d828 cc 00 8d            ldd  #141
+2990 d82b e7 f1               stb  [,s++]
+2991 d82d cc 70 38            ldd  #buffer
+2992 d830 34 06               pshs d
+2993 d832 cc 00 00            ldd  #0
+2994 d835 e3 e1               addd ,s++
+2995 d837 34 06               pshs d
+2996 d839 cc 00 85            ldd  #133
+2997 d83c e7 f1               stb  [,s++]
+2998 d83e 39                  rts
+2999                         
+3000                         * .global hi_cc
+3001                         hi_cc: 
+3002 d83f f6 70 34            ldb  USER_P
+3003 d842 1d                  sex
+3004 d843 f7 70 04            stb  n
+3005 d846 f6 70 04            ldb  n
+3006 d849 1d                  sex
+3007 d84a 34 06               pshs d
+3008 d84c cc 00 10            ldd  #16
+3009 d84f a4 e0               anda ,s+
+3010 d851 e4 e0               andb ,s+
+3011 d853 10 83 00 00         cmpd #0
+3012 d857 10 27 00 14         lbeq cc97
+3013 d85b cc 70 38            ldd  #buffer
+3014 d85e 34 06               pshs d
+3015 d860 cc 00 02            ldd  #2
+3016 d863 e3 e1               addd ,s++
+3017 d865 34 06               pshs d
+3018 d867 cc 00 30            ldd  #48
+3019 d86a e7 f1               stb  [,s++]
+3020 d86c 7e d8 80            jmp cc98
+3021                         cc97:  
+3022 d86f cc 70 38            ldd  #buffer
+3023 d872 34 06               pshs d
+3024 d874 cc 00 02            ldd  #2
+3025 d877 e3 e1               addd ,s++
+3026 d879 34 06               pshs d
+3027 d87b cc 00 bd            ldd  #189
+3028 d87e e7 f1               stb  [,s++]
+3029                         cc98:  
+3030 d880 f6 70 04            ldb  n
+3031 d883 1d                  sex
+3032 d884 34 06               pshs d
+3033 d886 cc 00 20            ldd  #32
+3034 d889 a4 e0               anda ,s+
+3035 d88b e4 e0               andb ,s+
+3036 d88d 10 83 00 00         cmpd #0
+3037 d891 10 27 00 14         lbeq cc99
+3038 d895 cc 70 38            ldd  #buffer
+3039 d898 34 06               pshs d
+3040 d89a cc 00 03            ldd  #3
+3041 d89d e3 e1               addd ,s++
+3042 d89f 34 06               pshs d
+3043 d8a1 cc 00 30            ldd  #48
+3044 d8a4 e7 f1               stb  [,s++]
+3045 d8a6 7e d8 ba            jmp cc100
+3046                         cc99:  
+3047 d8a9 cc 70 38            ldd  #buffer
+3048 d8ac 34 06               pshs d
+3049 d8ae cc 00 03            ldd  #3
+3050 d8b1 e3 e1               addd ,s++
+3051 d8b3 34 06               pshs d
+3052 d8b5 cc 00 bd            ldd  #189
+3053 d8b8 e7 f1               stb  [,s++]
+3054                         cc100:  
+3055 d8ba f6 70 04            ldb  n
+3056 d8bd 1d                  sex
+3057 d8be 34 06               pshs d
+3058 d8c0 cc 00 40            ldd  #64
+3059 d8c3 a4 e0               anda ,s+
+3060 d8c5 e4 e0               andb ,s+
+3061 d8c7 10 83 00 00         cmpd #0
+3062 d8cb 10 27 00 14         lbeq cc101
+3063 d8cf cc 70 38            ldd  #buffer
+3064 d8d2 34 06               pshs d
+3065 d8d4 cc 00 04            ldd  #4
+3066 d8d7 e3 e1               addd ,s++
+3067 d8d9 34 06               pshs d
+3068 d8db cc 00 30            ldd  #48
+3069 d8de e7 f1               stb  [,s++]
+3070 d8e0 7e d8 f4            jmp cc102
+3071                         cc101:  
+3072 d8e3 cc 70 38            ldd  #buffer
+3073 d8e6 34 06               pshs d
+3074 d8e8 cc 00 04            ldd  #4
+3075 d8eb e3 e1               addd ,s++
+3076 d8ed 34 06               pshs d
+3077 d8ef cc 00 bd            ldd  #189
+3078 d8f2 e7 f1               stb  [,s++]
+3079                         cc102:  
+3080 d8f4 f6 70 04            ldb  n
+3081 d8f7 1d                  sex
+3082 d8f8 34 06               pshs d
+3083 d8fa cc 00 80            ldd  #128
+3084 d8fd a4 e0               anda ,s+
+3085 d8ff e4 e0               andb ,s+
+3086 d901 10 83 00 00         cmpd #0
+3087 d905 10 27 00 14         lbeq cc103
+3088 d909 cc 70 38            ldd  #buffer
+3089 d90c 34 06               pshs d
+3090 d90e cc 00 05            ldd  #5
+3091 d911 e3 e1               addd ,s++
+3092 d913 34 06               pshs d
+3093 d915 cc 00 30            ldd  #48
+3094 d918 e7 f1               stb  [,s++]
+3095 d91a 7e d9 2e            jmp cc104
+3096                         cc103:  
+3097 d91d cc 70 38            ldd  #buffer
+3098 d920 34 06               pshs d
+3099 d922 cc 00 05            ldd  #5
+3100 d925 e3 e1               addd ,s++
+3101 d927 34 06               pshs d
+3102 d929 cc 00 bd            ldd  #189
+3103 d92c e7 f1               stb  [,s++]
+3104                         cc104:  
+3105 d92e cc 70 38            ldd  #buffer
+3106 d931 34 06               pshs d
+3107 d933 cc 00 01            ldd  #1
+3108 d936 e3 e1               addd ,s++
+3109 d938 34 06               pshs d
+3110 d93a cc 00 8d            ldd  #141
+3111 d93d e7 f1               stb  [,s++]
+3112 d93f cc 70 38            ldd  #buffer
+3113 d942 34 06               pshs d
+3114 d944 cc 00 00            ldd  #0
+3115 d947 e3 e1               addd ,s++
+3116 d949 34 06               pshs d
+3117 d94b cc 00 37            ldd  #55
+3118 d94e e7 f1               stb  [,s++]
+3119 d950 39                  rts
+3120                         
+3121                         * .global reg_disp
+3122                         reg_disp: 
+3123 d951 f6 70 09            ldb  key
+3124 d954 1d                  sex
+3125 d955 7e d9 97            jmp cc107
+3126                         cc108:  
+3127 d958 bd d3 53            jsr acca
+3128 d95b 7e d9 c4            jmp cc106
+3129                         cc109:  
+3130 d95e bd d4 04            jsr accb
+3131 d961 7e d9 c4            jmp cc106
+3132                         cc110:  
+3133 d964 bd d4 b5            jsr ab
+3134 d967 7e d9 c4            jmp cc106
+3135                         cc111:  
+3136 d96a bd d5 b0            jsr reg_x
+3137 d96d 7e d9 c4            jmp cc106
+3138                         cc112:  
+3139 d970 bd d5 e3            jsr reg_y
+3140 d973 7e d9 c4            jmp cc106
+3141                         cc113:  
+3142 d976 bd d6 16            jsr reg_u
+3143 d979 7e d9 c4            jmp cc106
+3144                         cc114:  
+3145 d97c bd d6 49            jsr reg_s
+3146 d97f 7e d9 c4            jmp cc106
+3147                         cc115:  
+3148 d982 bd d6 7c            jsr reg_dp
+3149 d985 7e d9 c4            jmp cc106
+3150                         cc116:  
+3151 d988 bd d7 2d            jsr low_cc
+3152 d98b 7e d9 c4            jmp cc106
+3153                         cc117:  
+3154 d98e bd d8 3f            jsr hi_cc
+3155 d991 7e d9 c4            jmp cc106
+3156 d994 7e d9 c4            jmp cc106
+3157                         cc107:  
+3158 d997 bd c0 f9            jsr ccswitch
+3159 d99a d9 58 00 00         FDB cc108,0
+3160 d99e d9 5e 00 01         FDB cc109,1
+3161 d9a2 d9 64 00 02         FDB cc110,2
+3162 d9a6 d9 6a 00 06         FDB cc111,6
+3163 d9aa d9 70 00 07         FDB cc112,7
+3164 d9ae d9 76 00 09         FDB cc113,9
+3165 d9b2 d9 7c 00 0a         FDB cc114,10
+3166 d9b6 d9 82 00 08         FDB cc115,8
+3167 d9ba d9 88 00 05         FDB cc116,5
+3168 d9be d9 8e 00 04         FDB cc117,4
+3169 d9c2 00 00               FDB 0
+3170                         cc106:  
+3171 d9c4 39                  rts
+3172                         
+3173                         * .global insert
+3174                         insert: 
+3175 d9c5 f6 70 27            ldb  state
+3176 d9c8 1d                  sex
+3177 d9c9 34 06               pshs d
+3178 d9cb cc 00 01            ldd  #1
+3179 d9ce 10 a3 e1            cmpd ,s++
+3180 d9d1 27 05               beq  *+7
+3181 d9d3 cc 00 00            ldd  #0
+3182 d9d6 20 03               bra  *+5
+3183 d9d8 cc 00 01            ldd  #1
+3184 d9db 10 83 00 00         cmpd #0
+3185 d9df 10 26 00 24         lbne cc119
+3186 d9e3 f6 70 27            ldb  state
+3187 d9e6 1d                  sex
+3188 d9e7 34 06               pshs d
+3189 d9e9 cc 00 02            ldd  #2
+3190 d9ec 10 a3 e1            cmpd ,s++
+3191 d9ef 27 05               beq  *+7
+3192 d9f1 cc 00 00            ldd  #0
+3193 d9f4 20 03               bra  *+5
+3194 d9f6 cc 00 01            ldd  #1
+3195 d9f9 10 83 00 00         cmpd #0
+3196 d9fd 10 26 00 06         lbne cc119
+3197 da01 cc 00 00            ldd  #0
+3198 da04 7e da 0a            jmp cc120
+3199                         cc119:  
+3200 da07 cc 00 01            ldd  #1
+3201                         cc120:  
+3202 da0a 10 83 00 00         cmpd #0
+3203 da0e 10 27 00 8e         lbeq cc118
+3204 da12 fc 70 19            ldd  PC
+3205 da15 fd 70 46            std  dptr
+3206 da18 cc 02 00            ldd  #512
+3207 da1b fd 70 02            std  j
+3208                         cc123:  
+3209 da1e fc 70 02            ldd  j
+3210 da21 34 06               pshs d
+3211 da23 cc 00 00            ldd  #0
+3212 da26 10 a3 e1            cmpd ,s++
+3213 da29 2d 05               blt  *+7
+3214 da2b cc 00 00            ldd  #0
+3215 da2e 20 03               bra  *+5
+3216 da30 cc 00 01            ldd  #1
+3217 da33 10 83 00 00         cmpd #0
+3218 da37 10 27 00 3f         lbeq cc122
+3219 da3b 7e da 4d            jmp cc124
+3220                         cc121:  
+3221 da3e fc 70 02            ldd  j
+3222 da41 83 00 01            subd #1
+3223 da44 fd 70 02            std  j
+3224 da47 c3 00 01            addd #1
+3225 da4a 7e da 1e            jmp cc123
+3226                         cc124:  
+3227 da4d fc 70 46            ldd  dptr
+3228 da50 34 06               pshs d
+3229 da52 fc 70 02            ldd  j
+3230 da55 e3 e1               addd ,s++
+3231 da57 34 06               pshs d
+3232 da59 fc 70 46            ldd  dptr
+3233 da5c 34 06               pshs d
+3234 da5e fc 70 02            ldd  j
+3235 da61 e3 e1               addd ,s++
+3236 da63 34 06               pshs d
+3237 da65 cc 00 01            ldd  #1
+3238 da68 35 10               puls x
+3239 da6a 34 06               pshs d
+3240 da6c 1f 10               tfr  x,d
+3241 da6e a3 e1               subd ,s++
+3242 da70 34 06               pshs d
+3243 da72 e6 f1               ldb  [,s++]
+3244 da74 1d                  sex
+3245 da75 e7 f1               stb  [,s++]
+3246 da77 7e da 3e            jmp cc121
+3247                         cc122:  
+3248 da7a fc 70 46            ldd  dptr
+3249 da7d 34 06               pshs d
+3250 da7f cc 00 01            ldd  #1
+3251 da82 e3 e1               addd ,s++
+3252 da84 34 06               pshs d
+3253 da86 cc 00 00            ldd  #0
+3254 da89 e7 f1               stb  [,s++]
+3255 da8b fc 70 19            ldd  PC
+3256 da8e c3 00 01            addd #1
+3257 da91 fd 70 19            std  PC
+3258 da94 83 00 01            subd #1
+3259 da97 bd ce 09            jsr read_mem
+3260 da9a cc 00 02            ldd  #2
+3261 da9d f7 70 27            stb  state
+3262                         cc118:  
+3263 daa0 39                  rts
+3264                         
+3265                         * .global cut_byte
+3266                         cut_byte: 
+3267 daa1 f6 70 27            ldb  state
+3268 daa4 1d                  sex
+3269 daa5 34 06               pshs d
+3270 daa7 cc 00 01            ldd  #1
+3271 daaa 10 a3 e1            cmpd ,s++
+3272 daad 27 05               beq  *+7
+3273 daaf cc 00 00            ldd  #0
+3274 dab2 20 03               bra  *+5
+3275 dab4 cc 00 01            ldd  #1
+3276 dab7 10 83 00 00         cmpd #0
+3277 dabb 10 26 00 24         lbne cc126
+3278 dabf f6 70 27            ldb  state
+3279 dac2 1d                  sex
+3280 dac3 34 06               pshs d
+3281 dac5 cc 00 02            ldd  #2
+3282 dac8 10 a3 e1            cmpd ,s++
+3283 dacb 27 05               beq  *+7
+3284 dacd cc 00 00            ldd  #0
+3285 dad0 20 03               bra  *+5
+3286 dad2 cc 00 01            ldd  #1
+3287 dad5 10 83 00 00         cmpd #0
+3288 dad9 10 26 00 06         lbne cc126
+3289 dadd cc 00 00            ldd  #0
+3290 dae0 7e da e6            jmp cc127
+3291                         cc126:  
+3292 dae3 cc 00 01            ldd  #1
+3293                         cc127:  
+3294 dae6 10 83 00 00         cmpd #0
+3295 daea 10 27 00 6b         lbeq cc125
+3296 daee fc 70 19            ldd  PC
+3297 daf1 fd 70 46            std  dptr
+3298 daf4 cc 00 00            ldd  #0
+3299 daf7 fd 70 02            std  j
+3300                         cc130:  
+3301 dafa fc 70 02            ldd  j
+3302 dafd 34 06               pshs d
+3303 daff cc 02 00            ldd  #512
+3304 db02 10 a3 e1            cmpd ,s++
+3305 db05 2e 05               bgt  *+7
+3306 db07 cc 00 00            ldd  #0
+3307 db0a 20 03               bra  *+5
+3308 db0c cc 00 01            ldd  #1
+3309 db0f 10 83 00 00         cmpd #0
+3310 db13 10 27 00 39         lbeq cc129
+3311 db17 7e db 29            jmp cc131
+3312                         cc128:  
+3313 db1a fc 70 02            ldd  j
+3314 db1d c3 00 01            addd #1
+3315 db20 fd 70 02            std  j
+3316 db23 83 00 01            subd #1
+3317 db26 7e da fa            jmp cc130
+3318                         cc131:  
+3319 db29 fc 70 46            ldd  dptr
+3320 db2c 34 06               pshs d
+3321 db2e fc 70 02            ldd  j
+3322 db31 e3 e1               addd ,s++
+3323 db33 34 06               pshs d
+3324 db35 fc 70 46            ldd  dptr
+3325 db38 34 06               pshs d
+3326 db3a fc 70 02            ldd  j
+3327 db3d e3 e1               addd ,s++
+3328 db3f 34 06               pshs d
+3329 db41 cc 00 01            ldd  #1
+3330 db44 e3 e1               addd ,s++
+3331 db46 34 06               pshs d
+3332 db48 e6 f1               ldb  [,s++]
+3333 db4a 1d                  sex
+3334 db4b e7 f1               stb  [,s++]
+3335 db4d 7e db 1a            jmp cc128
+3336                         cc129:  
+3337 db50 bd ce 09            jsr read_mem
+3338 db53 cc 00 02            ldd  #2
+3339 db56 f7 70 27            stb  state
+3340                         cc125:  
+3341 db59 39                  rts
+3342                         
+3343                         * .global key_test
+3344                         key_test: 
+3345 db5a 1c ef              		andcc #$ef
+3346 db5c cc 00 00            ldd  #0
+3347 db5f fd 70 25            std  t
+3348 db62 cc 70 38            ldd  #buffer
+3349 db65 34 06               pshs d
+3350 db67 cc 00 00            ldd  #0
+3351 db6a e3 e1               addd ,s++
+3352 db6c 34 06               pshs d
+3353 db6e cc 00 00            ldd  #0
+3354 db71 e7 f1               stb  [,s++]
+3355 db73 cc 70 38            ldd  #buffer
+3356 db76 34 06               pshs d
+3357 db78 cc 00 01            ldd  #1
+3358 db7b e3 e1               addd ,s++
+3359 db7d 34 06               pshs d
+3360 db7f cc 00 00            ldd  #0
+3361 db82 e7 f1               stb  [,s++]
+3362                         cc132:  
+3363 db84 cc 00 01            ldd  #1
+3364 db87 10 83 00 00         cmpd #0
+3365 db8b 10 27 00 4d         lbeq cc133
+3366                         cc134:  
+3367 db8f f6 70 0e            ldb  tick
+3368 db92 1d                  sex
+3369 db93 34 06               pshs d
+3370 db95 cc 00 0a            ldd  #10
+3371 db98 10 a3 e1            cmpd ,s++
+3372 db9b 2e 05               bgt  *+7
+3373 db9d cc 00 00            ldd  #0
+3374 dba0 20 03               bra  *+5
+3375 dba2 cc 00 01            ldd  #1
+3376 dba5 10 83 00 00         cmpd #0
+3377 dba9 10 27 00 06         lbeq cc135
+3378 dbad bd c8 84            jsr scan
+3379 dbb0 7e db 8f            jmp cc134
+3380                         cc135:  
+3381 dbb3 cc 00 00            ldd  #0
+3382 dbb6 f7 70 0e            stb  tick
+3383 dbb9 fc 70 25            ldd  t
+3384 dbbc 34 06               pshs d
+3385 dbbe bd cc 8a            jsr hex4
+3386 dbc1 32 62               leas 2,s
+3387 dbc3 fc 70 3e            ldd  gpio1
+3388 dbc6 34 06               pshs d
+3389 dbc8 fc 70 25            ldd  t
+3390 dbcb e7 f1               stb  [,s++]
+3391 dbcd fc 70 25            ldd  t
+3392 dbd0 c3 00 01            addd #1
+3393 dbd3 fd 70 25            std  t
+3394 dbd6 83 00 01            subd #1
+3395 dbd9 7e db 84            jmp cc132
+3396                         cc133:  
+3397 dbdc 39                  rts
+3398                         
+3399                         * .global clear_bu
+3400                         clear_bu: 
+3401 dbdd cc 00 00            ldd  #0
+3402 dbe0 fd 70 00            std  i
+3403                         cc138:  
+3404 dbe3 fc 70 00            ldd  i
+3405 dbe6 34 06               pshs d
+3406 dbe8 cc 00 06            ldd  #6
+3407 dbeb 10 a3 e1            cmpd ,s++
+3408 dbee 2e 05               bgt  *+7
+3409 dbf0 cc 00 00            ldd  #0
+3410 dbf3 20 03               bra  *+5
+3411 dbf5 cc 00 01            ldd  #1
+3412 dbf8 10 83 00 00         cmpd #0
+3413 dbfc 10 27 00 26         lbeq cc137
+3414 dc00 7e dc 12            jmp cc139
+3415                         cc136:  
+3416 dc03 fc 70 00            ldd  i
+3417 dc06 c3 00 01            addd #1
+3418 dc09 fd 70 00            std  i
+3419 dc0c 83 00 01            subd #1
+3420 dc0f 7e db e3            jmp cc138
+3421                         cc139:  
+3422 dc12 cc 70 38            ldd  #buffer
+3423 dc15 34 06               pshs d
+3424 dc17 fc 70 00            ldd  i
+3425 dc1a e3 e1               addd ,s++
+3426 dc1c 34 06               pshs d
+3427 dc1e cc 00 00            ldd  #0
+3428 dc21 e7 f1               stb  [,s++]
+3429 dc23 7e dc 03            jmp cc136
+3430                         cc137:  
+3431 dc26 39                  rts
+3432                         
+3433                         * .global key_cal
+3434                         key_cal: 
+3435 dc27 cc 00 04            ldd  #4
+3436 dc2a f7 70 27            stb  state
+3437 dc2d bd db dd            jsr clear_bu
+3438 dc30 cc 70 38            ldd  #buffer
+3439 dc33 34 06               pshs d
+3440 dc35 cc 00 02            ldd  #2
+3441 dc38 e3 e1               addd ,s++
+3442 dc3a 34 06               pshs d
+3443 dc3c cc 00 bd            ldd  #189
+3444 dc3f e7 f1               stb  [,s++]
+3445 dc41 cc 00 00            ldd  #0
+3446 dc44 fd 70 1f            std  start
+3447 dc47 cc 00 00            ldd  #0
+3448 dc4a fd 70 23            std  desti
+3449 dc4d cc 00 00            ldd  #0
+3450 dc50 f7 70 0b            stb  hit
+3451 dc53 39                  rts
+3452                         
+3453                         * .global enter_nu
+3454                         enter_nu: 
+3455 dc54 f6 70 0b            ldb  hit
+3456 dc57 1d                  sex
+3457 dc58 34 06               pshs d
+3458 dc5a cc 00 00            ldd  #0
+3459 dc5d 10 a3 e1            cmpd ,s++
+3460 dc60 27 05               beq  *+7
+3461 dc62 cc 00 00            ldd  #0
+3462 dc65 20 03               bra  *+5
+3463 dc67 cc 00 01            ldd  #1
+3464 dc6a 10 83 00 00         cmpd #0
+3465 dc6e 10 27 00 06         lbeq cc140
+3466 dc72 cc 00 00            ldd  #0
+3467 dc75 fd 70 1d            std  num
+3468                         cc140:  
+3469 dc78 cc 00 01            ldd  #1
+3470 dc7b f7 70 0b            stb  hit
+3471 dc7e cc 70 1d            ldd  #num
+3472 dc81 34 06               pshs d
+3473 dc83 cc 00 04            ldd  #4
+3474 dc86 ae f4               ldx  [,s]
+3475 dc88 34 10               pshs x
+3476 dc8a 5a                  decb
+3477 dc8b 2d 06               blt  *+8
+3478 dc8d 68 61               asl  1,s
+3479 dc8f 69 e4               rol  ,s
+3480 dc91 20 f7               bra  *-7
+3481 dc93 35 06               puls d
+3482 dc95 fd 70 1d            std  num
+3483 dc98 cc 70 1d            ldd  #num
+3484 dc9b 34 06               pshs d
+3485 dc9d f6 70 09            ldb  key
+3486 dca0 1d                  sex
+3487 dca1 ae f4               ldx  [,s]
+3488 dca3 34 10               pshs x
+3489 dca5 aa e0               ora  ,s+
+3490 dca7 ea e0               orb  ,s+
+3491 dca9 fd 70 1d            std  num
+3492 dcac fc 70 1d            ldd  num
+3493 dcaf 34 06               pshs d
+3494 dcb1 bd cc 8a            jsr hex4
+3495 dcb4 32 62               leas 2,s
+3496 dcb6 32 64               leas 4,s
+3497 dcb8 39                  rts
+3498                         
+3499                         * .global key_copy
+3500                         key_copy: 
+3501 dcb9 cc 00 05            ldd  #5
+3502 dcbc f7 70 27            stb  state
+3503 dcbf cc 00 00            ldd  #0
+3504 dcc2 f7 70 0b            stb  hit
+3505 dcc5 bd db dd            jsr clear_bu
+3506 dcc8 cc 70 38            ldd  #buffer
+3507 dccb 34 06               pshs d
+3508 dccd cc 00 02            ldd  #2
+3509 dcd0 e3 e1               addd ,s++
+3510 dcd2 34 06               pshs d
+3511 dcd4 cc 00 bd            ldd  #189
+3512 dcd7 e7 f1               stb  [,s++]
+3513 dcd9 cc 70 38            ldd  #buffer
+3514 dcdc 34 06               pshs d
+3515 dcde cc 00 00            ldd  #0
+3516 dce1 e3 e1               addd ,s++
+3517 dce3 34 06               pshs d
+3518 dce5 cc 00 ae            ldd  #174
+3519 dce8 e7 f1               stb  [,s++]
+3520 dcea cc 70 38            ldd  #buffer
+3521 dced 34 06               pshs d
+3522 dcef cc 00 01            ldd  #1
+3523 dcf2 e3 e1               addd ,s++
+3524 dcf4 34 06               pshs d
+3525 dcf6 cc 00 00            ldd  #0
+3526 dcf9 e7 f1               stb  [,s++]
+3527 dcfb 39                  rts
+3528                         
+3529                         * .global key_exe
+3530                         key_exe: 
+3531 dcfc f6 70 0d            ldb  flag
+3532 dcff 1d                  sex
+3533 dd00 34 06               pshs d
+3534 dd02 cc 00 00            ldd  #0
+3535 dd05 10 a3 e1            cmpd ,s++
+3536 dd08 27 05               beq  *+7
+3537 dd0a cc 00 00            ldd  #0
+3538 dd0d 20 03               bra  *+5
+3539 dd0f cc 00 01            ldd  #1
+3540 dd12 10 83 00 00         cmpd #0
+3541 dd16 10 27 00 03         lbeq cc141
+3542 dd1a bd de 82            jsr beep
+3543                         cc141:  
+3544 dd1d f6 70 09            ldb  key
+3545 dd20 1d                  sex
+3546 dd21 34 06               pshs d
+3547 dd23 cc 00 0f            ldd  #15
+3548 dd26 10 a3 e1            cmpd ,s++
+3549 dd29 2d 05               blt  *+7
+3550 dd2b cc 00 00            ldd  #0
+3551 dd2e 20 03               bra  *+5
+3552 dd30 cc 00 01            ldd  #1
+3553 dd33 10 83 00 00         cmpd #0
+3554 dd37 10 27 00 b5         lbeq cc142
+3555 dd3b f6 70 09            ldb  key
+3556 dd3e 1d                  sex
+3557 dd3f 7e dd ac            jmp cc145
+3558                         cc146:  
+3559 dd42 bd ce 10            jsr key_addr
+3560 dd45 7e dd ed            jmp cc144
+3561                         cc147:  
+3562 dd48 bd ce 23            jsr key_data
+3563 dd4b 7e dd ed            jmp cc144
+3564                         cc148:  
+3565 dd4e bd ce 36            jsr key_plus
+3566 dd51 7e dd ed            jmp cc144
+3567                         cc149:  
+3568 dd54 bd cf 69            jsr key_minu
+3569 dd57 7e dd ed            jmp cc144
+3570                         cc150:  
+3571 dd5a bd d0 5b            jsr key_PC
+3572 dd5d 7e dd ed            jmp cc144
+3573                         cc151:  
+3574 dd60 bd d1 33            jsr key_go
+3575 dd63 7e dd ed            jmp cc144
+3576                         cc152:  
+3577 dd66 bd d2 c4            jsr key_reg
+3578 dd69 7e dd ed            jmp cc144
+3579                         cc153:  
+3580 dd6c bd d9 c5            jsr insert
+3581 dd6f 7e dd ed            jmp cc144
+3582                         cc154:  
+3583 dd72 bd da a1            jsr cut_byte
+3584 dd75 7e dd ed            jmp cc144
+3585                         cc155:  
+3586 dd78 f6 70 0d            ldb  flag
+3587 dd7b 1d                  sex
+3588 dd7c 34 06               pshs d
+3589 dd7e cc 00 01            ldd  #1
+3590 dd81 a8 e0               eora ,s+
+3591 dd83 e8 e0               eorb ,s+
+3592 dd85 f7 70 0d            stb  flag
+3593 dd88 7e dd ed            jmp cc144
+3594                         cc156:  
+3595 dd8b bd db 5a            jsr key_test
+3596 dd8e 7e dd ed            jmp cc144
+3597                         cc157:  
+3598 dd91 bd dc 27            jsr key_cal
+3599 dd94 7e dd ed            jmp cc144
+3600                         cc158:  
+3601 dd97 bd dc b9            jsr key_copy
+3602 dd9a 7e dd ed            jmp cc144
+3603                         cc159:  
+3604 dd9d bd e2 21            jsr key_dump
+3605 dda0 7e dd ed            jmp cc144
+3606                         cc160:  
+3607 dda3 bd e6 d0            jsr key_load
+3608 dda6 7e dd ed            jmp cc144
+3609 dda9 7e dd ed            jmp cc144
+3610                         cc145:  
+3611 ddac bd c0 f9            jsr ccswitch
+3612 ddaf dd 42 00 13         FDB cc146,19
+3613 ddb3 dd 48 00 12         FDB cc147,18
+3614 ddb7 dd 4e 00 17         FDB cc148,23
+3615 ddbb dd 54 00 16         FDB cc149,22
+3616 ddbf dd 5a 00 10         FDB cc150,16
+3617 ddc3 dd 60 00 1b         FDB cc151,27
+3618 ddc7 dd 66 00 11         FDB cc152,17
+3619 ddcb dd 6c 00 18         FDB cc153,24
+3620 ddcf dd 72 00 19         FDB cc154,25
+3621 ddd3 dd 78 00 15         FDB cc155,21
+3622 ddd7 dd 8b 00 1a         FDB cc156,26
+3623 dddb dd 91 00 1d         FDB cc157,29
+3624 dddf dd 97 00 1c         FDB cc158,28
+3625 dde3 dd 9d 00 1e         FDB cc159,30
+3626 dde7 dd a3 00 1f         FDB cc160,31
+3627 ddeb 00 00               FDB 0
+3628                         cc144:  
+3629 dded 7e de 45            jmp cc161
+3630                         cc142:  
+3631 ddf0 f6 70 27            ldb  state
+3632 ddf3 1d                  sex
+3633 ddf4 7e de 24            jmp cc164
+3634                         cc165:  
+3635 ddf7 bd d0 65            jsr hex_addr
+3636 ddfa 7e de 45            jmp cc163
+3637                         cc166:  
+3638 ddfd bd cf e6            jsr data_hex
+3639 de00 7e de 45            jmp cc163
+3640                         cc167:  
+3641 de03 bd d9 51            jsr reg_disp
+3642 de06 7e de 45            jmp cc163
+3643                         cc168:  
+3644 de09 bd dc 54            jsr enter_nu
+3645 de0c 7e de 45            jmp cc163
+3646                         cc169:  
+3647 de0f bd dc 54            jsr enter_nu
+3648 de12 7e de 45            jmp cc163
+3649                         cc170:  
+3650 de15 bd dc 54            jsr enter_nu
+3651 de18 7e de 45            jmp cc163
+3652                         cc171:  
+3653 de1b bd dc 54            jsr enter_nu
+3654 de1e 7e de 45            jmp cc163
+3655 de21 7e de 45            jmp cc163
+3656                         cc164:  
+3657 de24 bd c0 f9            jsr ccswitch
+3658 de27 dd f7 00 01         FDB cc165,1
+3659 de2b dd fd 00 02         FDB cc166,2
+3660 de2f de 03 00 03         FDB cc167,3
+3661 de33 de 09 00 04         FDB cc168,4
+3662 de37 de 0f 00 05         FDB cc169,5
+3663 de3b de 15 00 06         FDB cc170,6
+3664 de3f de 1b 00 07         FDB cc171,7
+3665 de43 00 00               FDB 0
+3666                         cc163:  
+3667                         cc161:  
+3668 de45 39                  rts
+3669                         
+3670                         * .global delay_be
+3671                         delay_be: 
+3672 de46 cc 00 00            ldd  #0
+3673 de49 fd 70 02            std  j
+3674                         cc174:  
+3675 de4c fc 70 02            ldd  j
+3676 de4f 34 06               pshs d
+3677 de51 cc 00 02            ldd  #2
+3678 de54 10 a3 e1            cmpd ,s++
+3679 de57 2e 05               bgt  *+7
+3680 de59 cc 00 00            ldd  #0
+3681 de5c 20 03               bra  *+5
+3682 de5e cc 00 01            ldd  #1
+3683 de61 10 83 00 00         cmpd #0
+3684 de65 10 27 00 18         lbeq cc173
+3685 de69 7e de 7b            jmp cc175
+3686                         cc172:  
+3687 de6c fc 70 02            ldd  j
+3688 de6f c3 00 01            addd #1
+3689 de72 fd 70 02            std  j
+3690 de75 83 00 01            subd #1
+3691 de78 7e de 4c            jmp cc174
+3692                         cc175:  
+3693 de7b 7e de 6c            jmp cc172
+3694 de7e 7e de 6c            jmp cc172
+3695                         cc173:  
+3696 de81 39                  rts
+3697                         
+3698                         * .global beep
+3699                         beep: 
+3700 de82 32 7f               leas -1,s
+3701 de84 fc 70 40            ldd  port2
+3702 de87 34 06               pshs d
+3703 de89 cc 00 00            ldd  #0
+3704 de8c e7 f1               stb  [,s++]
+3705 de8e 31 e4               leay 0,s
+3706 de90 1f 20               tfr  y,d
+3707 de92 34 06               pshs d
+3708 de94 cc 00 00            ldd  #0
+3709 de97 e7 f1               stb  [,s++]
+3710                         cc178:  
+3711 de99 31 e4               leay 0,s
+3712 de9b 1f 20               tfr  y,d
+3713 de9d 34 06               pshs d
+3714 de9f e6 f1               ldb  [,s++]
+3715 dea1 1d                  sex
+3716 dea2 34 06               pshs d
+3717 dea4 cc 00 3c            ldd  #60
+3718 dea7 10 a3 e1            cmpd ,s++
+3719 deaa 2e 05               bgt  *+7
+3720 deac cc 00 00            ldd  #0
+3721 deaf 20 03               bra  *+5
+3722 deb1 cc 00 01            ldd  #1
+3723 deb4 10 83 00 00         cmpd #0
+3724 deb8 10 27 00 38         lbeq cc177
+3725 debc 7e de d5            jmp cc179
+3726                         cc176:  
+3727 debf 31 e4               leay 0,s
+3728 dec1 1f 20               tfr  y,d
+3729 dec3 34 06               pshs d
+3730 dec5 34 06               pshs d
+3731 dec7 e6 f1               ldb  [,s++]
+3732 dec9 1d                  sex
+3733 deca c3 00 01            addd #1
+3734 decd e7 f1               stb  [,s++]
+3735 decf 83 00 01            subd #1
+3736 ded2 7e de 99            jmp cc178
+3737                         cc179:  
+3738 ded5 fc 70 42            ldd  port1
+3739 ded8 34 06               pshs d
+3740 deda cc 00 80            ldd  #128
+3741 dedd 43                  coma
+3742 dede 53                  comb
+3743 dedf e7 f1               stb  [,s++]
+3744 dee1 bd de 46            jsr delay_be
+3745 dee4 fc 70 42            ldd  port1
+3746 dee7 34 06               pshs d
+3747 dee9 cc 00 ff            ldd  #255
+3748 deec e7 f1               stb  [,s++]
+3749 deee bd de 46            jsr delay_be
+3750 def1 7e de bf            jmp cc176
+3751                         cc177:  
+3752 def4 32 61               leas 1,s
+3753 def6 39                  rts
+3754                         
+3755                         * .global scan1
+3756                         scan1: 
+3757                         cc180:  
+3758 def7 bd c8 84            jsr scan
+3759 defa 34 06               pshs d
+3760 defc cc 00 01            ldd  #1
+3761 deff 43                  coma
+3762 df00 53                  comb
+3763 df01 c3 00 01            addd #1
+3764 df04 10 a3 e1            cmpd ,s++
+3765 df07 26 05               bne   *+7
+3766 df09 cc 00 00            ldd  #0
+3767 df0c 20 03               bra  *+5
+3768 df0e cc 00 01            ldd  #1
+3769 df11 10 83 00 00         cmpd #0
+3770 df15 10 27 00 06         lbeq cc181
+3771 df19 7e de f7            jmp cc180
+3772 df1c 7e de f7            jmp cc180
+3773                         cc181:  
+3774 df1f cc 00 03            ldd  #3
+3775 df22 34 06               pshs d
+3776 df24 bd c8 41            jsr delay_ms
+3777 df27 32 62               leas 2,s
+3778                         cc182:  
+3779 df29 bd c8 84            jsr scan
+3780 df2c 34 06               pshs d
+3781 df2e cc 00 01            ldd  #1
+3782 df31 43                  coma
+3783 df32 53                  comb
+3784 df33 c3 00 01            addd #1
+3785 df36 10 a3 e1            cmpd ,s++
+3786 df39 27 05               beq  *+7
+3787 df3b cc 00 00            ldd  #0
+3788 df3e 20 03               bra  *+5
+3789 df40 cc 00 01            ldd  #1
+3790 df43 10 83 00 00         cmpd #0
+3791 df47 10 27 00 06         lbeq cc183
+3792 df4b 7e df 29            jmp cc182
+3793 df4e 7e df 29            jmp cc182
+3794                         cc183:  
+3795 df51 cc 00 03            ldd  #3
+3796 df54 34 06               pshs d
+3797 df56 bd c8 41            jsr delay_ms
+3798 df59 32 62               leas 2,s
+3799 df5b bd c8 84            jsr scan
+3800 df5e f7 70 09            stb  key
+3801 df61 f6 70 09            ldb  key
+3802 df64 1d                  sex
+3803 df65 34 06               pshs d
+3804 df67 bd c3 0f            jsr key_code
+3805 df6a 32 62               leas 2,s
+3806 df6c f7 70 09            stb  key
+3807 df6f bd dc fc            jsr key_exe
+3808 df72 39                  rts
+3809                         
+3810                         * .global initacia
+3811                         initacia: 
+3812 df73 32 7b               leas -5,s
+3813 df75 31 62               leay 2,s
+3814 df77 1f 20               tfr  y,d
+3815 df79 34 06               pshs d
+3816 df7b cc a0 00            ldd  #-24576
+3817 df7e ed f1               std  [,s++]
+3818 df80 31 e4               leay 0,s
+3819 df82 1f 20               tfr  y,d
+3820 df84 34 06               pshs d
+3821 df86 cc 00 16            ldd  #22
+3822 df89 e7 f1               stb  [,s++]
+3823 df8b 31 61               leay 1,s
+3824 df8d 1f 20               tfr  y,d
+3825 df8f 34 06               pshs d
+3826 df91 cc 00 03            ldd  #3
+3827 df94 e7 f1               stb  [,s++]
+3828 df96 31 62               leay 2,s
+3829 df98 1f 20               tfr  y,d
+3830 df9a 34 06               pshs d
+3831 df9c ec f1               ldd  [,s++]
+3832 df9e 34 06               pshs d
+3833 dfa0 31 63               leay 3,s
+3834 dfa2 1f 20               tfr  y,d
+3835 dfa4 34 06               pshs d
+3836 dfa6 e6 f1               ldb  [,s++]
+3837 dfa8 1d                  sex
+3838 dfa9 e7 f1               stb  [,s++]
+3839 dfab 31 62               leay 2,s
+3840 dfad 1f 20               tfr  y,d
+3841 dfaf 34 06               pshs d
+3842 dfb1 ec f1               ldd  [,s++]
+3843 dfb3 34 06               pshs d
+3844 dfb5 31 62               leay 2,s
+3845 dfb7 1f 20               tfr  y,d
+3846 dfb9 34 06               pshs d
+3847 dfbb e6 f1               ldb  [,s++]
+3848 dfbd 1d                  sex
+3849 dfbe e7 f1               stb  [,s++]
+3850 dfc0 31 64               leay 4,s
+3851 dfc2 1f 20               tfr  y,d
+3852 dfc4 34 06               pshs d
+3853 dfc6 31 64               leay 4,s
+3854 dfc8 1f 20               tfr  y,d
+3855 dfca 34 06               pshs d
+3856 dfcc ec f1               ldd  [,s++]
+3857 dfce 34 06               pshs d
+3858 dfd0 cc 00 01            ldd  #1
+3859 dfd3 e3 e1               addd ,s++
+3860 dfd5 34 06               pshs d
+3861 dfd7 e6 f1               ldb  [,s++]
+3862 dfd9 1d                  sex
+3863 dfda e7 f1               stb  [,s++]
+3864 dfdc 32 65               leas 5,s
+3865 dfde 39                  rts
+3866                         
+3867                         * .global putchar
+3868                         putchar: 
+3869 dfdf 32 7e               leas -2,s
+3870 dfe1 31 e4               leay 0,s
+3871 dfe3 1f 20               tfr  y,d
+3872 dfe5 34 06               pshs d
+3873 dfe7 cc a0 00            ldd  #-24576
+3874 dfea ed f1               std  [,s++]
+3875                         cc184:  
+3876 dfec 31 e4               leay 0,s
+3877 dfee 1f 20               tfr  y,d
+3878 dff0 34 06               pshs d
+3879 dff2 ec f1               ldd  [,s++]
+3880 dff4 34 06               pshs d
+3881 dff6 e6 f1               ldb  [,s++]
+3882 dff8 1d                  sex
+3883 dff9 34 06               pshs d
+3884 dffb cc 00 02            ldd  #2
+3885 dffe a4 e0               anda ,s+
+3886 e000 e4 e0               andb ,s+
+3887 e002 34 06               pshs d
+3888 e004 cc 00 00            ldd  #0
+3889 e007 10 a3 e1            cmpd ,s++
+3890 e00a 27 05               beq  *+7
+3891 e00c cc 00 00            ldd  #0
+3892 e00f 20 03               bra  *+5
+3893 e011 cc 00 01            ldd  #1
+3894 e014 10 83 00 00         cmpd #0
+3895 e018 10 27 00 06         lbeq cc185
+3896 e01c 7e df ec            jmp cc184
+3897 e01f 7e df ec            jmp cc184
+3898                         cc185:  
+3899 e022 31 e4               leay 0,s
+3900 e024 1f 20               tfr  y,d
+3901 e026 34 06               pshs d
+3902 e028 ec f1               ldd  [,s++]
+3903 e02a 34 06               pshs d
+3904 e02c cc 00 01            ldd  #1
+3905 e02f e3 e1               addd ,s++
+3906 e031 34 06               pshs d
+3907 e033 31 67               leay 7,s
+3908 e035 1f 20               tfr  y,d
+3909 e037 34 06               pshs d
+3910 e039 e6 f1               ldb  [,s++]
+3911 e03b 1d                  sex
+3912 e03c e7 f1               stb  [,s++]
+3913 e03e 32 62               leas 2,s
+3914 e040 39                  rts
+3915                         
+3916                         * .global puts
+3917                         puts: 
+3918                         cc186:  
+3919 e041 31 62               leay 2,s
+3920 e043 1f 20               tfr  y,d
+3921 e045 34 06               pshs d
+3922 e047 ec f1               ldd  [,s++]
+3923 e049 34 06               pshs d
+3924 e04b e6 f1               ldb  [,s++]
+3925 e04d 1d                  sex
+3926 e04e 10 83 00 00         cmpd #0
+3927 e052 10 27 00 29         lbeq cc187
+3928 e056 31 62               leay 2,s
+3929 e058 1f 20               tfr  y,d
+3930 e05a 34 06               pshs d
+3931 e05c ec f1               ldd  [,s++]
+3932 e05e 34 06               pshs d
+3933 e060 e6 f1               ldb  [,s++]
+3934 e062 1d                  sex
+3935 e063 34 06               pshs d
+3936 e065 bd df df            jsr putchar
+3937 e068 32 62               leas 2,s
+3938 e06a 31 62               leay 2,s
+3939 e06c 1f 20               tfr  y,d
+3940 e06e 34 06               pshs d
+3941 e070 34 06               pshs d
+3942 e072 ec f1               ldd  [,s++]
+3943 e074 c3 00 01            addd #1
+3944 e077 ed f1               std  [,s++]
+3945 e079 83 00 01            subd #1
+3946 e07c 7e e0 41            jmp cc186
+3947                         cc187:  
+3948 e07f 39                  rts
+3949                         
+3950                         * .global getchar
+3951                         getchar: 
+3952 e080 32 7d               leas -3,s
+3953 e082 31 e4               leay 0,s
+3954 e084 1f 20               tfr  y,d
+3955 e086 34 06               pshs d
+3956 e088 cc a0 00            ldd  #-24576
+3957 e08b ed f1               std  [,s++]
+3958                         cc188:  
+3959 e08d 31 e4               leay 0,s
+3960 e08f 1f 20               tfr  y,d
+3961 e091 34 06               pshs d
+3962 e093 ec f1               ldd  [,s++]
+3963 e095 34 06               pshs d
+3964 e097 e6 f1               ldb  [,s++]
+3965 e099 1d                  sex
+3966 e09a 34 06               pshs d
+3967 e09c cc 00 01            ldd  #1
+3968 e09f a4 e0               anda ,s+
+3969 e0a1 e4 e0               andb ,s+
+3970 e0a3 34 06               pshs d
+3971 e0a5 cc 00 00            ldd  #0
+3972 e0a8 10 a3 e1            cmpd ,s++
+3973 e0ab 27 05               beq  *+7
+3974 e0ad cc 00 00            ldd  #0
+3975 e0b0 20 03               bra  *+5
+3976 e0b2 cc 00 01            ldd  #1
+3977 e0b5 10 83 00 00         cmpd #0
+3978 e0b9 10 27 00 06         lbeq cc189
+3979 e0bd 7e e0 8d            jmp cc188
+3980 e0c0 7e e0 8d            jmp cc188
+3981                         cc189:  
+3982 e0c3 31 62               leay 2,s
+3983 e0c5 1f 20               tfr  y,d
+3984 e0c7 34 06               pshs d
+3985 e0c9 31 62               leay 2,s
+3986 e0cb 1f 20               tfr  y,d
+3987 e0cd 34 06               pshs d
+3988 e0cf ec f1               ldd  [,s++]
+3989 e0d1 34 06               pshs d
+3990 e0d3 cc 00 01            ldd  #1
+3991 e0d6 e3 e1               addd ,s++
+3992 e0d8 34 06               pshs d
+3993 e0da e6 f1               ldb  [,s++]
+3994 e0dc 1d                  sex
+3995 e0dd e7 f1               stb  [,s++]
+3996 e0df 31 62               leay 2,s
+3997 e0e1 1f 20               tfr  y,d
+3998 e0e3 34 06               pshs d
+3999 e0e5 e6 f1               ldb  [,s++]
+4000 e0e7 1d                  sex
+4001 e0e8 32 63               leas 3,s
+4002 e0ea 39                  rts
+4003                         
+4004                         * .global newline
+4005                         newline: 
+4006 e0eb cc 00 0a            ldd  #10
+4007 e0ee 34 06               pshs d
+4008 e0f0 bd df df            jsr putchar
+4009 e0f3 32 62               leas 2,s
+4010 e0f5 cc 00 0d            ldd  #13
+4011 e0f8 34 06               pshs d
+4012 e0fa bd df df            jsr putchar
+4013 e0fd 32 62               leas 2,s
+4014 e0ff 39                  rts
+4015                         
+4016                         * .global send_hex
+4017                         send_hex: 
+4018 e100 31 63               leay 3,s
+4019 e102 1f 20               tfr  y,d
+4020 e104 34 06               pshs d
+4021 e106 e6 f1               ldb  [,s++]
+4022 e108 1d                  sex
+4023 e109 34 06               pshs d
+4024 e10b cc 00 04            ldd  #4
+4025 e10e 5a                  decb
+4026 e10f 2d 06               blt  *+8
+4027 e111 64 e4               lsr  ,s
+4028 e113 66 61               ror  1,s
+4029 e115 20 f7               bra *-7
+4030 e117 35 06               puls d
+4031 e119 f7 70 05            stb  k
+4032 e11c f6 70 05            ldb  k
+4033 e11f 1d                  sex
+4034 e120 34 06               pshs d
+4035 e122 cc 00 0f            ldd  #15
+4036 e125 a4 e0               anda ,s+
+4037 e127 e4 e0               andb ,s+
+4038 e129 f7 70 05            stb  k
+4039 e12c f6 70 05            ldb  k
+4040 e12f 1d                  sex
+4041 e130 34 06               pshs d
+4042 e132 cc 00 09            ldd  #9
+4043 e135 10 a3 e1            cmpd ,s++
+4044 e138 2d 05               blt  *+7
+4045 e13a cc 00 00            ldd  #0
+4046 e13d 20 03               bra  *+5
+4047 e13f cc 00 01            ldd  #1
+4048 e142 10 83 00 00         cmpd #0
+4049 e146 10 27 00 15         lbeq cc190
+4050 e14a f6 70 05            ldb  k
+4051 e14d 1d                  sex
+4052 e14e 34 06               pshs d
+4053 e150 cc 00 37            ldd  #55
+4054 e153 e3 e1               addd ,s++
+4055 e155 34 06               pshs d
+4056 e157 bd df df            jsr putchar
+4057 e15a 32 62               leas 2,s
+4058 e15c 7e e1 71            jmp cc191
+4059                         cc190:  
+4060 e15f f6 70 05            ldb  k
+4061 e162 1d                  sex
+4062 e163 34 06               pshs d
+4063 e165 cc 00 30            ldd  #48
+4064 e168 e3 e1               addd ,s++
+4065 e16a 34 06               pshs d
+4066 e16c bd df df            jsr putchar
+4067 e16f 32 62               leas 2,s
+4068                         cc191:  
+4069 e171 31 63               leay 3,s
+4070 e173 1f 20               tfr  y,d
+4071 e175 34 06               pshs d
+4072 e177 e6 f1               ldb  [,s++]
+4073 e179 1d                  sex
+4074 e17a 34 06               pshs d
+4075 e17c cc 00 0f            ldd  #15
+4076 e17f a4 e0               anda ,s+
+4077 e181 e4 e0               andb ,s+
+4078 e183 f7 70 05            stb  k
+4079 e186 f6 70 05            ldb  k
+4080 e189 1d                  sex
+4081 e18a 34 06               pshs d
+4082 e18c cc 00 09            ldd  #9
+4083 e18f 10 a3 e1            cmpd ,s++
+4084 e192 2d 05               blt  *+7
+4085 e194 cc 00 00            ldd  #0
+4086 e197 20 03               bra  *+5
+4087 e199 cc 00 01            ldd  #1
+4088 e19c 10 83 00 00         cmpd #0
+4089 e1a0 10 27 00 15         lbeq cc192
+4090 e1a4 f6 70 05            ldb  k
+4091 e1a7 1d                  sex
+4092 e1a8 34 06               pshs d
+4093 e1aa cc 00 37            ldd  #55
+4094 e1ad e3 e1               addd ,s++
+4095 e1af 34 06               pshs d
+4096 e1b1 bd df df            jsr putchar
+4097 e1b4 32 62               leas 2,s
+4098 e1b6 7e e1 cb            jmp cc193
+4099                         cc192:  
+4100 e1b9 f6 70 05            ldb  k
+4101 e1bc 1d                  sex
+4102 e1bd 34 06               pshs d
+4103 e1bf cc 00 30            ldd  #48
+4104 e1c2 e3 e1               addd ,s++
+4105 e1c4 34 06               pshs d
+4106 e1c6 bd df df            jsr putchar
+4107 e1c9 32 62               leas 2,s
+4108                         cc193:  
+4109 e1cb 39                  rts
+4110                         
+4111                         * .global send_wor
+4112                         send_wor: 
+4113 e1cc 31 62               leay 2,s
+4114 e1ce 1f 20               tfr  y,d
+4115 e1d0 34 06               pshs d
+4116 e1d2 ec f1               ldd  [,s++]
+4117 e1d4 34 06               pshs d
+4118 e1d6 cc 00 08            ldd  #8
+4119 e1d9 5a                  decb
+4120 e1da 2d 06               blt  *+8
+4121 e1dc 64 e4               lsr  ,s
+4122 e1de 66 61               ror  1,s
+4123 e1e0 20 f7               bra *-7
+4124 e1e2 35 06               puls d
+4125 e1e4 fd 70 17            std  temp16
+4126 e1e7 fc 70 17            ldd  temp16
+4127 e1ea 34 06               pshs d
+4128 e1ec cc 00 ff            ldd  #255
+4129 e1ef a4 e0               anda ,s+
+4130 e1f1 e4 e0               andb ,s+
+4131 e1f3 f7 70 05            stb  k
+4132 e1f6 f6 70 05            ldb  k
+4133 e1f9 1d                  sex
+4134 e1fa 34 06               pshs d
+4135 e1fc bd e1 00            jsr send_hex
+4136 e1ff 32 62               leas 2,s
+4137 e201 31 62               leay 2,s
+4138 e203 1f 20               tfr  y,d
+4139 e205 34 06               pshs d
+4140 e207 ec f1               ldd  [,s++]
+4141 e209 34 06               pshs d
+4142 e20b cc 00 ff            ldd  #255
+4143 e20e a4 e0               anda ,s+
+4144 e210 e4 e0               andb ,s+
+4145 e212 f7 70 05            stb  k
+4146 e215 f6 70 05            ldb  k
+4147 e218 1d                  sex
+4148 e219 34 06               pshs d
+4149 e21b bd e1 00            jsr send_hex
+4150 e21e 32 62               leas 2,s
+4151 e220 39                  rts
+4152                         
+4153                         * .global key_dump
+4154                         key_dump: 
+4155 e221 32 7c               leas -4,s
+4156 e223 fc 70 19            ldd  PC
+4157 e226 fd 70 46            std  dptr
+4158 e229 31 62               leay 2,s
+4159 e22b 1f 20               tfr  y,d
+4160 e22d 34 06               pshs d
+4161 e22f cc 00 00            ldd  #0
+4162 e232 ed f1               std  [,s++]
+4163                         cc196:  
+4164 e234 31 62               leay 2,s
+4165 e236 1f 20               tfr  y,d
+4166 e238 34 06               pshs d
+4167 e23a ec f1               ldd  [,s++]
+4168 e23c 34 06               pshs d
+4169 e23e cc 00 10            ldd  #16
+4170 e241 10 a3 e1            cmpd ,s++
+4171 e244 2e 05               bgt  *+7
+4172 e246 cc 00 00            ldd  #0
+4173 e249 20 03               bra  *+5
+4174 e24b cc 00 01            ldd  #1
+4175 e24e 10 83 00 00         cmpd #0
+4176 e252 10 27 01 7a         lbeq cc195
+4177 e256 7e e2 6e            jmp cc197
+4178                         cc194:  
+4179 e259 31 62               leay 2,s
+4180 e25b 1f 20               tfr  y,d
+4181 e25d 34 06               pshs d
+4182 e25f 34 06               pshs d
+4183 e261 ec f1               ldd  [,s++]
+4184 e263 c3 00 01            addd #1
+4185 e266 ed f1               std  [,s++]
+4186 e268 83 00 01            subd #1
+4187 e26b 7e e2 34            jmp cc196
+4188                         cc197:  
+4189 e26e bd e0 eb            jsr newline
+4190 e271 fc 70 46            ldd  dptr
+4191 e274 34 06               pshs d
+4192 e276 bd e1 cc            jsr send_wor
+4193 e279 32 62               leas 2,s
+4194 e27b cc 00 3a            ldd  #58
+4195 e27e 34 06               pshs d
+4196 e280 bd df df            jsr putchar
+4197 e283 32 62               leas 2,s
+4198 e285 31 e4               leay 0,s
+4199 e287 1f 20               tfr  y,d
+4200 e289 34 06               pshs d
+4201 e28b cc 00 00            ldd  #0
+4202 e28e ed f1               std  [,s++]
+4203                         cc200:  
+4204 e290 31 e4               leay 0,s
+4205 e292 1f 20               tfr  y,d
+4206 e294 34 06               pshs d
+4207 e296 ec f1               ldd  [,s++]
+4208 e298 34 06               pshs d
+4209 e29a cc 00 10            ldd  #16
+4210 e29d 10 a3 e1            cmpd ,s++
+4211 e2a0 2e 05               bgt  *+7
+4212 e2a2 cc 00 00            ldd  #0
+4213 e2a5 20 03               bra  *+5
+4214 e2a7 cc 00 01            ldd  #1
+4215 e2aa 10 83 00 00         cmpd #0
+4216 e2ae 10 27 00 40         lbeq cc199
+4217 e2b2 7e e2 ca            jmp cc201
+4218                         cc198:  
+4219 e2b5 31 e4               leay 0,s
+4220 e2b7 1f 20               tfr  y,d
+4221 e2b9 34 06               pshs d
+4222 e2bb 34 06               pshs d
+4223 e2bd ec f1               ldd  [,s++]
+4224 e2bf c3 00 01            addd #1
+4225 e2c2 ed f1               std  [,s++]
+4226 e2c4 83 00 01            subd #1
+4227 e2c7 7e e2 90            jmp cc200
+4228                         cc201:  
+4229 e2ca fc 70 46            ldd  dptr
+4230 e2cd 34 06               pshs d
+4231 e2cf 31 62               leay 2,s
+4232 e2d1 1f 20               tfr  y,d
+4233 e2d3 34 06               pshs d
+4234 e2d5 ec f1               ldd  [,s++]
+4235 e2d7 e3 e1               addd ,s++
+4236 e2d9 34 06               pshs d
+4237 e2db e6 f1               ldb  [,s++]
+4238 e2dd 1d                  sex
+4239 e2de 34 06               pshs d
+4240 e2e0 bd e1 00            jsr send_hex
+4241 e2e3 32 62               leas 2,s
+4242 e2e5 cc 00 20            ldd  #32
+4243 e2e8 34 06               pshs d
+4244 e2ea bd df df            jsr putchar
+4245 e2ed 32 62               leas 2,s
+4246 e2ef 7e e2 b5            jmp cc198
+4247                         cc199:  
+4248 e2f2 cc 00 20            ldd  #32
+4249 e2f5 34 06               pshs d
+4250 e2f7 bd df df            jsr putchar
+4251 e2fa 32 62               leas 2,s
+4252 e2fc 31 e4               leay 0,s
+4253 e2fe 1f 20               tfr  y,d
+4254 e300 34 06               pshs d
+4255 e302 cc 00 00            ldd  #0
+4256 e305 ed f1               std  [,s++]
+4257                         cc204:  
+4258 e307 31 e4               leay 0,s
+4259 e309 1f 20               tfr  y,d
+4260 e30b 34 06               pshs d
+4261 e30d ec f1               ldd  [,s++]
+4262 e30f 34 06               pshs d
+4263 e311 cc 00 10            ldd  #16
+4264 e314 10 a3 e1            cmpd ,s++
+4265 e317 2e 05               bgt  *+7
+4266 e319 cc 00 00            ldd  #0
+4267 e31c 20 03               bra  *+5
+4268 e31e cc 00 01            ldd  #1
+4269 e321 10 83 00 00         cmpd #0
+4270 e325 10 27 00 91         lbeq cc203
+4271 e329 7e e3 41            jmp cc205
+4272                         cc202:  
+4273 e32c 31 e4               leay 0,s
+4274 e32e 1f 20               tfr  y,d
+4275 e330 34 06               pshs d
+4276 e332 34 06               pshs d
+4277 e334 ec f1               ldd  [,s++]
+4278 e336 c3 00 01            addd #1
+4279 e339 ed f1               std  [,s++]
+4280 e33b 83 00 01            subd #1
+4281 e33e 7e e3 07            jmp cc204
+4282                         cc205:  
+4283 e341 fc 70 46            ldd  dptr
+4284 e344 34 06               pshs d
+4285 e346 31 62               leay 2,s
+4286 e348 1f 20               tfr  y,d
+4287 e34a 34 06               pshs d
+4288 e34c ec f1               ldd  [,s++]
+4289 e34e e3 e1               addd ,s++
+4290 e350 34 06               pshs d
+4291 e352 e6 f1               ldb  [,s++]
+4292 e354 1d                  sex
+4293 e355 f7 70 07            stb  q
+4294 e358 f6 70 07            ldb  q
+4295 e35b 1d                  sex
+4296 e35c 34 06               pshs d
+4297 e35e cc 00 20            ldd  #32
+4298 e361 10 a3 e1            cmpd ,s++
+4299 e364 2f 05               ble  *+7
+4300 e366 cc 00 00            ldd  #0
+4301 e369 20 03               bra  *+5
+4302 e36b cc 00 01            ldd  #1
+4303 e36e 10 83 00 00         cmpd #0
+4304 e372 10 27 00 21         lbeq cc207 ;_  instruction flagged for non optimize
+4305 e376 f6 70 07            ldb  q
+4306 e379 1d                  sex
+4307 e37a 34 06               pshs d
+4308 e37c cc 00 80            ldd  #128
+4309 e37f 10 a3 e1            cmpd ,s++
+4310 e382 2e 05               bgt  *+7
+4311 e384 cc 00 00            ldd  #0
+4312 e387 20 03               bra  *+5
+4313 e389 cc 00 01            ldd  #1
+4314 e38c 10 83 00 00         cmpd #0
+4315 e390 10 27 00 03         lbeq cc207 ;_  instruction flagged for non optimize
+4316 e394 cc 00 01            ldd  #1
+4317                         cc207:  
+4318 e397 10 83 00 00         cmpd #0
+4319 e39b 10 27 00 0e         lbeq cc206
+4320 e39f f6 70 07            ldb  q
+4321 e3a2 1d                  sex
+4322 e3a3 34 06               pshs d
+4323 e3a5 bd df df            jsr putchar
+4324 e3a8 32 62               leas 2,s
+4325 e3aa 7e e3 b7            jmp cc208
+4326                         cc206:  
+4327 e3ad cc 00 2e            ldd  #46
+4328 e3b0 34 06               pshs d
+4329 e3b2 bd df df            jsr putchar
+4330 e3b5 32 62               leas 2,s
+4331                         cc208:  
+4332 e3b7 7e e3 2c            jmp cc202
+4333                         cc203:  
+4334 e3ba cc 70 46            ldd  #dptr
+4335 e3bd 34 06               pshs d
+4336 e3bf cc 00 10            ldd  #16
+4337 e3c2 ae f4               ldx  [,s]
+4338 e3c4 34 10               pshs x
+4339 e3c6 e3 e1               addd ,s++
+4340 e3c8 fd 70 46            std  dptr
+4341 e3cb 32 62               leas 2,s
+4342 e3cd 7e e2 59            jmp cc194
+4343                         cc195:  
+4344 e3d0 bd e0 eb            jsr newline
+4345 e3d3 fc 70 46            ldd  dptr
+4346 e3d6 fd 70 19            std  PC
+4347 e3d9 bd ce 10            jsr key_addr
+4348 e3dc 32 64               leas 4,s
+4349 e3de 39                  rts
+4350                         
+4351                         * .global nibble2h
+4352                         nibble2h: 
+4353 e3df 32 7f               leas -1,s
+4354 e3e1 31 64               leay 4,s
+4355 e3e3 1f 20               tfr  y,d
+4356 e3e5 34 06               pshs d
+4357 e3e7 e6 f1               ldb  [,s++]
+4358 e3e9 1d                  sex
+4359 e3ea 34 06               pshs d
+4360 e3ec cc 00 40            ldd  #64
+4361 e3ef 10 a3 e1            cmpd ,s++
+4362 e3f2 2e 05               bgt  *+7
+4363 e3f4 cc 00 00            ldd  #0
+4364 e3f7 20 03               bra  *+5
+4365 e3f9 cc 00 01            ldd  #1
+4366 e3fc 10 83 00 00         cmpd #0
+4367 e400 10 27 00 19         lbeq cc209
+4368 e404 31 64               leay 4,s
+4369 e406 1f 20               tfr  y,d
+4370 e408 34 06               pshs d
+4371 e40a e6 f1               ldb  [,s++]
+4372 e40c 1d                  sex
+4373 e40d 34 06               pshs d
+4374 e40f cc 00 30            ldd  #48
+4375 e412 35 10               puls x
+4376 e414 34 06               pshs d
+4377 e416 1f 10               tfr  x,d
+4378 e418 a3 e1               subd ,s++
+4379 e41a 32 61               leas 1,s
+4380 e41c 39                  rts
+4381                         cc209:  
+4382 e41d 31 64               leay 4,s
+4383 e41f 1f 20               tfr  y,d
+4384 e421 34 06               pshs d
+4385 e423 e6 f1               ldb  [,s++]
+4386 e425 1d                  sex
+4387 e426 34 06               pshs d
+4388 e428 cc 00 37            ldd  #55
+4389 e42b 35 10               puls x
+4390 e42d 34 06               pshs d
+4391 e42f 1f 10               tfr  x,d
+4392 e431 a3 e1               subd ,s++
+4393 e433 32 61               leas 1,s
+4394 e435 39                  rts
+4395                         cc210:  
+4396 e436 32 61               leas 1,s
+4397 e438 39                  rts
+4398                         
+4399                         * .global gethex
+4400                         gethex: 
+4401 e439 32 7c               leas -4,s
+4402 e43b 31 62               leay 2,s
+4403 e43d 1f 20               tfr  y,d
+4404 e43f 34 06               pshs d
+4405 e441 bd e7 7a            jsr getchar2
+4406 e444 ed f1               std  [,s++]
+4407 e446 31 e4               leay 0,s
+4408 e448 1f 20               tfr  y,d
+4409 e44a 34 06               pshs d
+4410 e44c bd e7 7a            jsr getchar2
+4411 e44f ed f1               std  [,s++]
+4412 e451 31 62               leay 2,s
+4413 e453 1f 20               tfr  y,d
+4414 e455 34 06               pshs d
+4415 e457 31 64               leay 4,s
+4416 e459 1f 20               tfr  y,d
+4417 e45b 34 06               pshs d
+4418 e45d ec f1               ldd  [,s++]
+4419 e45f 34 06               pshs d
+4420 e461 bd e3 df            jsr nibble2h
+4421 e464 32 62               leas 2,s
+4422 e466 34 06               pshs d
+4423 e468 cc 00 04            ldd  #4
+4424 e46b 5a                  decb
+4425 e46c 2d 06               blt  *+8
+4426 e46e 68 61               asl  1,s
+4427 e470 69 e4               rol  ,s
+4428 e472 20 f7               bra  *-7
+4429 e474 35 06               puls d
+4430 e476 ed f1               std  [,s++]
+4431 e478 31 e4               leay 0,s
+4432 e47a 1f 20               tfr  y,d
+4433 e47c 34 06               pshs d
+4434 e47e 31 62               leay 2,s
+4435 e480 1f 20               tfr  y,d
+4436 e482 34 06               pshs d
+4437 e484 ec f1               ldd  [,s++]
+4438 e486 34 06               pshs d
+4439 e488 bd e3 df            jsr nibble2h
+4440 e48b 32 62               leas 2,s
+4441 e48d ed f1               std  [,s++]
+4442 e48f 31 62               leay 2,s
+4443 e491 1f 20               tfr  y,d
+4444 e493 34 06               pshs d
+4445 e495 31 64               leay 4,s
+4446 e497 1f 20               tfr  y,d
+4447 e499 34 06               pshs d
+4448 e49b ec f1               ldd  [,s++]
+4449 e49d 34 06               pshs d
+4450 e49f 31 64               leay 4,s
+4451 e4a1 1f 20               tfr  y,d
+4452 e4a3 34 06               pshs d
+4453 e4a5 ec f1               ldd  [,s++]
+4454 e4a7 aa e0               ora  ,s+
+4455 e4a9 ea e0               orb  ,s+
+4456 e4ab ed f1               std  [,s++]
+4457 e4ad fc 70 0f            ldd  bcc
+4458 e4b0 34 06               pshs d
+4459 e4b2 31 64               leay 4,s
+4460 e4b4 1f 20               tfr  y,d
+4461 e4b6 34 06               pshs d
+4462 e4b8 ec f1               ldd  [,s++]
+4463 e4ba e3 e1               addd ,s++
+4464 e4bc fd 70 0f            std  bcc
+4465 e4bf 31 62               leay 2,s
+4466 e4c1 1f 20               tfr  y,d
+4467 e4c3 34 06               pshs d
+4468 e4c5 ec f1               ldd  [,s++]
+4469 e4c7 32 64               leas 4,s
+4470 e4c9 39                  rts
+4471                         
+4472                         * .global get16bit
+4473                         get16bit: 
+4474 e4ca 32 7e               leas -2,s
+4475 e4cc 31 e4               leay 0,s
+4476 e4ce 1f 20               tfr  y,d
+4477 e4d0 34 06               pshs d
+4478 e4d2 cc 00 00            ldd  #0
+4479 e4d5 ed f1               std  [,s++]
+4480 e4d7 31 e4               leay 0,s
+4481 e4d9 1f 20               tfr  y,d
+4482 e4db 34 06               pshs d
+4483 e4dd bd e4 39            jsr gethex
+4484 e4e0 ae f4               ldx  [,s]
+4485 e4e2 34 10               pshs x
+4486 e4e4 aa e0               ora  ,s+
+4487 e4e6 ea e0               orb  ,s+
+4488 e4e8 ed f1               std  [,s++]
+4489 e4ea 31 e4               leay 0,s
+4490 e4ec 1f 20               tfr  y,d
+4491 e4ee 34 06               pshs d
+4492 e4f0 cc 00 08            ldd  #8
+4493 e4f3 ae f4               ldx  [,s]
+4494 e4f5 34 10               pshs x
+4495 e4f7 5a                  decb
+4496 e4f8 2d 06               blt  *+8
+4497 e4fa 68 61               asl  1,s
+4498 e4fc 69 e4               rol  ,s
+4499 e4fe 20 f7               bra  *-7
+4500 e500 35 06               puls d
+4501 e502 ed f1               std  [,s++]
+4502 e504 31 e4               leay 0,s
+4503 e506 1f 20               tfr  y,d
+4504 e508 34 06               pshs d
+4505 e50a bd e4 39            jsr gethex
+4506 e50d ae f4               ldx  [,s]
+4507 e50f 34 10               pshs x
+4508 e511 aa e0               ora  ,s+
+4509 e513 ea e0               orb  ,s+
+4510 e515 ed f1               std  [,s++]
+4511 e517 31 e4               leay 0,s
+4512 e519 1f 20               tfr  y,d
+4513 e51b 34 06               pshs d
+4514 e51d ec f1               ldd  [,s++]
+4515 e51f 32 62               leas 2,s
+4516 e521 39                  rts
+4517                         
+4518                         * .global read_rec
+4519                         read_rec: 
+4520 e522 32 7c               leas -4,s
+4521 e524 cc 00 00            ldd  #0
+4522 e527 fd 70 0f            std  bcc
+4523 e52a 31 62               leay 2,s
+4524 e52c 1f 20               tfr  y,d
+4525 e52e 34 06               pshs d
+4526 e530 bd e4 39            jsr gethex
+4527 e533 34 06               pshs d
+4528 e535 cc 00 03            ldd  #3
+4529 e538 35 10               puls x
+4530 e53a 34 06               pshs d
+4531 e53c 1f 10               tfr  x,d
+4532 e53e a3 e1               subd ,s++
+4533 e540 e7 f1               stb  [,s++]
+4534 e542 31 e4               leay 0,s
+4535 e544 1f 20               tfr  y,d
+4536 e546 34 06               pshs d
+4537 e548 bd e4 ca            jsr get16bit
+4538 e54b ed f1               std  [,s++]
+4539 e54d 31 e4               leay 0,s
+4540 e54f 1f 20               tfr  y,d
+4541 e551 34 06               pshs d
+4542 e553 ec f1               ldd  [,s++]
+4543 e555 fd 70 46            std  dptr
+4544 e558 31 63               leay 3,s
+4545 e55a 1f 20               tfr  y,d
+4546 e55c 34 06               pshs d
+4547 e55e cc 00 00            ldd  #0
+4548 e561 e7 f1               stb  [,s++]
+4549                         cc213:  
+4550 e563 31 63               leay 3,s
+4551 e565 1f 20               tfr  y,d
+4552 e567 34 06               pshs d
+4553 e569 e6 f1               ldb  [,s++]
+4554 e56b 1d                  sex
+4555 e56c 34 06               pshs d
+4556 e56e 31 64               leay 4,s
+4557 e570 1f 20               tfr  y,d
+4558 e572 34 06               pshs d
+4559 e574 e6 f1               ldb  [,s++]
+4560 e576 1d                  sex
+4561 e577 10 a3 e1            cmpd ,s++
+4562 e57a 2e 05               bgt  *+7
+4563 e57c cc 00 00            ldd  #0
+4564 e57f 20 03               bra  *+5
+4565 e581 cc 00 01            ldd  #1
+4566 e584 10 83 00 00         cmpd #0
+4567 e588 10 27 00 33         lbeq cc212
+4568 e58c 7e e5 a5            jmp cc214
+4569                         cc211:  
+4570 e58f 31 63               leay 3,s
+4571 e591 1f 20               tfr  y,d
+4572 e593 34 06               pshs d
+4573 e595 34 06               pshs d
+4574 e597 e6 f1               ldb  [,s++]
+4575 e599 1d                  sex
+4576 e59a c3 00 01            addd #1
+4577 e59d e7 f1               stb  [,s++]
+4578 e59f 83 00 01            subd #1
+4579 e5a2 7e e5 63            jmp cc213
+4580                         cc214:  
+4581 e5a5 fc 70 46            ldd  dptr
+4582 e5a8 34 06               pshs d
+4583 e5aa 31 65               leay 5,s
+4584 e5ac 1f 20               tfr  y,d
+4585 e5ae 34 06               pshs d
+4586 e5b0 e6 f1               ldb  [,s++]
+4587 e5b2 1d                  sex
+4588 e5b3 e3 e1               addd ,s++
+4589 e5b5 34 06               pshs d
+4590 e5b7 bd e4 39            jsr gethex
+4591 e5ba e7 f1               stb  [,s++]
+4592 e5bc 7e e5 8f            jmp cc211
+4593                         cc212:  
+4594 e5bf fc 70 0f            ldd  bcc
+4595 e5c2 43                  coma
+4596 e5c3 53                  comb
+4597 e5c4 fd 70 0f            std  bcc
+4598 e5c7 fc 70 0f            ldd  bcc
+4599 e5ca 34 06               pshs d
+4600 e5cc cc 00 ff            ldd  #255
+4601 e5cf a4 e0               anda ,s+
+4602 e5d1 e4 e0               andb ,s+
+4603 e5d3 fd 70 11            std  save_bcc
+4604 e5d6 fc 70 11            ldd  save_bcc
+4605 e5d9 34 06               pshs d
+4606 e5db bd e4 39            jsr gethex
+4607 e5de 10 a3 e1            cmpd ,s++
+4608 e5e1 26 05               bne   *+7
+4609 e5e3 cc 00 00            ldd  #0
+4610 e5e6 20 03               bra  *+5
+4611 e5e8 cc 00 01            ldd  #1
+4612 e5eb 10 83 00 00         cmpd #0
+4613 e5ef 10 27 00 06         lbeq cc215
+4614 e5f3 cc 00 01            ldd  #1
+4615 e5f6 fd 70 13            std  bcc_erro
+4616                         cc215:  
+4617 e5f9 32 64               leas 4,s
+4618 e5fb 39                  rts
+4619                         
+4620                         * .global get_s_re
+4621                         get_s_re: 
+4622 e5fc cc 00 00            ldd  #0
+4623 e5ff fd 70 21            std  end
+4624 e602 cc 00 00            ldd  #0
+4625 e605 fd 70 13            std  bcc_erro
+4626                         cc216:  
+4627 e608 fc 70 21            ldd  end
+4628 e60b 34 06               pshs d
+4629 e60d cc 00 00            ldd  #0
+4630 e610 10 a3 e1            cmpd ,s++
+4631 e613 27 05               beq  *+7
+4632 e615 cc 00 00            ldd  #0
+4633 e618 20 03               bra  *+5
+4634 e61a cc 00 01            ldd  #1
+4635 e61d 10 83 00 00         cmpd #0
+4636 e621 10 27 00 65         lbeq cc217
+4637                         cc218:  
+4638 e625 bd e7 7a            jsr getchar2
+4639 e628 34 06               pshs d
+4640 e62a cc 00 53            ldd  #83
+4641 e62d 10 a3 e1            cmpd ,s++
+4642 e630 26 05               bne   *+7
+4643 e632 cc 00 00            ldd  #0
+4644 e635 20 03               bra  *+5
+4645 e637 cc 00 01            ldd  #1
+4646 e63a 10 83 00 00         cmpd #0
+4647 e63e 10 27 00 06         lbeq cc219
+4648 e642 7e e6 25            jmp cc218
+4649 e645 7e e6 25            jmp cc218
+4650                         cc219:  
+4651 e648 bd e7 7a            jsr getchar2
+4652 e64b 7e e6 72            jmp cc222
+4653                         cc223:  
+4654 e64e cc 00 00            ldd  #0
+4655 e651 fd 70 21            std  end
+4656 e654 7e e6 87            jmp cc221
+4657                         cc224:  
+4658 e657 bd e5 22            jsr read_rec
+4659 e65a 7e e6 87            jmp cc221
+4660                         cc225:  
+4661 e65d cc 00 01            ldd  #1
+4662 e660 fd 70 21            std  end
+4663 e663 7e e6 87            jmp cc221
+4664                         cc226:  
+4665 e666 cc 00 01            ldd  #1
+4666 e669 fd 70 21            std  end
+4667 e66c 7e e6 87            jmp cc221
+4668 e66f 7e e6 87            jmp cc221
+4669                         cc222:  
+4670 e672 bd c0 f9            jsr ccswitch
+4671 e675 e6 4e 00 30         FDB cc223,48
+4672 e679 e6 57 00 31         FDB cc224,49
+4673 e67d e6 5d 00 35         FDB cc225,53
+4674 e681 e6 66 00 39         FDB cc226,57
+4675 e685 00 00               FDB 0
+4676                         cc221:  
+4677 e687 7e e6 08            jmp cc216
+4678                         cc217:  
+4679 e68a bd e0 eb            jsr newline
+4680 e68d fc 70 13            ldd  bcc_erro
+4681 e690 10 83 00 00         cmpd #0
+4682 e694 10 27 00 0d         lbeq cc227
+4683 e698 cc e6 b3            ldd  #cc1+0
+4684 e69b 34 06               pshs d
+4685 e69d bd e0 41            jsr puts
+4686 e6a0 32 62               leas 2,s
+4687 e6a2 7e e6 af            jmp cc228
+4688                         cc227:  
+4689 e6a5 cc e6 c5            ldd  #cc1+18
+4690 e6a8 34 06               pshs d
+4691 e6aa bd e0 41            jsr puts
+4692 e6ad 32 62               leas 2,s
+4693                         cc228:  
+4694 e6af bd ce 23            jsr key_data
+4695 e6b2 39                  rts
+4696                         cc1:  
+4697 e6b3 63 68 65 63 6b 20   FCB 99,104,101,99,107,32,115,117,109,32
+     73 75 6d 20
+4698 e6bd 65 72 72 6f 72 73   FCB 101,114,114,111,114,115,33,0,48,32
+     21 00 30 20
+4699 e6c7 65 72 72 6f 72 2e   FCB 101,114,114,111,114,46,46,46,0
+     2e 2e 00
+4700                         
+4701                         * .global key_load
+4702                         key_load: 
+4703 e6d0 bd e0 eb            jsr newline
+4704 e6d3 cc e6 e1            ldd  #cc229+0
+4705 e6d6 34 06               pshs d
+4706 e6d8 bd e0 41            jsr puts
+4707 e6db 32 62               leas 2,s
+4708 e6dd bd e5 fc            jsr get_s_re
+4709 e6e0 39                  rts
+4710                         cc229:  
+4711 e6e1 4c 6f 61 64 20 4d   FCB 76,111,97,100,32,77,111,116,111,114
+     6f 74 6f 72
+4712 e6eb 6f 6c 61 20 73 2d   FCB 111,108,97,32,115,45,114,101,99,111
+     72 65 63 6f
+4713 e6f5 72 64 20 28 73 65   FCB 114,100,32,40,115,101,116,32,49,109
+     74 20 31 6d
+4714 e6ff 73 20 64 65 6c 61   FCB 115,32,100,101,108,97,121,44,32,99
+     79 2c 20 63
+4715 e709 68 61 72 61 63 74   FCB 104,97,114,97,99,116,101,114,32,38
+     65 72 20 26
+4716 e713 20 6c 69 6e 65 29   FCB 32,108,105,110,101,41,0
+     00
+4717                         
+4718                         * .global initreg
+4719                         initreg: 
+4720 e71a cc 02 00            ldd  #512
+4721 e71d fd 70 19            std  PC
+4722 e720 cc 02 00            ldd  #512
+4723 e723 fd 70 1b            std  save_PC
+4724 e726 cc 7f 00            ldd  #32512
+4725 e729 fd 70 2a            std  USER_U
+4726 e72c cc 00 00            ldd  #0
+4727 e72f f7 70 35            stb  USER_DP
+4728 e732 1f a8              	   TFR CC,A
+4729 e734 b7 70 34           	   STA USER_P
+4730 e737 cc 80 00            ldd  #-32768
+4731 e73a fd 70 3e            std  gpio1
+4732 e73d cc 80 03            ldd  #-32765
+4733 e740 fd 70 40            std  port2
+4734 e743 cc 80 02            ldd  #-32766
+4735 e746 fd 70 42            std  port1
+4736 e749 cc 80 01            ldd  #-32767
+4737 e74c fd 70 44            std  port0
+4738 e74f 39                  rts
+4739                         
+4740                         * .global wait1s
+4741                         wait1s: 
+4742 e750 1c ef              		andcc #$ef
+4743                         cc231:  
+4744 e752 f6 70 0e            ldb  tick
+4745 e755 1d                  sex
+4746 e756 34 06               pshs d
+4747 e758 cc 00 64            ldd  #100
+4748 e75b 10 a3 e1            cmpd ,s++
+4749 e75e 2e 05               bgt  *+7
+4750 e760 cc 00 00            ldd  #0
+4751 e763 20 03               bra  *+5
+4752 e765 cc 00 01            ldd  #1
+4753 e768 10 83 00 00         cmpd #0
+4754 e76c 10 27 00 03         lbeq cc232
+4755 e770 7e e7 52            jmp cc231
+4756                         cc232:  
+4757 e773 cc 00 00            ldd  #0
+4758 e776 f7 70 0e            stb  tick
+4759 e779 39                  rts
+4760                         
+4761                         * .global getchar2
+4762                         getchar2: 
+4763 e77a 32 7d               leas -3,s
+4764 e77c 31 e4               leay 0,s
+4765 e77e 1f 20               tfr  y,d
+4766 e780 34 06               pshs d
+4767 e782 cc a0 00            ldd  #-24576
+4768 e785 ed f1               std  [,s++]
+4769 e787 31 e4               leay 0,s
+4770 e789 1f 20               tfr  y,d
+4771 e78b 34 06               pshs d
+4772 e78d ec f1               ldd  [,s++]
+4773 e78f 34 06               pshs d
+4774 e791 cc 00 16            ldd  #22
+4775 e794 e7 f1               stb  [,s++]
+4776                         cc233:  
+4777 e796 31 e4               leay 0,s
+4778 e798 1f 20               tfr  y,d
+4779 e79a 34 06               pshs d
+4780 e79c ec f1               ldd  [,s++]
+4781 e79e 34 06               pshs d
+4782 e7a0 e6 f1               ldb  [,s++]
+4783 e7a2 1d                  sex
+4784 e7a3 34 06               pshs d
+4785 e7a5 cc 00 01            ldd  #1
+4786 e7a8 a4 e0               anda ,s+
+4787 e7aa e4 e0               andb ,s+
+4788 e7ac 34 06               pshs d
+4789 e7ae cc 00 00            ldd  #0
+4790 e7b1 10 a3 e1            cmpd ,s++
+4791 e7b4 27 05               beq  *+7
+4792 e7b6 cc 00 00            ldd  #0
+4793 e7b9 20 03               bra  *+5
+4794 e7bb cc 00 01            ldd  #1
+4795 e7be 10 83 00 00         cmpd #0
+4796 e7c2 10 27 00 03         lbeq cc234
+4797 e7c6 7e e7 96            jmp cc233
+4798                         cc234:  
+4799 e7c9 31 e4               leay 0,s
+4800 e7cb 1f 20               tfr  y,d
+4801 e7cd 34 06               pshs d
+4802 e7cf ec f1               ldd  [,s++]
+4803 e7d1 34 06               pshs d
+4804 e7d3 cc 00 56            ldd  #86
+4805 e7d6 e7 f1               stb  [,s++]
+4806 e7d8 31 62               leay 2,s
+4807 e7da 1f 20               tfr  y,d
+4808 e7dc 34 06               pshs d
+4809 e7de 31 62               leay 2,s
+4810 e7e0 1f 20               tfr  y,d
+4811 e7e2 34 06               pshs d
+4812 e7e4 ec f1               ldd  [,s++]
+4813 e7e6 34 06               pshs d
+4814 e7e8 cc 00 01            ldd  #1
+4815 e7eb e3 e1               addd ,s++
+4816 e7ed 34 06               pshs d
+4817 e7ef e6 f1               ldb  [,s++]
+4818 e7f1 1d                  sex
+4819 e7f2 e7 f1               stb  [,s++]
+4820 e7f4 fc 70 3e            ldd  gpio1
+4821 e7f7 34 06               pshs d
+4822 e7f9 31 64               leay 4,s
+4823 e7fb 1f 20               tfr  y,d
+4824 e7fd 34 06               pshs d
+4825 e7ff e6 f1               ldb  [,s++]
+4826 e801 1d                  sex
+4827 e802 e7 f1               stb  [,s++]
+4828 e804 31 62               leay 2,s
+4829 e806 1f 20               tfr  y,d
+4830 e808 34 06               pshs d
+4831 e80a e6 f1               ldb  [,s++]
+4832 e80c 1d                  sex
+4833 e80d 32 63               leas 3,s
+4834 e80f 39                  rts
+4835                         
+4836                         * .global main
+4837                         main: 
+4838 e810 bd e7 1a            jsr initreg
+4839 e813 fc 70 3e            ldd  gpio1
+4840 e816 34 06               pshs d
+4841 e818 cc 00 00            ldd  #0
+4842 e81b e7 f1               stb  [,s++]
+4843 e81d fc 70 40            ldd  port2
+4844 e820 34 06               pshs d
+4845 e822 cc 00 00            ldd  #0
+4846 e825 e7 f1               stb  [,s++]
+4847 e827 fc 70 42            ldd  port1
+4848 e82a 34 06               pshs d
+4849 e82c cc 00 ff            ldd  #255
+4850 e82f e7 f1               stb  [,s++]
+4851 e831 cc 00 00            ldd  #0
+4852 e834 f7 70 0d            stb  flag
+4853 e837 bd df 73            jsr initacia
+4854 e83a bd e0 eb            jsr newline
+4855 e83d cc e9 18            ldd  #cc230+0
+4856 e840 34 06               pshs d
+4857 e842 bd e0 41            jsr puts
+4858 e845 32 62               leas 2,s
+4859 e847 bd c2 28            jsr InitLcd
+4860 e84a bd c2 28            jsr InitLcd
+4861 e84d cc e9 35            ldd  #cc230+29
+4862 e850 34 06               pshs d
+4863 e852 bd c2 6b            jsr PutLCD
+4864 e855 32 62               leas 2,s
+4865 e857 cc 00 00            ldd  #0
+4866 e85a 34 06               pshs d
+4867 e85c cc 00 01            ldd  #1
+4868 e85f 34 06               pshs d
+4869 e861 bd c1 97            jsr goto_xy
+4870 e864 32 64               leas 4,s
+4871 e866 cc e9 49            ldd  #cc230+49
+4872 e869 34 06               pshs d
+4873 e86b bd c2 6b            jsr PutLCD
+4874 e86e 32 62               leas 2,s
+4875 e870 cc 70 38            ldd  #buffer
+4876 e873 34 06               pshs d
+4877 e875 cc 00 05            ldd  #5
+4878 e878 e3 e1               addd ,s++
+4879 e87a 34 06               pshs d
+4880 e87c cc c1 0d            ldd  #convert
+4881 e87f 34 06               pshs d
+4882 e881 cc 00 06            ldd  #6
+4883 e884 e3 e1               addd ,s++
+4884 e886 34 06               pshs d
+4885 e888 e6 f1               ldb  [,s++]
+4886 e88a 1d                  sex
+4887 e88b e7 f1               stb  [,s++]
+4888 e88d cc 70 38            ldd  #buffer
+4889 e890 34 06               pshs d
+4890 e892 cc 00 04            ldd  #4
+4891 e895 e3 e1               addd ,s++
+4892 e897 34 06               pshs d
+4893 e899 cc c1 0d            ldd  #convert
+4894 e89c 34 06               pshs d
+4895 e89e cc 00 08            ldd  #8
+4896 e8a1 e3 e1               addd ,s++
+4897 e8a3 34 06               pshs d
+4898 e8a5 e6 f1               ldb  [,s++]
+4899 e8a7 1d                  sex
+4900 e8a8 e7 f1               stb  [,s++]
+4901 e8aa cc 70 38            ldd  #buffer
+4902 e8ad 34 06               pshs d
+4903 e8af cc 00 03            ldd  #3
+4904 e8b2 e3 e1               addd ,s++
+4905 e8b4 34 06               pshs d
+4906 e8b6 cc c1 0d            ldd  #convert
+4907 e8b9 34 06               pshs d
+4908 e8bb cc 00 00            ldd  #0
+4909 e8be e3 e1               addd ,s++
+4910 e8c0 34 06               pshs d
+4911 e8c2 e6 f1               ldb  [,s++]
+4912 e8c4 1d                  sex
+4913 e8c5 e7 f1               stb  [,s++]
+4914 e8c7 cc 70 38            ldd  #buffer
+4915 e8ca 34 06               pshs d
+4916 e8cc cc 00 02            ldd  #2
+4917 e8cf e3 e1               addd ,s++
+4918 e8d1 34 06               pshs d
+4919 e8d3 cc c1 0d            ldd  #convert
+4920 e8d6 34 06               pshs d
+4921 e8d8 cc 00 09            ldd  #9
+4922 e8db e3 e1               addd ,s++
+4923 e8dd 34 06               pshs d
+4924 e8df e6 f1               ldb  [,s++]
+4925 e8e1 1d                  sex
+4926 e8e2 e7 f1               stb  [,s++]
+4927 e8e4 cc 70 38            ldd  #buffer
+4928 e8e7 34 06               pshs d
+4929 e8e9 cc 00 01            ldd  #1
+4930 e8ec e3 e1               addd ,s++
+4931 e8ee 34 06               pshs d
+4932 e8f0 cc 00 00            ldd  #0
+4933 e8f3 e7 f1               stb  [,s++]
+4934 e8f5 cc 70 38            ldd  #buffer
+4935 e8f8 34 06               pshs d
+4936 e8fa cc 00 00            ldd  #0
+4937 e8fd e3 e1               addd ,s++
+4938 e8ff 34 06               pshs d
+4939 e901 cc 00 00            ldd  #0
+4940 e904 e7 f1               stb  [,s++]
+4941                         cc235:  
+4942 e906 cc 00 01            ldd  #1
+4943 e909 10 83 00 00         cmpd #0
+4944 e90d 10 27 00 06         lbeq cc236
+4945 e911 bd de f7            jsr scan1
+4946 e914 7e e9 06            jmp cc235
+4947                         cc236:  
+4948 e917 39                  rts
+4949                         cc230:  
+4950 e918 36 38 30 39 20 4d   FCB 54,56,48,57,32,77,73,67,82,79
+     49 43 52 4f
+4951 e922 50 52 4f 43 45 53   FCB 80,82,79,67,69,83,83,79,82,32
+     53 4f 52 20
+4952 e92c 4b 49 54 20 32 30   FCB 75,73,84,32,50,48,50,48,0,54
+     32 30 00 36
+4953 e936 38 30 39 20 4d 49   FCB 56,48,57,32,77,73,67,82,79,80
+     43 52 4f 50
+4954 e940 52 4f 43 45 53 53   FCB 82,79,67,69,83,83,79,82,0,51
+     4f 52 00 33
+4955 e94a 32 6b 42 20 52 41   FCB 50,107,66,32,82,65,77,32,85,65
+     4d 20 55 41
+4956 e954 52 54 20 4c 43 44   FCB 82,84,32,76,67,68,0
+     00
+4957                           END
