@@ -8,6 +8,8 @@ Companion repositories:
 
 * Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc).
 * GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU).
+* TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09).
+* Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68).
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
