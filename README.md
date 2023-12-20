@@ -2,7 +2,7 @@
 
 Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in the light of the `x09` architecture family.
 
-Goal: Multicomputing is the trajectory.
+_Goal_: Multiprocessing is the trajectory.
 
 Companion repositories:
 
@@ -13,10 +13,13 @@ Companion repositories:
 
 Further documentation:
 
+* The topic of [multiprocessing](https://en.wikipedia.org/wiki/Multiprocessing).
+* Differences between [3-and-9](https://retrocomputing.stackexchange.com/questions/25/advantages-of-a-hitachi-hd6309-versus-a-plain-motorola-mc6809).
 * Retro [computing](https://retrocomputingforum.com/t/adventures-with-the-6809-and-6309/2795).
 * Expanding the [CPU](https://hackaday.io/page/6889-6809-cpu-on-steroids).
 * CoCoDEV [remote](http://www.davebiz.com/wiki/CoCoDEV).
 * CoCoDEV [local](/cocodev/README.md).
+* Retro[Shield](http://www.8bitforce.com/blog/2019/03/12/retroshield-6809-operation/).
 
 ## Building a multicomuter experimental station around the `x09` architecture.
 
