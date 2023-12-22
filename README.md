@@ -12,6 +12,11 @@ Sister repositories:
 * TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09)
 * Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68)
 
+Operating systems-of-interest:
+
+* [CP/M](http://www.gaby.de/cpm/)
+* CP/M [2.2](https://github.com/cartheur/cpmish)
+
 Further documentation:
 
 * The topic of [multiprocessing](https://en.wikipedia.org/wiki/Multiprocessing)
