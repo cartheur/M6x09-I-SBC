@@ -8,6 +8,9 @@ Sister repositories:
 
 * Multiprocessing [source](https://github.com/cartheur/M6809-ForthWiki)
 * Extension SBC [code](https://github.com/cartheur/M6x09-A/tree/main/sbc)
+* HD6309 SBC I [project](https://github.com/cartheur/M6x09H1-SBC)
+* HD6309 SBC II [project](https://github.com/cartheur/M6x09H2-SBC)
+* 6x09-SPL [project](https://github.com/cartheur/M6x09-spl)
 * GNU and CodeWarrior [dev](https://github.com/cartheur/M6x09-SBC-GNU)
 * TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09)
 * Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68)
