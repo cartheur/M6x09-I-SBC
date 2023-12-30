@@ -15,6 +15,11 @@ Sister repositories:
 * TurboNine [pipeline](https://github.com/cartheur/M6x09-pipeline-09)
 * Small-C[68](https://github.com/cartheur/M6x09-SBC-Small68)
 
+Notes on the above repos
+
+* The SPL is the ideal place to begin (continuing with _ideal_), however, a SBC with connectivity to a Linux development machine is requisite. The impetus was to follow-on with HC6309 SBC I but it is authored in OrCad (thanks!), so needs another line of thinking.
+* Our _original_ trajectory is the one to follow, that is, the impetus contained in this repository.
+
 Operating systems-of-interest:
 
 * [CP/M](http://www.gaby.de/cpm/)
