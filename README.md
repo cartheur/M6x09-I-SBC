@@ -209,3 +209,7 @@ S-record file transfer with 1ms character delay setting.
 ### Keyboard spacer
 
 [Keyboard spacer](/keypad/MICRO09KEY.stl) 3D file for 6809 kit.
+
+### References
+
+* [Grant Searle](http://searle.x10host.com/6809/Simple6809.html)
