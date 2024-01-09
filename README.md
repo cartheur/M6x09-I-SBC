@@ -214,4 +214,6 @@ S-record file transfer with 1ms character delay setting.
 
 08.01.2024: 80% of the components soldered. What remains are the reisitors (because I need to measure these tiny things to match their values) the 7805 with thermal paste, and the header for the LCD. Note that I swapped the male 9-pin serial socket for a female, given my USB-to-9-pin is oriented thusly.
 
+### References
 
+* [Grant Searle](http://searle.x10host.com/6809/Simple6809.html)
