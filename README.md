@@ -213,6 +213,7 @@ S-record file transfer with 1ms character delay setting.
 ### Project updates
 
 08.01.2024: 80% of the components soldered. What remains are the reisitors (because I need to measure these tiny things to match their values) the 7805 with thermal paste, and the header for the LCD. Note that I swapped the male 9-pin serial socket for a female, given my USB-to-9-pin is oriented thusly.
+10.01.2024: Board is completed, cleaned with ethyl alcohol to remove flux and brunished with a brass wheel. Final remnants of dust removed by cotton swab.
 
 ### References
 
