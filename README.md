@@ -215,6 +215,7 @@ S-record file transfer with 1ms character delay setting.
 08.01.2024: 80% of the components soldered. What remains are the reisitors (because I need to measure these tiny things to match their values) the 7805 with thermal paste, and the header for the LCD. Note that I swapped the male 9-pin serial socket for a female, given my USB-to-9-pin is oriented thusly.
 10.01.2024: Board is completed, cleaned with ethyl alcohol to remove flux and brunished with a brass wheel. Final remnants of dust removed by cotton swab.
 11.01.2024: Assembly is planned but not scheduled due to other work needing attention.
+12.01.2024: Cleaning finished but residue from chemical reaction of ethyl alcohol to solder flux seeped into 35% of the socket runs. Used the brass wheel to clean. This does not appear in the v2 SBC boards.
 
 ### References
 
