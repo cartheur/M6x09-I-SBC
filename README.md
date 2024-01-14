@@ -217,6 +217,7 @@ S-record file transfer with 1ms character delay setting.
 11.01.2024: Assembly is planned but not scheduled due to other work needing attention.
 12.01.2024: Cleaning finished but residue from chemical reaction of ethyl alcohol to solder flux seeped into 35% of the socket runs. Used the brass wheel to clean. This does not appear in the v2 SBC boards.
 13.01.2024: Board awaiting assembly but will firstly organize a memory map indication of the v2 SNC.
+14.01.2024: The memory-map task is still pending.
 
 ### References
 
