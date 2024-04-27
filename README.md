@@ -2,7 +2,7 @@
 
 Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in the light of the `x09` architecture family.
 
-_Goal_: Multiprocessing is the trajectory.
+_Goal_: Multiprocessing is the trajectory. Going forth.
 
 Sister repositories:
 
