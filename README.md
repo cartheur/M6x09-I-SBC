@@ -4,6 +4,47 @@ Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in
 
 _Goal_: Multiprocessing is the trajectory. Going forth.
 
+## Companion role
+
+This repository also serves as a companion workspace to the GTEK-7228 effort. In that role, it is not only about the 6809 SBC itself, but about maintaining a real, portable platform for ROM preparation, monitor iteration, archival review, and related bring-up work.
+
+The repo therefore keeps source, generated artifacts, bundled tools, reference documents, and preserved archives together on purpose. Refinement should improve navigation and source-of-truth clarity without casually removing material that may still matter later.
+
+## Repo map
+
+The repository currently spans four practical categories:
+
+### Active development
+
+* `README.md` - project narrative and hardware overview
+* `REFINEMENT.md` - working refinement brief
+* `src/monitor/` - monitor source and generated monitor outputs
+* `crosscompiler/` - Linux-hosted `bs9` assembler source and notes
+* `src/` - toolchain, monitor, and board-support source trees under review
+
+### Historical source
+
+* `src/cc09/` - historical `cc09` and related source material
+* `src/tools/` - historical assembler, examples, and support code
+
+### Reference and documentation
+
+* `doc/` - manuals, programming books, schematics, listings
+* `images/` - board, keypad, and usage imagery
+* `6309/` - 6309-specific reference documents and notes
+
+### Packaged and archive artifacts
+
+* `code/` - bundled source and release artifacts
+* `kit/` - kit-facing packaged material, keypad files, mirrored assets
+* `cocodev/` - CoCoDEV-related artifacts and images
+* `emulator/` - emulator bundles and documentation
+* `z-archives/` - preserved ZIP archives and imported bundles
+
+## Preservation note
+
+Until provenance is tighter, duplicated, bundled, or binary material should be treated as potentially useful. The current aim is to label and explain these areas first, then decide later whether anything should be consolidated.
+
 Sister repositories:
 
 * Multiprocessing [source](https://github.com/cartheur/M6809-ForthWiki)
