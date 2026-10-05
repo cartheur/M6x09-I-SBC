@@ -7,14 +7,14 @@ _Goal_: build small, understandable `x09` applications that can graduate from a 
 ## Working model
 
 ```text
-Linux workstation -- USB / EM1016 -- RS-232 DB9 -- M6x09-I SBC
+Linux workstation -- USB / EM1016 -- null modem -- RS-232 DB9 -- M6x09-I SBC
        |                                           |
        +-- bs9 assembles applications               +-- RAM: fast iteration
        +-- Tcl/Tk terminal transfers S-records      +-- EPROM: stable releases
        +-- programmer writes accepted ROM images
 ```
 
-The EM1016 is a Prolific PL2303-based USB-to-RS-232 adapter with a male DB9 connector. This board has an RS-232 interface and a female DB9 connector, so the adapter connects directly; it is not a TTL/FTDI connection.
+The EM1016 is a Prolific PL2303-based USB-to-RS-232 adapter with a male DB9 connector. The board's HIN232/MAX232-class transceiver provides a real RS-232 interface, not a TTL/FTDI connection. Both ends are DTE, so the connection needs a null-modem crossover for transmit and receive.
 
 ## Start here
 

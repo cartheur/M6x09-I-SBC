@@ -7,10 +7,18 @@ This is the Linux console and S-record transfer path for the M6x09-I. It uses th
 Use the Eminent/ACT EM1016 USB-to-serial adapter:
 
 * USB-A to the Linux host.
-* EM1016 male DB9 directly to the SBC's female DB9 port.
+* EM1016 male DB9 to the SBC's DB9 through a null-modem crossover.
 * The adapter uses a Prolific PL2303 chipset and is normally exposed by Linux as `/dev/ttyUSB0` or, preferably, a stable `/dev/serial/by-id/...` path.
 
-Do not add a null-modem cable unless terminal testing proves this particular board/adapter pairing requires one. The SBC documentation notes that its DB9 was fitted female to match the USB-to-DB9 adapter.
+The HIN232/MAX232-class transceiver converts the ACIA's TTL serial signals to RS-232 voltage levels. It does not cross the data direction.
+
+The schematic wires the board as DTE:
+
+* board DB9 pin 2 = RXD;
+* board DB9 pin 3 = TXD;
+* board DB9 pin 5 = signal ground.
+
+The EM1016 is also a DTE device. Cross pins 2 and 3 between the two devices, and keep pin 5 straight through. A DB9 female-to-male null-modem adapter is the neatest fit if the board has the documented female DB9; a null-modem cable plus the appropriate gender changer is equivalent. No hardware handshaking lines are needed.
 
 ## Link settings
 
