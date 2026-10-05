@@ -1,49 +1,36 @@
-# Experiments around the 6x09 CPU
+# M6x09-I Linux Development System
 
-Forward-looking development with the Motorola 6809 and Hitachi 6309 8-bit CPU in the light of the `x09` architecture family.
+This repository develops applications for a Motorola 6809 / Hitachi 6309 single-board computer. Linux is the development host; the SBC is a computer in its own right. The host assembles, transfers, records, and burns images. The board runs those images from RAM or ROM.
 
-_Goal_: Multiprocessing is the trajectory. Going forth.
+_Goal_: build small, understandable `x09` applications that can graduate from a serial-loaded RAM image to a reproducible ROM image.
 
-## Companion role
+## Working model
 
-This repository also serves as a companion workspace to the GTEK-7228 effort. In that role, it is not only about the 6809 SBC itself, but about maintaining a real, portable platform for ROM preparation, monitor iteration, archival review, and related bring-up work.
+```text
+Linux workstation -- USB / EM1016 -- RS-232 DB9 -- M6x09-I SBC
+       |                                           |
+       +-- bs9 assembles applications               +-- RAM: fast iteration
+       +-- Tcl/Tk terminal transfers S-records      +-- EPROM: stable releases
+       +-- programmer writes accepted ROM images
+```
 
-The repo therefore keeps source, generated artifacts, bundled tools, reference documents, and preserved archives together on purpose. Refinement should improve navigation and source-of-truth clarity without casually removing material that may still matter later.
+The EM1016 is a Prolific PL2303-based USB-to-RS-232 adapter with a male DB9 connector. This board has an RS-232 interface and a female DB9 connector, so the adapter connects directly; it is not a TTL/FTDI connection.
 
-## Repo map
+## Start here
 
-The repository currently spans four practical categories:
+1. Read [terminal/README.md](terminal/README.md) and establish the 19,200 8N1 console link.
+2. Build the Linux assembler with `make -C crosscompiler`.
+3. Put new target programs in `applications/`; assemble them into S-records, test them in RAM, and only then make a ROM release.
 
-### Active development
+## Repository map
 
-* `README.md` - project narrative and hardware overview
-* `REFINEMENT.md` - working refinement brief
-* `src/monitor/` - monitor source and generated monitor outputs
-* `crosscompiler/` - Linux-hosted `bs9` assembler source and notes
-* `src/` - toolchain, monitor, and board-support source trees under review
+* `applications/` — future 6809/6309 applications and their build recipes.
+* `crosscompiler/` — Linux-hosted `bs9` assembler source.
+* `terminal/` — Tcl/Tk RS-232 terminal and file-transfer workflow.
+* `doc/`, `images/`, and `6309/` — hardware and processor reference material.
+* `kit/`, `code/`, `cocodev/`, `emulator/`, and `z-archives/` — preserved kit, vendor, emulator, and archival artifacts.
 
-### Historical source
-
-* `src/cc09/` - historical `cc09` and related source material
-* `src/tools/` - historical assembler, examples, and support code
-
-### Reference and documentation
-
-* `doc/` - manuals, programming books, schematics, listings
-* `images/` - board, keypad, and usage imagery
-* `6309/` - 6309-specific reference documents and notes
-
-### Packaged and archive artifacts
-
-* `code/` - bundled source and release artifacts
-* `kit/` - kit-facing packaged material, keypad files, mirrored assets
-* `cocodev/` - CoCoDEV-related artifacts and images
-* `emulator/` - emulator bundles and documentation
-* `z-archives/` - preserved ZIP archives and imported bundles
-
-## Preservation note
-
-Until provenance is tighter, duplicated, bundled, or binary material should be treated as potentially useful. The current aim is to label and explain these areas first, then decide later whether anything should be consolidated.
+The DOS-specific `cc09` compiler, its duplicated tool trees, and its monitor outputs have been deliberately removed from the working tree. They remain recoverable from Git history, but they are not part of the Linux development path.
 
 Sister repositories:
 
@@ -80,7 +67,7 @@ Further documentation:
 
 This is for a kit that uses Motorola 6809 as CPU. It has a UART chip added, an 6850 ACIA. The circuit is as simple as possible, so uses a small number of components. All decoder logic is placed in a PLD chip. This makes the circuit is very easy to build. 
 
-It uses a `cc09` c-compiler for 6809. The monitor was developed using c and assembly code. Details are described [here](/src/README.md). The main clock frequency is 4.9152MHz. UART chip uses E clock, 4.9152MHz/4 as the TXD/RXD clock. The prescaler is 64, so the UART will produce 19,200 bit/s rate.
+The Linux toolchain uses the `bs9` cross-assembler. The main clock frequency is 4.9152MHz. The UART uses E clock, 4.9152MHz/4, as its TXD/RXD clock. With a prescaler of 64, the serial link is 19,200 bit/s.
 
 The 6809 has long branch using a 16-bit offset. One of the monitor key provides 16-bit HEX calculator, so it is elementary to find the 8-bit or 16-bit offset. Programming comes in two contexts:
 
@@ -116,7 +103,7 @@ The 6809 has long branch using a 16-bit offset. One of the monitor key provides 
 * Brownout reset: KIA7042 reset chip for power brownout reset
 * Expansion header: 40-pin header
 
-The monitor program was developed using c and assembly language. Source code was compiled with `cc09`. Source code is available for customizing the monitor.
+The board's ROM monitor is the stable recovery environment. Develop applications on Linux, load them into RAM over the serial link, and burn a ROM only once an image is accepted.
 
 ### The monitor program features
 
@@ -157,7 +144,7 @@ The IRQ service uses location `0` for tick counting. When it reaches `100`, clea
 Can you change from 1Hz to 10Hz counting rate?
 
 ![Terminal](/images/terminal1.png)
-Example of using Tera Terminal with key DUMP.
+Example terminal memory dump.
 
 ![Terminal](/images/terminal2.png)
 S-record file transfer with 1ms character delay setting.
@@ -234,7 +221,6 @@ S-record file transfer with 1ms character delay setting.
 ### Files
 
 * [Schematic](/doc/schematic6809.pdf)
-* [Monitor Source](/code/v2cc09.rar)
 * [Monitor listing](/doc/monitorlist.pdf)
 * [PLD files](/code/pld6809.rar)
 * [AT89C2051 HEX](/code/tick09.rar)

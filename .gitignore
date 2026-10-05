@@ -1,0 +1,9 @@
+# Linux-hosted build products
+crosscompiler/bs9
+crosscompiler/form9
+applications/**/*.lst
+applications/**/*.s19
+applications/**/*.bin
+
+# Tcl/Tk command history
+.m6x09-terminal-history
