@@ -50,7 +50,7 @@ wish terminal/m6x09-terminal.tcl -device /dev/serial/by-id/USB-Serial_Controller
 
 For a quick first connection, `/dev/ttyUSB0` is the default.
 
-Use **File → Send…** to send Motorola S-record files. The terminal sends a line at a time and waits for a carriage-return response, which keeps transfers conservative for the monitor.
+The kit monitor is keypad-driven; it does not provide an interactive serial command prompt. Press **DUMP** on the keypad to send a memory dump to the terminal. Press **LOAD** before using **File → Send…** to transfer a Motorola S-record. The terminal sends a line at a time and waits for a carriage-return response, which keeps transfers conservative for the monitor.
 
 ## Development loop
 
@@ -60,3 +60,7 @@ Use **File → Send…** to send Motorola S-record files. The terminal sends a l
 4. Only burn a ROM image after the RAM build is accepted.
 
 The terminal is deliberately a host-side tool. It does not define the SBC; it gives the SBC a reliable text console and a repeatable loading path.
+
+## Verified bring-up
+
+The EM1016/null-modem connection was verified on 2026-10-05 with the monitor banner and a keypad-driven memory dump. See [EM1016-BRINGUP-2026-10-05.md](EM1016-BRINGUP-2026-10-05.md).
