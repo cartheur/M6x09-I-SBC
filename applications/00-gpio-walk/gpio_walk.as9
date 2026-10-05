@@ -1,0 +1,36 @@
+; GPIO1 RAM-execution smoke test.
+; Load at $0200, run at $0200. LEDs walk left, then the program returns
+; to the monitor with SWI.
+
+        CPU = 6809
+        ORG $0200
+
+Start
+        BRA   Main
+
+        INCLUDE "../common/m6x09_i.inc"
+
+Main
+        LDX   #Pattern
+NextValue
+        LDA   ,X+
+        BEQ   Complete
+        STA   GPIO1
+        JSR   Delay
+        BRA   NextValue
+Complete
+        CLR   GPIO1
+        SWI
+
+Delay
+        LDY   #$6000
+DelayLoop
+        LEAY  -1,Y
+        BNE   DelayLoop
+        RTS
+
+Pattern
+        BYTE  $01,$02,$04,$08,$10,$20,$40,$80,0
+ImageEnd
+        STORE Start,ImageEnd-Start,"gpio_walk.s19",s19,Start
+        END

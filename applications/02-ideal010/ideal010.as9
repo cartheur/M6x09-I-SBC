@@ -1,0 +1,130 @@
+; ideal010: a 6809 implementation of Ideal Section 1's minimal interaction loop.
+;
+; E1 is represented by GPIO1 = $01 and returns R1.
+; E2 is represented by GPIO1 = $02 and returns R2.
+; The deterministic environment is local to this first experiment.  The
+; program records one anticipated result per experiment and changes its
+; experiment after four consecutive self-satisfying interactions.
+;
+; Trace format: C<hex-cycle> e<experiment>r<result> <mood>
+; Mood: F = frustrated, S = self-satisfied, B = bored.
+
+        CPU = 6809
+        ORG $0200
+
+Start
+        BRA   Main
+
+        INCLUDE "../common/m6x09_i.inc"
+
+Main
+        JSR   InitAcia
+        CLR   Cycle
+        CLR   Experiment
+        CLR   PredictionE1
+        CLR   PredictionE2
+        CLR   Streak
+        LDA   #'F'
+        STA   Mood
+
+MainLoop
+        LDA   Mood
+        CMPA  #'B'
+        BNE   RunInteraction
+        LDA   Experiment
+        EORA  #1
+        STA   Experiment
+        CLR   Streak
+
+RunInteraction
+        ; Present the selected experiment to GPIO1 and obtain its result.
+        LDA   Experiment
+        BEQ   PresentE1
+        LDA   #$02
+        STA   GPIO1
+        STA   Result
+        BRA   ComparePrediction
+PresentE1
+        LDA   #$01
+        STA   GPIO1
+        STA   Result
+
+ComparePrediction
+        LDA   Experiment
+        BEQ   PredictE1
+        LDB   PredictionE2
+        BRA   CompareResult
+PredictE1
+        LDB   PredictionE1
+CompareResult
+        CMPB  Result
+        BEQ   SelfSatisfied
+        LDA   #'F'
+        STA   Mood
+        CLR   Streak
+        BRA   RecordInteraction
+
+SelfSatisfied
+        INC   Streak
+        LDA   Streak
+        CMPA  #4
+        BLO   StillSatisfied
+        LDA   #'B'
+        STA   Mood
+        BRA   RecordInteraction
+StillSatisfied
+        LDA   #'S'
+        STA   Mood
+
+RecordInteraction
+        ; Learn or refresh the tuple <experiment, result>.
+        LDA   Experiment
+        BEQ   RecordE1
+        LDA   Result
+        STA   PredictionE2
+        BRA   EmitTrace
+RecordE1
+        LDA   Result
+        STA   PredictionE1
+
+EmitTrace
+        LDA   #'C'
+        JSR   PutChar
+        LDA   Cycle
+        JSR   PutHexDigit
+        LDA   #' '
+        JSR   PutChar
+        LDA   #'e'
+        JSR   PutChar
+        LDA   Experiment
+        INCA
+        JSR   PutHexDigit
+        LDA   #'r'
+        JSR   PutChar
+        LDA   Result
+        JSR   PutHexDigit
+        LDA   #' '
+        JSR   PutChar
+        LDA   Mood
+        JSR   PutChar
+        JSR   Newline
+
+        INC   Cycle
+        LDA   Cycle
+        CMPA  #11
+        BHS   Complete
+        LBRA  MainLoop
+Complete
+        CLR   GPIO1
+        SWI
+
+Cycle         BYTE 0
+Experiment    BYTE 0
+PredictionE1  BYTE 0
+PredictionE2  BYTE 0
+Streak        BYTE 0
+Result        BYTE 0
+Mood          BYTE 0
+ImageEnd
+        STORE Start,ImageEnd-Start,"ideal010.s19",s19,Start
+        END

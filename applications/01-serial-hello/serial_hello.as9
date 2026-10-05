@@ -1,0 +1,23 @@
+; Direct target-to-host serial test.
+; Load at $0200, run at $0200, then inspect the Tcl terminal.
+
+        CPU = 6809
+        ORG $0200
+
+Start
+        BRA   Main
+
+        INCLUDE "../common/m6x09_i.inc"
+
+Main
+        JSR   InitAcia
+        LDX   #Message
+        JSR   PutString
+        JSR   Newline
+        SWI
+
+Message
+        BYTE  "M6x09-I: serial application path is alive",0
+ImageEnd
+        STORE Start,ImageEnd-Start,"serial_hello.s19",s19,Start
+        END

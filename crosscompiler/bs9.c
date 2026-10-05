@@ -1950,7 +1950,7 @@ char *IncludeFile(char *p)
 char *ParseStoreData(char *p)
 {
    int Start,Length,FileFormat,Entry;
-   char *Filename,*EndPtr;
+   char *Filename,*EndPtr,*FormatPtr;
 
    if (Phase < 2) return p + strlen(p);
    p = EvalOperand(p,&Start,0);
@@ -1988,13 +1988,13 @@ char *ParseStoreData(char *p)
    Filename = (char *)StrNDup(p, EndPtr - p);
    FileFormat = BINARY;
    Entry = -1;
-   p = NeedChar(EndPtr,',');
+   p = NeedChar(EndPtr+1,',');
    if (p)
    {
       ++p;
-           if (StrMatch(p, "BIN"))  FileFormat = BINARY;
-      else if (StrMatch(p, "SREC")) FileFormat = SRECORD;
-      else if (StrMatch(p, "S19"))  FileFormat = SRECORD;
+           if ((FormatPtr = StrMatch(p, "BIN")))  { FileFormat = BINARY;  p = FormatPtr + 3; }
+      else if ((FormatPtr = StrMatch(p, "SREC"))) { FileFormat = SRECORD; p = FormatPtr + 4; }
+      else if ((FormatPtr = StrMatch(p, "S19")))  { FileFormat = SRECORD; p = FormatPtr + 3; }
       else
       {
          ErrorMsg("Unknown output file format\n");
