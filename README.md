@@ -248,6 +248,7 @@ S-record file transfer with 1ms character delay setting.
 * 13.01.2024: Board awaiting assembly but will firstly organize a memory map indication of the v2 SNC.
 * 14.01.2024: The memory-map task is still pending.
 * 05.10.2026: The repository was refocused on Linux-hosted development. A female-to-male null-modem adapter was built and the EM1016 serial path was verified at 19,200 8N1: the monitor banner and keypad DUMP output were received in the Tcl/Tk terminal. See [the bring-up record](terminal/EM1016-BRINGUP-2026-10-05.md).
+* 05.10.2026: An intermittent numeric-display change from its initial `6809` state was observed while the board was idle. The monitor source indicates this is likely a phantom keypad event rather than intended idle behavior. It is not currently blocking experimentation; record occurrences during RAM runs and inspect the keypad matrix, pull-ups, and associated solder joints only if it becomes repeatable or affects experiment integrity.
 
 ### References
 
