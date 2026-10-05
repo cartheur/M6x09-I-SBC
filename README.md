@@ -22,7 +22,7 @@ The EM1016 is a Prolific PL2303-based USB-to-RS-232 adapter with a male DB9 conn
 2. Build the Linux assembler with `make -C crosscompiler`.
 3. Put new target programs in `applications/`; assemble them into S-records, test them in RAM, and only then make a ROM release.
 
-Serial bring-up is verified: the EM1016/null-modem link delivered the kit monitor banner and a keypad-driven memory dump to Linux at 19,200 8N1. See [the bring-up record](terminal/EM1016-BRINGUP-2026-10-05.md).
+Serial bring-up is verified: the EM1016/null-modem link delivered the kit monitor banner and a keypad-driven memory dump to Linux at 19,200 8N1. The automatic LCD welcome message is also visible after `R13` contrast calibration. See [the serial bring-up record](terminal/EM1016-BRINGUP-2026-10-05.md) and [the LCD bring-up record](terminal/LCD-BRINGUP-2026-10-05.md).
 
 The monitor is keypad-driven, not a serial command shell. Use **DUMP** on the keypad for terminal output and **LOAD** before transmitting an S19 file. The terminal workflow is documented in [terminal/README.md](terminal/README.md).
 

@@ -64,3 +64,5 @@ The terminal is deliberately a host-side tool. It does not define the SBC; it gi
 ## Verified bring-up
 
 The EM1016/null-modem connection was verified on 2026-10-05 with the monitor banner and a keypad-driven memory dump. See [EM1016-BRINGUP-2026-10-05.md](EM1016-BRINGUP-2026-10-05.md).
+
+The board LCD was also verified on 2026-10-05. Its initial blank appearance was resolved by adjusting the `R13` contrast trimmer; see [LCD-BRINGUP-2026-10-05.md](LCD-BRINGUP-2026-10-05.md).
